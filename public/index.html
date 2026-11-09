@@ -5,7 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SOHO Management LLC | Providence County Property Management</title>
 <meta name="description" content="SOHO Management LLC — Premier property management for owners and residents across Providence County, Rhode Island. Powered by AppFolio.">
-<link rel="icon" type="image/png" href="assets/soho-mark-dark-2.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1A1A1A">
+<meta property="og:title" content="SOHO Management LLC | Providence County Property Management">
+<meta property="og:description" content="Premier property management for owners and residents across Providence County, Rhode Island.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://soho-mgmt.com/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&display=swap" rel="stylesheet">
@@ -700,8 +709,8 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
   <a href="#owners" onclick="closeMobileMenu()">For Owners</a>
   <a href="#why" onclick="closeMobileMenu()">Why SOHO</a>
   <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-  <a href="https://tenant.appfolio.com" target="_blank" style="color:var(--gold);">Tenant Portal</a>
-  <a href="https://owner.appfolio.com" target="_blank" style="color:var(--gold);">Owner Portal</a>
+  <a href="https://smithoakre.appfolio.com/connect" target="_blank" style="color:var(--gold);">Tenant Portal</a>
+  <a href="https://smithoakre.appfolio.com/connect" target="_blank" style="color:var(--gold);">Owner Portal</a>
 </div>
 
 <!-- ─── NAV ─── -->
@@ -715,8 +724,8 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-portals">
-      <a href="https://tenant.appfolio.com" target="_blank" class="btn-outline">Tenant Portal</a>
-      <a href="https://owner.appfolio.com" target="_blank" class="btn-solid">Owner Portal</a>
+      <a href="https://smithoakre.appfolio.com/connect" target="_blank" class="btn-outline">Tenant Portal</a>
+      <a href="https://smithoakre.appfolio.com/connect" target="_blank" class="btn-solid">Owner Portal</a>
     </div>
     <div class="nav-hamburger" onclick="openMobileMenu()">
       <span></span><span></span><span></span>
@@ -763,14 +772,14 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
           <div class="pb-title">Manage With Us</div>
         </div>
       </a>
-      <a href="https://tenant.appfolio.com" target="_blank" class="portal-btn">
+      <a href="https://smithoakre.appfolio.com/connect" target="_blank" class="portal-btn">
         <div class="pb-icon">🔑</div>
         <div class="pb-text">
           <div class="pb-label">Existing Tenants</div>
           <div class="pb-title">Tenant Portal</div>
         </div>
       </a>
-      <a href="https://owner.appfolio.com" target="_blank" class="portal-btn">
+      <a href="https://smithoakre.appfolio.com/connect" target="_blank" class="portal-btn">
         <div class="pb-icon">📋</div>
         <div class="pb-text">
           <div class="pb-label">Existing Owners</div>
@@ -797,7 +806,7 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
       <a href="#vacancies" class="path-link" onclick="event.preventDefault();scrollTo('vacancies')">
         <span>Browse Available Units</span><span class="arr">→</span>
       </a>
-      <a href="https://tenant.appfolio.com" target="_blank" class="path-link">
+      <a href="https://smithoakre.appfolio.com/connect" target="_blank" class="path-link">
         <span>Tenant Portal Login</span><span class="arr">→</span>
       </a>
       <a href="#contact" class="path-link" onclick="event.preventDefault();scrollTo('contact')">
@@ -817,7 +826,7 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
       <a href="#owners" class="path-link" onclick="event.preventDefault();scrollTo('owners')">
         <span>Get a Free Rent Analysis</span><span class="arr">→</span>
       </a>
-      <a href="https://owner.appfolio.com" target="_blank" class="path-link">
+      <a href="https://smithoakre.appfolio.com/connect" target="_blank" class="path-link">
         <span>Owner Portal Login</span><span class="arr">→</span>
       </a>
       <a href="#owners" class="path-link" onclick="event.preventDefault();scrollTo('owners')">
@@ -1171,19 +1180,20 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
       </div>
       <div class="reveal reveal-delay-2">
         <div class="contact-form-wrap">
-          <div class="cf-field"><label>Full Name</label><input type="text" placeholder="Your name"></div>
-          <div class="cf-field"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+          <div class="cf-field"><label>Full Name</label><input type="text" id="cf-name" placeholder="Your name"></div>
+          <div class="cf-field"><label>Email Address</label><input type="email" id="cf-email" placeholder="your@email.com"></div>
           <div class="cf-field">
             <label>I Am A...</label>
-            <select>
+            <select id="cf-type">
               <option>Property Owner</option>
               <option>Prospective Tenant</option>
               <option>Current Tenant</option>
               <option>Real Estate Investor</option>
             </select>
           </div>
-          <div class="cf-field"><label>Message</label><textarea placeholder="Tell us about your property or housing needs..."></textarea></div>
-          <button class="btn-send">Send Message →</button>
+          <div class="cf-field"><label>Message</label><textarea id="cf-msg" placeholder="Tell us about your property or housing needs..."></textarea></div>
+          <button class="btn-send" id="cf-send" type="button">Send Message →</button>
+          <div id="cf-status" role="status" style="margin-top:12px;font-size:14px"></div>
         </div>
       </div>
     </div>
@@ -1201,14 +1211,14 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
       </div>
       <div class="footer-col">
         <h4>For Tenants</h4>
-        <a href="https://tenant.appfolio.com" target="_blank">Tenant Portal Login</a>
+        <a href="https://smithoakre.appfolio.com/connect" target="_blank">Tenant Portal Login</a>
         <a href="#vacancies" onclick="scrollTo('vacancies');return false;">Browse Vacancies</a>
         <a href="#contact" onclick="scrollTo('contact');return false;">Maintenance Request</a>
-        <a href="https://tenant.appfolio.com" target="_blank">Apply Online</a>
+        <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener">Apply Online</a>
       </div>
       <div class="footer-col">
         <h4>For Owners</h4>
-        <a href="https://owner.appfolio.com" target="_blank">Owner Portal Login</a>
+        <a href="https://smithoakre.appfolio.com/connect" target="_blank">Owner Portal Login</a>
         <a href="#owners" onclick="scrollTo('owners');return false;">Free Rent Analysis</a>
         <a href="#owners" onclick="scrollTo('owners');return false;">ROI Calculator</a>
         <a href="#contact" onclick="scrollTo('contact');return false;">Get Started</a>
@@ -1218,15 +1228,11 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
         <a href="#why" onclick="scrollTo('why');return false;">Why SOHO</a>
         <a href="#contact" onclick="scrollTo('contact');return false;">Contact Us</a>
         <a href="https://smithoakre.com" target="_blank">Smith &amp; Oak RE</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 SOHO Management LLC. All rights reserved. Providence County, Rhode Island.</p>
+      <p>© 2026 SOHO Management LLC. All rights reserved. Providence County, Rhode Island.</p>
       <div class="footer-legal">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
         <a href="https://smithoakre.com" target="_blank">A Smith &amp; Oak Company</a>
       </div>
     </div>
@@ -1568,11 +1574,11 @@ function getBotReply(m){
   if(m.includes('fee')||m.includes('cost')||m.includes('charge')||m.includes('price'))
     return "Our management fee is approximately 8% of monthly rent collected — no vacancy fees, no hidden markups on maintenance. Want me to connect you with an advisor for a full quote?";
   if(m.includes('appfolio')||m.includes('portal')||m.includes('login'))
-    return "Tenant Portal: tenant.appfolio.com — pay rent, submit maintenance, view your lease. Owner Portal: owner.appfolio.com — financial statements, maintenance updates, and real-time reports.";
+    return "Resident and Owner Portal: smithoakre.appfolio.com/connect — residents can pay rent, submit maintenance and view their lease; owners can see financial statements, maintenance updates and reports.";
   if(m.includes('buy')||m.includes('purchase')||m.includes('smith')||m.includes('oak'))
     return "For buying or selling real estate in Rhode Island, check out our sister brokerage Smith & Oak Real Estate Co. at smithoakre.com — they're experts in Providence County investment properties!";
   if(m.includes('maintenance')||m.includes('repair')||m.includes('broken'))
-    return "For maintenance requests, please log into your Tenant Portal at tenant.appfolio.com — it's the fastest way to get a ticket opened. For emergencies, call us directly at (401) 555-0100.";
+    return "For maintenance requests, please log into your portal at smithoakre.appfolio.com/connect — it's the fastest way to get a ticket opened. For emergencies, call us directly at (401) 555-0100.";
   return "Thanks for reaching out! Our team is available Mon–Fri 9am–5pm. You can also call us at (401) 555-0100 or email info@sohomgmt.com. Is there anything specific about renting or property management I can help with?";
 }
 
@@ -1596,6 +1602,17 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 /* INIT */
 loadListings();
+
+document.getElementById('cf-send').addEventListener('click', function(){
+  var btn=this, st=document.getElementById('cf-status');
+  var name=document.getElementById('cf-name').value.trim(), email=document.getElementById('cf-email').value.trim();
+  var type=document.getElementById('cf-type').value, msg=document.getElementById('cf-msg').value.trim();
+  if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){st.style.color='#c0392b';st.textContent='Please enter your name and a valid email address.';return;}
+  btn.disabled=true; btn.textContent='Sending...';
+  fetch(LEAD_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:name,email:email,type:type,message:msg,source:'contact form'})})
+   .then(function(){st.style.color='#A19276';st.textContent='Thank you! Our team will follow up within one business day.';['cf-name','cf-email','cf-msg'].forEach(function(i){document.getElementById(i).value='';});btn.textContent='Sent ✓';})
+   .catch(function(){st.style.color='#c0392b';st.textContent='Something went wrong. Please try again.';btn.disabled=false;btn.textContent='Send Message →';});
+});
 </script>
 </body>
 </html>
