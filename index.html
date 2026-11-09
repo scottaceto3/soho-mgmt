@@ -5,33 +5,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SOHO Management LLC | Providence County Property Management</title>
 <meta name="description" content="SOHO Management LLC — Premier property management for owners and residents across Providence County, Rhode Island. Powered by AppFolio.">
+<link rel="icon" type="image/png" href="assets/soho-mark-dark-2.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&display=swap" rel="stylesheet">
 <style>
+/* ─────────────────────────────────────────
+   BRAND TOKENS  (Smith & Oak Guidelines)
+   Muted Gold   #BEAF87  — Dark Primary
+   Gold Patina  #A19276  — Light Primary
+   Black        #1A1A1A  — Background
+   Gunmetal     #252526  — Accent dark
+   Concrete     #808285  — Mid tone
+   Snow         #E6E7E8  — Light accent
+───────────────────────────────────────── */
 :root{
-  --gold:#BEAF87;--gold-light:#D4C9A8;--gold-dark:#A19276;
-  --gold-muted:rgba(190,175,135,0.12);--gold-border:rgba(190,175,135,0.25);
-  --black:#0F0F0F;--charcoal:#1A1A1A;--gunmetal:#252526;
-  --concrete:#808285;--snow:#E6E7E8;--off-white:#F4F1EC;--white:#FFFFFF;
-  --font-h:'Josefin Sans',sans-serif;--font-b:'Jost',sans-serif;
-  --ease:cubic-bezier(.25,.46,.45,.94);
+  --gold:       #BEAF87;
+  --gold-light: #D4C9A8;
+  --gold-dark:  #A19276;
+  --gold-muted: rgba(190,175,135,0.12);
+  --gold-border:rgba(190,175,135,0.25);
+  --black:      #1A1A1A;
+  --charcoal:   #1A1A1A;
+  --gunmetal:   #252526;
+  --concrete:   #808285;
+  --snow:       #E6E7E8;
+  --off-white:  #F4F1EC;
+  --white:      #FFFFFF;
+  --font-h: 'Josefin Sans', sans-serif;
+  --font-b: 'Jost', sans-serif;
+  --ease: cubic-bezier(.25,.46,.45,.94);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;font-size:16px;}
 body{font-family:var(--font-b);background:var(--black);color:var(--white);overflow-x:hidden;line-height:1.6;}
+img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
 button{font-family:var(--font-b);cursor:pointer;}
+
+/* ── SCROLLBAR ── */
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--charcoal);}
 ::-webkit-scrollbar-thumb{background:var(--gold-dark);}
+
+/* ── UTILITIES ── */
 .container{max-width:1240px;margin:0 auto;padding:0 48px;}
 .tag{font-family:var(--font-h);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:400;}
-nav{position:fixed;top:0;left:0;right:0;z-index:900;height:72px;display:flex;align-items:center;transition:background .4s var(--ease),border-color .4s;border-bottom:1px solid transparent;}
+.gold{color:var(--gold);}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+
+/* ═══════════════════════════
+   NAVIGATION
+═══════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  height:72px;display:flex;align-items:center;
+  transition:background .4s var(--ease),border-color .4s;
+  border-bottom:1px solid transparent;
+}
 nav.scrolled{background:rgba(15,15,15,0.97);border-color:var(--gold-border);backdrop-filter:blur(12px);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1240px;margin:0 auto;padding:0 48px;}
 .nav-logo{display:flex;align-items:center;gap:14px;}
-.logo-mark{width:40px;height:40px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:14px;font-weight:700;color:var(--black);}
+.logo-mark{
+  width:40px;height:40px;background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-h);font-size:14px;letter-spacing:1px;font-weight:700;color:var(--black);
+  flex-shrink:0;
+}
 .logo-text{display:flex;flex-direction:column;line-height:1.1;}
 .logo-name{font-family:var(--font-h);font-size:16px;letter-spacing:4px;font-weight:600;color:var(--white);}
 .logo-sub{font-family:var(--font-h);font-size:8px;letter-spacing:3px;color:var(--gold);font-weight:300;}
@@ -39,180 +79,398 @@ nav.scrolled{background:rgba(15,15,15,0.97);border-color:var(--gold-border);back
 .nav-links a{font-family:var(--font-h);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.55);font-weight:300;transition:color .2s;}
 .nav-links a:hover{color:var(--gold);}
 .nav-portals{display:flex;gap:8px;}
-.btn-outline{padding:9px 20px;border:1px solid var(--gold-border);color:var(--gold);font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;background:transparent;transition:all .2s;display:inline-flex;align-items:center;}
-.btn-outline:hover{background:var(--gold);color:var(--black);}
-.btn-solid{padding:9px 20px;background:var(--gold);border:1px solid var(--gold);color:var(--black);font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;transition:all .2s;display:inline-flex;align-items:center;}
+.btn-outline{
+  padding:9px 20px;border:1px solid var(--gold-border);color:var(--gold);
+  font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;
+  background:transparent;transition:all .2s;display:inline-flex;align-items:center;gap:6px;
+}
+.btn-outline:hover{background:var(--gold);color:var(--black);border-color:var(--gold);}
+.btn-solid{
+  padding:9px 20px;background:var(--gold);border:1px solid var(--gold);color:var(--black);
+  font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;
+  transition:all .2s;display:inline-flex;align-items:center;gap:6px;
+}
 .btn-solid:hover{background:var(--gold-light);}
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
-.nav-hamburger span{display:block;width:24px;height:1px;background:var(--white);}
-.hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 80px;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(15,15,15,0.3) 0%,rgba(15,15,15,0.15) 40%,rgba(15,15,15,0.85) 80%,#0F0F0F 100%),linear-gradient(135deg,#1a1814 0%,#0f0e0b 40%,#12100d 100%);}
-.hero-grid{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(190,175,135,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(190,175,135,0.04) 1px,transparent 1px);background-size:80px 80px;}
-.hero-accent{position:absolute;right:0;top:0;bottom:0;width:45%;z-index:1;background:linear-gradient(135deg,rgba(190,175,135,0.06) 0%,transparent 60%);border-left:1px solid rgba(190,175,135,0.08);}
+.nav-hamburger span{display:block;width:24px;height:1px;background:var(--white);transition:all .3s;}
+
+/* ═══════════════════════════
+   HERO
+═══════════════════════════ */
+.hero{
+  min-height:100vh;position:relative;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 0 80px;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    linear-gradient(180deg, rgba(15,15,15,0.3) 0%, rgba(15,15,15,0.15) 40%, rgba(15,15,15,0.85) 80%, #0F0F0F 100%),
+    linear-gradient(135deg, #1a1814 0%, #0f0e0b 40%, #12100d 100%);
+}
+/* Architectural grid overlay */
+.hero-grid{
+  position:absolute;inset:0;z-index:1;
+  background-image:
+    linear-gradient(rgba(190,175,135,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(190,175,135,0.04) 1px, transparent 1px);
+  background-size:80px 80px;
+}
+.hero-accent{
+  position:absolute;right:0;top:0;bottom:0;width:45%;z-index:1;
+  background:linear-gradient(135deg,rgba(190,175,135,0.06) 0%,transparent 60%);
+  border-left:1px solid rgba(190,175,135,0.08);
+}
+/* Decorative corner marks */
 .hero-corner{position:absolute;z-index:2;}
 .hero-corner.tl{top:90px;left:48px;width:40px;height:40px;border-top:1px solid var(--gold-border);border-left:1px solid var(--gold-border);}
 .hero-corner.tr{top:90px;right:48px;width:40px;height:40px;border-top:1px solid var(--gold-border);border-right:1px solid var(--gold-border);}
 .hero-corner.br{bottom:80px;right:48px;width:40px;height:40px;border-bottom:1px solid var(--gold-border);border-right:1px solid var(--gold-border);}
+
 .hero-inner{position:relative;z-index:3;max-width:1240px;margin:0 auto;padding:0 48px;width:100%;}
-.hero-eyebrow{display:flex;align-items:center;gap:16px;margin-bottom:28px;animation:fadeUp .8s var(--ease) .2s both;}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:16px;margin-bottom:28px;
+  animation:fadeUp .8s var(--ease) .2s both;
+}
 .hero-eyebrow-line{width:40px;height:1px;background:var(--gold);}
 .hero-eyebrow span{font-family:var(--font-h);font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:300;}
-.hero h1{font-family:var(--font-h);font-weight:100;line-height:0.95;font-size:clamp(60px,9vw,130px);letter-spacing:-1px;color:var(--white);margin-bottom:8px;animation:fadeUp .8s var(--ease) .35s both;}
+.hero h1{
+  font-family:var(--font-h);font-weight:100;line-height:0.95;
+  font-size:clamp(60px,9vw,130px);letter-spacing:-1px;
+  color:var(--white);margin-bottom:8px;
+  animation:fadeUp .8s var(--ease) .35s both;
+}
 .hero h1 .italic{font-style:italic;color:var(--gold);font-weight:100;}
-.hero-tagline{font-family:var(--font-h);font-size:12px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:300;margin-bottom:56px;animation:fadeUp .8s var(--ease) .5s both;}
-.hero-search-wrap{animation:fadeUp .8s var(--ease) .65s both;margin-bottom:48px;}
-.hero-search{display:flex;max-width:680px;border:1px solid var(--gold-border);background:rgba(15,15,15,0.6);backdrop-filter:blur(8px);}
-.search-type{background:transparent;border:none;border-right:1px solid var(--gold-border);color:rgba(255,255,255,0.6);font-family:var(--font-h);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:0 20px;min-width:140px;cursor:pointer;outline:none;}
+.hero-tagline{
+  font-family:var(--font-h);font-size:12px;letter-spacing:5px;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);font-weight:300;margin-bottom:56px;
+  animation:fadeUp .8s var(--ease) .5s both;
+}
+.hero-search-wrap{
+  animation:fadeUp .8s var(--ease) .65s both;
+  margin-bottom:48px;
+}
+.hero-search{
+  display:flex;max-width:680px;
+  border:1px solid var(--gold-border);background:rgba(15,15,15,0.6);backdrop-filter:blur(8px);
+}
+.search-type{
+  background:transparent;border:none;border-right:1px solid var(--gold-border);
+  color:rgba(255,255,255,0.6);font-family:var(--font-h);font-size:10px;letter-spacing:1.5px;
+  text-transform:uppercase;padding:0 20px;min-width:140px;cursor:pointer;outline:none;
+}
 .search-type option{background:#1a1a1a;color:var(--white);}
-.search-input{flex:1;background:transparent;border:none;outline:none;color:var(--white);font-family:var(--font-b);font-size:13px;padding:18px 20px;}
+.search-input{
+  flex:1;background:transparent;border:none;outline:none;
+  color:var(--white);font-family:var(--font-b);font-size:13px;
+  padding:18px 20px;
+}
 .search-input::placeholder{color:rgba(255,255,255,0.25);}
-.search-btn{background:var(--gold);border:none;color:var(--black);padding:18px 32px;font-family:var(--font-h);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;transition:background .2s;white-space:nowrap;}
+.search-btn{
+  background:var(--gold);border:none;color:var(--black);
+  padding:18px 32px;font-family:var(--font-h);font-size:9px;
+  letter-spacing:2.5px;text-transform:uppercase;font-weight:700;
+  transition:background .2s;white-space:nowrap;
+}
 .search-btn:hover{background:var(--gold-light);}
-.hero-portals{display:flex;gap:2px;animation:fadeUp .8s var(--ease) .8s both;}
-.portal-btn{display:flex;align-items:center;gap:14px;padding:20px 32px;border:1px solid var(--gold-border);background:rgba(15,15,15,0.5);cursor:pointer;transition:all .3s;text-decoration:none;backdrop-filter:blur(4px);}
+.hero-portals{
+  display:flex;gap:2px;animation:fadeUp .8s var(--ease) .8s both;
+}
+.portal-btn{
+  display:flex;align-items:center;gap:14px;padding:20px 32px;
+  border:1px solid var(--gold-border);background:rgba(15,15,15,0.5);
+  cursor:pointer;transition:all .3s;text-decoration:none;
+  backdrop-filter:blur(4px);
+}
 .portal-btn:hover{background:rgba(190,175,135,0.1);border-color:var(--gold);}
 .portal-btn.highlight{border-color:rgba(190,175,135,0.4);background:rgba(190,175,135,0.06);}
-.pb-icon{width:36px;height:36px;border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.pb-icon{width:36px;height:36px;border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.pb-text{}
 .pb-label{font-family:var(--font-h);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:3px;}
 .pb-title{font-family:var(--font-h);font-size:14px;color:var(--white);font-weight:300;letter-spacing:1px;}
-.hero-scroll{position:absolute;bottom:40px;right:48px;z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--font-h);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);animation:fadeIn 1s .8s both;}
+.hero-scroll{
+  position:absolute;bottom:40px;right:48px;z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-family:var(--font-h);font-size:8px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,0.3);animation:fadeIn 1s .8s both;
+}
 .scroll-line{width:1px;height:48px;background:linear-gradient(var(--gold-border),transparent);animation:scrollAnim 2s infinite;}
 @keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ═══════════════════════════
+   DUAL PATH / PORTALS
+═══════════════════════════ */
 .dual-path{display:grid;grid-template-columns:1fr 1fr;}
-.path-side{padding:100px 72px;position:relative;overflow:hidden;transition:all .4s;cursor:pointer;}
+.path-side{
+  padding:100px 72px;position:relative;overflow:hidden;
+  transition:all .4s;cursor:pointer;
+}
 .path-side.tenant{background:var(--charcoal);}
 .path-side.owner{background:var(--gunmetal);}
-.path-side::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .4s var(--ease);transform-origin:left;}
+.path-side::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transition:transform .4s var(--ease);transform-origin:left;
+}
 .path-side:hover::after{transform:scaleX(1);}
-.path-bg-num{position:absolute;top:32px;right:40px;font-family:var(--font-h);font-size:160px;font-weight:700;color:rgba(190,175,135,0.04);line-height:1;pointer-events:none;}
+.path-bg-num{
+  position:absolute;top:32px;right:40px;
+  font-family:var(--font-h);font-size:160px;font-weight:700;
+  color:rgba(190,175,135,0.04);line-height:1;pointer-events:none;
+}
 .path-tag{display:block;font-family:var(--font-h);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:20px;}
 .path-side h2{font-family:var(--font-h);font-size:clamp(28px,3vw,44px);font-weight:200;color:var(--white);line-height:1.1;margin-bottom:20px;letter-spacing:1px;}
 .path-side p{font-size:13px;color:var(--concrete);line-height:1.9;margin-bottom:40px;max-width:400px;}
-.path-links{display:flex;flex-direction:column;}
-.path-link{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid rgba(190,175,135,0.1);color:rgba(255,255,255,0.6);font-family:var(--font-h);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:300;transition:all .2s;text-decoration:none;}
+.path-links{display:flex;flex-direction:column;gap:0;}
+.path-link{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 0;border-bottom:1px solid rgba(190,175,135,0.1);
+  color:rgba(255,255,255,0.6);font-family:var(--font-h);font-size:10px;
+  letter-spacing:2px;text-transform:uppercase;font-weight:300;
+  transition:all .2s;text-decoration:none;
+}
 .path-link:last-child{border-bottom:none;}
 .path-link:hover{color:var(--gold);padding-left:8px;}
 .path-link .arr{color:var(--gold);font-size:14px;transition:transform .2s;}
 .path-link:hover .arr{transform:translateX(4px);}
+
+/* ═══════════════════════════
+   SECTION BASE
+═══════════════════════════ */
 section{padding:120px 0;}
 .section-head{margin-bottom:64px;}
 .section-head .tag{display:block;margin-bottom:16px;}
-.section-head h2{font-family:var(--font-h);font-size:clamp(36px,5vw,64px);font-weight:100;line-height:1.0;}
+.section-head h2{font-family:var(--font-h);font-size:clamp(36px,5vw,64px);font-weight:100;line-height:1.0;letter-spacing:0px;}
 .section-head h2 em{font-style:italic;color:var(--gold);font-weight:100;}
 .section-head p{font-size:14px;color:var(--concrete);line-height:1.9;max-width:520px;margin-top:20px;}
+
+/* ═══════════════════════════
+   VACANCIES / LISTINGS
+═══════════════════════════ */
 .vacancies{background:var(--off-white);color:var(--black);}
 .vacancies .section-head h2{color:var(--black);}
 .vacancies .section-head p{color:#5a5a5a;}
 .vacancies .tag{color:var(--gold-dark);}
-.filter-bar{display:flex;margin-bottom:40px;flex-wrap:wrap;border:1px solid #ddd;background:var(--white);}
-.filter-group{display:flex;flex-direction:column;padding:14px 20px;border-right:1px solid #e8e4dc;cursor:pointer;position:relative;min-width:130px;transition:background .15s;}
+
+.filter-bar{
+  display:flex;gap:0;margin-bottom:40px;flex-wrap:wrap;
+  border:1px solid #ddd;background:var(--white);
+}
+.filter-group{
+  display:flex;flex-direction:column;padding:14px 20px;
+  border-right:1px solid #e8e4dc;cursor:pointer;
+  position:relative;min-width:130px;transition:background .15s;
+}
 .filter-group:hover{background:#faf8f4;}
+.filter-group:last-of-type{border-right:none;}
 .fg-label{font-family:var(--font-h);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:#888;font-weight:600;margin-bottom:3px;}
-.fg-value{font-size:13px;color:var(--black);}
+.fg-value{font-size:13px;color:var(--black);font-weight:400;}
 .fg-value.ph{color:#aaa;}
-.filter-dd{position:absolute;top:100%;left:-1px;background:var(--white);border:1px solid #e0dbd0;min-width:200px;z-index:200;box-shadow:0 12px 40px rgba(0,0,0,0.1);display:none;}
+.filter-dd{
+  position:absolute;top:100%;left:-1px;background:var(--white);
+  border:1px solid #e0dbd0;min-width:200px;z-index:200;
+  box-shadow:0 12px 40px rgba(0,0,0,0.1);display:none;
+}
 .filter-dd.open{display:block;}
-.fdd-opt{padding:12px 20px;font-size:13px;color:var(--black);cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .12s;}
+.fdd-opt{
+  padding:12px 20px;font-size:13px;color:var(--black);
+  cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  transition:background .12s;
+}
 .fdd-opt:hover{background:#f8f5ef;}
 .fdd-opt.sel{color:var(--gold-dark);font-weight:600;}
 .fdd-check{color:var(--gold-dark);display:none;}
 .fdd-opt.sel .fdd-check{display:block;}
 .price-dd-inner{padding:16px 20px;}
 .price-inputs{display:flex;gap:8px;align-items:center;margin-top:8px;}
-.price-inputs input{width:90px;padding:8px 10px;border:1px solid #ddd;font-family:var(--font-b);font-size:12px;color:var(--black);outline:none;}
+.price-inputs input{
+  width:90px;padding:8px 10px;border:1px solid #ddd;
+  font-family:var(--font-b);font-size:12px;color:var(--black);outline:none;
+}
 .price-inputs input:focus{border-color:var(--gold-dark);}
 .price-presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
-.price-preset{background:transparent;border:1px solid #ddd;padding:5px 10px;font-size:10px;font-family:var(--font-h);letter-spacing:1px;color:#555;cursor:pointer;transition:all .15s;}
+.price-preset{
+  background:transparent;border:1px solid #ddd;padding:5px 10px;
+  font-size:10px;font-family:var(--font-h);letter-spacing:1px;color:#555;cursor:pointer;transition:all .15s;
+}
 .price-preset:hover{border-color:var(--gold-dark);color:var(--gold-dark);}
-.filter-apply-btn{width:100%;padding:11px;background:var(--charcoal);color:var(--white);border:none;font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;}
-.filter-clear{padding:14px 20px;font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#aaa;cursor:pointer;background:transparent;border:none;white-space:nowrap;transition:color .2s;}
+.filter-apply-btn{
+  width:100%;padding:11px;background:var(--charcoal);color:var(--white);border:none;
+  font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;
+}
+.filter-clear{
+  padding:14px 20px;font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:#aaa;cursor:pointer;background:transparent;border:none;white-space:nowrap;transition:color .2s;
+}
 .filter-clear:hover{color:var(--black);}
-.results-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+
+.results-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:28px;flex-wrap:wrap;gap:12px;
+}
 .result-count{font-family:var(--font-h);font-size:11px;letter-spacing:1px;color:#888;text-transform:uppercase;}
 .result-count strong{color:var(--black);}
 .sort-wrap{display:flex;align-items:center;gap:10px;font-size:11px;color:#888;}
 .sort-wrap select{border:1px solid #ddd;background:var(--white);padding:6px 12px;font-family:var(--font-b);font-size:12px;color:var(--black);cursor:pointer;outline:none;}
+
+/* Active filter tags */
 .active-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
-.atag{display:flex;align-items:center;gap:8px;background:var(--charcoal);color:var(--white);padding:5px 12px;font-family:var(--font-h);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;}
+.atag{
+  display:flex;align-items:center;gap:8px;
+  background:var(--charcoal);color:var(--white);
+  padding:5px 12px;font-family:var(--font-h);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+}
 .atag-x{background:none;border:none;color:var(--gold);font-size:14px;cursor:pointer;padding:0;line-height:1;}
+
 .listings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
 .no-results{padding:80px 0;text-align:center;}
 .no-results h3{font-family:var(--font-h);font-size:32px;font-weight:200;color:var(--black);margin-bottom:12px;}
 .no-results p{font-size:14px;color:#888;line-height:1.8;}
-.prop-card{background:var(--white);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s;}
+
+/* Property Card */
+.prop-card{background:var(--white);overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s;position:relative;}
 .prop-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.14);}
 .pc-image{height:240px;position:relative;overflow:hidden;}
 .pc-img-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:80px;transition:transform .5s var(--ease);}
 .prop-card:hover .pc-img-inner{transform:scale(1.05);}
-.pc-badge{position:absolute;top:0;left:0;font-family:var(--font-h);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;padding:7px 14px;}
+.pc-badge{
+  position:absolute;top:0;left:0;
+  font-family:var(--font-h);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:700;padding:7px 14px;
+}
 .badge-avail{background:var(--gold);color:var(--black);}
 .badge-soon{background:rgba(15,15,15,0.85);color:var(--gold);border-right:1px solid var(--gold-border);border-bottom:1px solid var(--gold-border);}
-.pc-save{position:absolute;top:14px;right:14px;width:32px;height:32px;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;}
+.pc-save{
+  position:absolute;top:14px;right:14px;
+  width:32px;height:32px;background:rgba(255,255,255,0.9);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:16px;transition:background .2s;
+}
+.pc-save:hover{background:var(--white);}
 .pc-body{padding:24px 26px 28px;}
 .pc-price{font-family:var(--font-h);font-size:32px;font-weight:200;color:var(--black);line-height:1;}
 .pc-mo{font-size:12px;color:#888;font-family:var(--font-b);font-weight:300;margin-left:2px;}
 .pc-avail-date{font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark);margin-top:5px;}
 .pc-addr{font-size:13px;color:#555;margin:12px 0 18px;line-height:1.5;}
 .pc-addr strong{color:var(--black);font-weight:500;display:block;}
-.pc-stats{display:flex;border-top:1px solid #f0ece4;border-bottom:1px solid #f0ece4;margin-bottom:18px;}
-.pc-stat{flex:1;padding:12px 0;text-align:center;border-right:1px solid #f0ece4;}
+.pc-stats{display:flex;gap:0;border-top:1px solid #f0ece4;border-bottom:1px solid #f0ece4;margin-bottom:18px;}
+.pc-stat{
+  flex:1;padding:12px 0;text-align:center;
+  border-right:1px solid #f0ece4;
+}
 .pc-stat:last-child{border-right:none;}
 .pc-stat strong{display:block;font-family:var(--font-h);font-size:16px;font-weight:400;color:var(--black);}
 .pc-stat span{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#999;font-family:var(--font-h);}
 .pc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
-.pc-tag{font-size:10px;border:1px solid #e8e4dc;padding:4px 10px;color:#666;font-family:var(--font-h);}
+.pc-tag{font-size:10px;border:1px solid #e8e4dc;padding:4px 10px;color:#666;font-family:var(--font-h);letter-spacing:.5px;}
 .pc-actions{display:flex;gap:8px;}
-.btn-view-prop{flex:1;background:var(--charcoal);color:var(--white);border:none;padding:13px;font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;transition:background .2s;}
+.btn-view-prop{
+  flex:1;background:var(--charcoal);color:var(--white);border:none;
+  padding:13px;font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:background .2s;
+}
 .btn-view-prop:hover{background:var(--gunmetal);}
-.btn-apply-prop{flex:1;background:transparent;color:var(--gold-dark);border:1px solid var(--gold-dark);padding:13px;font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-apply-prop{
+  flex:1;background:transparent;color:var(--gold-dark);border:1px solid var(--gold-dark);
+  padding:13px;font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all .2s;
+}
 .btn-apply-prop:hover{background:var(--gold);color:var(--black);border-color:var(--gold);}
+
 .view-all-wrap{text-align:center;margin-top:56px;}
-.btn-view-all{display:inline-flex;align-items:center;gap:12px;padding:16px 48px;border:1px solid var(--charcoal);color:var(--black);font-family:var(--font-h);font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:600;background:transparent;cursor:pointer;transition:all .3s;}
+.btn-view-all{
+  display:inline-flex;align-items:center;gap:12px;
+  padding:16px 48px;border:1px solid var(--charcoal);color:var(--black);
+  font-family:var(--font-h);font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:600;
+  background:transparent;cursor:pointer;transition:all .3s;
+}
 .btn-view-all:hover{background:var(--charcoal);color:var(--white);}
-.buy-banner{background:var(--gold);padding:40px 72px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;cursor:pointer;transition:background .2s;text-decoration:none;}
+
+/* ═══════════════════════════
+   BUY BANNER
+═══════════════════════════ */
+.buy-banner{
+  background:var(--gold);padding:40px 72px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;
+  cursor:pointer;transition:background .2s;text-decoration:none;
+}
 .buy-banner:hover{background:var(--gold-light);}
+.bb-left{}
 .bb-eye{font-family:var(--font-h);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(0,0,0,0.45);font-weight:300;margin-bottom:6px;}
 .bb-title{font-family:var(--font-h);font-size:clamp(24px,3vw,40px);color:var(--black);font-weight:200;letter-spacing:1px;}
 .bb-right{display:flex;align-items:center;gap:20px;}
 .bb-sub{font-size:12px;color:rgba(0,0,0,0.45);}
-.bb-btn{background:var(--black);color:var(--white);padding:14px 36px;border:none;font-family:var(--font-h);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;white-space:nowrap;}
+.bb-btn{
+  background:var(--black);color:var(--white);padding:14px 36px;border:none;
+  font-family:var(--font-h);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;
+  transition:background .2s;white-space:nowrap;
+}
+.bb-btn:hover{background:var(--gunmetal);}
+
+/* ═══════════════════════════
+   OWNER LEAD / ROI
+═══════════════════════════ */
 .owner-section{background:var(--black);}
 .lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start;}
+.lead-left{}
 .lead-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gold-border);margin-top:48px;}
 .lstat{background:var(--black);padding:28px 24px;}
 .lstat-num{font-family:var(--font-h);font-size:44px;font-weight:100;color:var(--gold);line-height:1;}
 .lstat-label{font-size:11px;color:var(--concrete);letter-spacing:.5px;margin-top:6px;line-height:1.5;}
+
+/* ROI Result */
 .roi-result{display:none;margin-top:48px;}
 .roi-result.show{display:block;}
 .roi-result-header{font-family:var(--font-h);font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;font-weight:300;}
+.roi-rows{}
 .roi-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid rgba(190,175,135,0.12);}
 .roi-row:last-child{border-bottom:none;}
-.roi-row-label{font-size:12px;color:var(--concrete);}
+.roi-row-label{font-size:12px;color:var(--concrete);letter-spacing:.5px;}
 .roi-row-val{font-family:var(--font-h);font-size:22px;font-weight:200;color:var(--white);}
 .roi-row-val.gold{color:var(--gold);}
 .roi-note{font-size:11px;color:rgba(255,255,255,0.25);margin-top:20px;line-height:1.8;}
+
+/* Lead Form */
 .lead-form-wrap{background:var(--gunmetal);border:1px solid var(--gold-border);padding:48px;}
 .lf-title{font-family:var(--font-h);font-size:24px;font-weight:200;color:var(--white);margin-bottom:6px;letter-spacing:1px;}
 .lf-sub{font-size:12px;color:var(--concrete);margin-bottom:32px;line-height:1.7;}
 .lf-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
 .lf-field{margin-bottom:14px;}
 .lf-field label{display:block;font-family:var(--font-h);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:8px;}
-.lf-field input,.lf-field select{width:100%;padding:12px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:var(--font-b);font-size:13px;outline:none;transition:border .2s;}
+.lf-field input,.lf-field select{
+  width:100%;padding:12px 14px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  color:var(--white);font-family:var(--font-b);font-size:13px;outline:none;
+  transition:border .2s;
+}
 .lf-field input:focus,.lf-field select:focus{border-color:var(--gold);}
 .lf-field input::placeholder{color:rgba(255,255,255,0.2);}
 .lf-field select option{background:#252526;}
-.btn-calculate{width:100%;padding:16px;background:var(--gold);border:none;color:var(--black);font-family:var(--font-h);font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;transition:background .2s;margin-top:8px;}
+.btn-calculate{
+  width:100%;padding:16px;background:var(--gold);border:none;
+  color:var(--black);font-family:var(--font-h);font-size:10px;
+  letter-spacing:3px;text-transform:uppercase;font-weight:700;
+  cursor:pointer;transition:background .2s;margin-top:8px;
+}
 .btn-calculate:hover{background:var(--gold-light);}
 .lf-privacy{font-size:10px;color:rgba(255,255,255,0.2);text-align:center;margin-top:14px;line-height:1.6;}
+
+/* ═══════════════════════════
+   WHY SOHO
+═══════════════════════════ */
 .why-section{background:var(--charcoal);}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(190,175,135,0.1);margin-top:72px;}
 .why-item{background:var(--charcoal);padding:48px 40px;transition:background .3s;}
 .why-item:hover{background:rgba(190,175,135,0.04);}
 .why-num{font-family:var(--font-h);font-size:56px;font-weight:100;color:rgba(190,175,135,0.15);line-height:1;margin-bottom:24px;}
-.why-item h3{font-family:var(--font-h);font-size:18px;font-weight:300;color:var(--white);margin-bottom:14px;}
+.why-item h3{font-family:var(--font-h);font-size:18px;font-weight:300;color:var(--white);margin-bottom:14px;letter-spacing:.5px;}
 .why-item p{font-size:13px;color:var(--concrete);line-height:1.85;}
+
+/* ═══════════════════════════
+   TESTIMONIALS
+═══════════════════════════ */
 .testimonials{background:var(--off-white);color:var(--black);}
 .testimonials .section-head h2{color:var(--black);}
+.testimonials .section-head p{color:#666;}
 .testimonials .tag{color:var(--gold-dark);}
 .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px;}
 .test-card{background:var(--white);padding:40px;border-top:2px solid var(--gold);transition:transform .25s;}
@@ -223,53 +481,120 @@ section{padding:120px 0;}
 .test-divider{width:32px;height:1px;background:var(--gold);margin-bottom:16px;}
 .test-author{font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#888;}
 .test-role{font-size:10px;color:#aaa;margin-top:3px;font-family:var(--font-h);letter-spacing:1px;}
+
+/* ═══════════════════════════
+   CONTACT
+═══════════════════════════ */
 .contact-section{background:var(--black);}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:start;}
-.contact-info{margin-top:48px;display:flex;flex-direction:column;}
-.ci-item{display:flex;align-items:flex-start;gap:18px;padding:20px 0;border-bottom:1px solid var(--gold-border);}
+.contact-left{}
+.contact-info{margin-top:48px;display:flex;flex-direction:column;gap:0;}
+.ci-item{
+  display:flex;align-items:flex-start;gap:18px;
+  padding:20px 0;border-bottom:1px solid var(--gold-border);
+}
 .ci-item:last-child{border-bottom:none;}
-.ci-icon{width:40px;height:40px;border:1px solid var(--gold-border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.ci-icon{
+  width:40px;height:40px;border:1px solid var(--gold-border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:16px;margin-top:2px;
+}
 .ci-label{font-family:var(--font-h);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:4px;}
 .ci-value{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.5;}
 .contact-form-wrap{background:var(--gunmetal);border:1px solid var(--gold-border);padding:48px;}
 .cf-field{margin-bottom:16px;}
 .cf-field label{display:block;font-family:var(--font-h);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:8px;}
-.cf-field input,.cf-field select,.cf-field textarea{width:100%;padding:12px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);font-family:var(--font-b);font-size:13px;outline:none;transition:border .2s;}
+.cf-field input,.cf-field select,.cf-field textarea{
+  width:100%;padding:12px 14px;
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  color:var(--white);font-family:var(--font-b);font-size:13px;outline:none;transition:border .2s;
+}
 .cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{border-color:var(--gold);}
 .cf-field textarea{height:110px;resize:vertical;}
 .cf-field input::placeholder,.cf-field textarea::placeholder{color:rgba(255,255,255,0.2);}
 .cf-field select option{background:#252526;}
-.btn-send{width:100%;padding:16px;background:var(--gold);border:none;color:var(--black);font-family:var(--font-h);font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;cursor:pointer;transition:background .2s;}
+.btn-send{
+  width:100%;padding:16px;background:var(--gold);border:none;color:var(--black);
+  font-family:var(--font-h);font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;
+  cursor:pointer;transition:background .2s;
+}
 .btn-send:hover{background:var(--gold-light);}
-.badge-strip{background:var(--gunmetal);border-top:1px solid var(--gold-border);border-bottom:1px solid var(--gold-border);padding:24px 0;}
+
+/* ═══════════════════════════
+   APPFOLIO BADGE STRIP
+═══════════════════════════ */
+.badge-strip{
+  background:var(--gunmetal);border-top:1px solid var(--gold-border);border-bottom:1px solid var(--gold-border);
+  padding:24px 0;
+}
 .badge-strip-inner{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
 .bs-item{display:flex;align-items:center;gap:10px;font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--concrete);}
-.bs-dot{width:6px;height:6px;background:var(--gold);}
+.bs-dot{width:6px;height:6px;background:var(--gold);border-radius:0;}
+
+/* ═══════════════════════════
+   FOOTER
+═══════════════════════════ */
 footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0 32px;}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:64px;}
+.footer-brand{}
 .footer-logo{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
 .footer-brand p{font-size:12px;color:rgba(255,255,255,0.28);line-height:1.9;max-width:280px;}
-.footer-appfolio{display:inline-flex;align-items:center;gap:8px;margin-top:20px;border:1px solid var(--gold-border);padding:6px 14px;font-family:var(--font-h);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:300;}
+.footer-appfolio{
+  display:inline-flex;align-items:center;gap:8px;margin-top:20px;
+  border:1px solid var(--gold-border);padding:6px 14px;
+  font-family:var(--font-h);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:300;
+}
 .footer-col h4{font-family:var(--font-h);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:20px;}
-.footer-col a{display:block;font-size:12px;color:rgba(255,255,255,0.35);margin-bottom:10px;transition:color .2s;}
+.footer-col a{display:block;font-size:12px;color:rgba(255,255,255,0.35);margin-bottom:10px;transition:color .2s;text-decoration:none;}
 .footer-col a:hover{color:var(--white);}
-.footer-bottom{border-top:1px solid rgba(255,255,255,0.05);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.05);padding-top:28px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
 .footer-bottom p{font-size:11px;color:rgba(255,255,255,0.18);}
 .footer-legal{display:flex;gap:24px;}
 .footer-legal a{font-size:11px;color:rgba(255,255,255,0.18);text-decoration:none;transition:color .2s;}
 .footer-legal a:hover{color:rgba(255,255,255,0.5);}
-.chat-fab{position:fixed;bottom:32px;right:32px;z-index:800;width:56px;height:56px;background:var(--gold);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 24px rgba(190,175,135,0.35);transition:transform .2s,box-shadow .2s;}
-.chat-fab:hover{transform:scale(1.06);}
+
+/* ═══════════════════════════
+   AI CHAT
+═══════════════════════════ */
+.chat-fab{
+  position:fixed;bottom:32px;right:32px;z-index:800;
+  width:56px;height:56px;background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;box-shadow:0 4px 24px rgba(190,175,135,0.35);
+  transition:transform .2s,box-shadow .2s;
+}
+.chat-fab:hover{transform:scale(1.06);box-shadow:0 6px 32px rgba(190,175,135,0.5);}
 .chat-fab svg{width:22px;height:22px;fill:var(--black);}
-.chat-badge{position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#E74C3C;border-radius:50%;font-size:10px;color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;}
-.chat-window{position:fixed;bottom:104px;right:32px;z-index:799;width:360px;background:var(--charcoal);border:1px solid var(--gold-border);display:none;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,0.6);max-height:520px;}
+.chat-badge{
+  position:absolute;top:-4px;right:-4px;
+  width:18px;height:18px;background:#E74C3C;border-radius:50%;
+  font-size:10px;color:var(--white);display:flex;align-items:center;justify-content:center;font-weight:700;
+}
+.chat-window{
+  position:fixed;bottom:104px;right:32px;z-index:799;
+  width:360px;background:var(--charcoal);
+  border:1px solid var(--gold-border);
+  display:none;flex-direction:column;
+  box-shadow:0 24px 80px rgba(0,0,0,0.6);max-height:520px;
+}
 .chat-window.open{display:flex;}
-.chat-header{padding:16px 20px;border-bottom:1px solid var(--gold-border);display:flex;align-items:center;gap:12px;background:rgba(190,175,135,0.06);}
-.chat-av{width:38px;height:38px;background:var(--gold);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-h);font-size:13px;font-weight:700;color:var(--black);}
+.chat-header{
+  padding:16px 20px;border-bottom:1px solid var(--gold-border);
+  display:flex;align-items:center;gap:12px;
+  background:rgba(190,175,135,0.06);
+}
+.chat-av{
+  width:38px;height:38px;background:var(--gold);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-h);font-size:13px;font-weight:700;color:var(--black);
+}
 .chat-info{flex:1;}
-.chat-name{font-family:var(--font-h);font-size:12px;letter-spacing:1px;color:var(--white);}
+.chat-name{font-family:var(--font-h);font-size:12px;letter-spacing:1px;color:var(--white);font-weight:400;}
 .chat-status{font-size:10px;color:var(--gold);margin-top:1px;}
-.chat-close{background:none;border:none;color:rgba(255,255,255,0.3);font-size:20px;cursor:pointer;padding:0 4px;}
+.chat-close{background:none;border:none;color:rgba(255,255,255,0.3);font-size:20px;cursor:pointer;padding:0 4px;transition:color .2s;}
+.chat-close:hover{color:var(--white);}
 .chat-msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;min-height:200px;}
 .msg{max-width:88%;}
 .msg.bot{align-self:flex-start;}
@@ -278,19 +603,35 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
 .msg.bot .msg-bub{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.8);}
 .msg.user .msg-bub{background:var(--gold);color:var(--black);font-weight:500;}
 .chat-quick{padding:0 16px 10px;display:flex;gap:6px;flex-wrap:wrap;}
-.cq-btn{background:transparent;border:1px solid var(--gold-border);color:var(--gold);font-size:10px;padding:5px 10px;cursor:pointer;font-family:var(--font-h);transition:all .2s;}
+.cq-btn{
+  background:transparent;border:1px solid var(--gold-border);color:var(--gold);
+  font-size:10px;padding:5px 10px;cursor:pointer;font-family:var(--font-h);letter-spacing:.5px;transition:all .2s;
+}
 .cq-btn:hover{background:var(--gold-muted);}
 .chat-inp-row{padding:12px 16px;border-top:1px solid var(--gold-border);display:flex;gap:8px;}
-.chat-inp{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--white);padding:10px 14px;font-family:var(--font-b);font-size:12px;outline:none;transition:border .2s;}
+.chat-inp{
+  flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);
+  color:var(--white);padding:10px 14px;font-family:var(--font-b);font-size:12px;outline:none;
+  transition:border .2s;
+}
 .chat-inp:focus{border-color:var(--gold);}
-.chat-send{background:var(--gold);border:none;color:var(--black);padding:10px 14px;font-size:16px;cursor:pointer;}
+.chat-send{
+  background:var(--gold);border:none;color:var(--black);
+  padding:10px 14px;font-size:16px;cursor:pointer;transition:background .2s;
+}
+.chat-send:hover{background:var(--gold-light);}
 .typing-dot{display:flex;gap:4px;align-items:center;padding:11px 14px;}
 .typing-dot span{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:bounce .9s infinite;}
 .typing-dot span:nth-child(2){animation-delay:.2s;}
 .typing-dot span:nth-child(3){animation-delay:.4s;}
 @keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+/* ═══════════════════════════
+   ANIMATIONS
+═══════════════════════════ */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
 .reveal.visible{opacity:1;transform:translateY(0);}
 .reveal-delay-1{transition-delay:.1s;}
@@ -298,16 +639,61 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
 .reveal-delay-3{transition-delay:.3s;}
 .reveal-delay-4{transition-delay:.4s;}
 .reveal-delay-5{transition-delay:.5s;}
-.mobile-menu{position:fixed;inset:0;background:rgba(15,15,15,0.98);z-index:850;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;opacity:0;pointer-events:none;transition:opacity .3s;}
+
+/* ═══════════════════════════
+   MOBILE NAV MENU
+═══════════════════════════ */
+.mobile-menu{
+  position:fixed;inset:0;background:rgba(15,15,15,0.98);z-index:850;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
 .mobile-menu.open{opacity:1;pointer-events:all;}
 .mobile-menu a{font-family:var(--font-h);font-size:20px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.6);font-weight:200;transition:color .2s;}
 .mobile-menu a:hover{color:var(--gold);}
 .mm-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--white);font-size:28px;cursor:pointer;}
-@media(max-width:1024px){.dual-path{grid-template-columns:1fr;}.lead-grid,.contact-grid{grid-template-columns:1fr;gap:48px;}.listings-grid{grid-template-columns:repeat(2,1fr);}.footer-grid{grid-template-columns:1fr 1fr;gap:40px;}}
-@media(max-width:768px){.container{padding:0 24px;}section{padding:72px 0;}.nav-inner{padding:0 24px;}.nav-links,.nav-portals{display:none;}.nav-hamburger{display:flex;}.hero h1{font-size:52px;}.hero-portals{flex-direction:column;}.portal-btn{padding:16px 20px;}.path-side{padding:64px 32px;}.listings-grid{grid-template-columns:1fr;}.why-grid{grid-template-columns:1fr;}.test-grid{grid-template-columns:1fr;}.buy-banner{padding:32px 24px;flex-direction:column;}.footer-grid{grid-template-columns:1fr;}.chat-window{width:calc(100vw - 32px);right:16px;}.lf-row{grid-template-columns:1fr;}}
+
+/* ═══════════════════════════
+   RESPONSIVE
+═══════════════════════════ */
+@media(max-width:1024px){
+  .dual-path{grid-template-columns:1fr;}
+  .lead-grid,.contact-grid{grid-template-columns:1fr;gap:48px;}
+  .listings-grid{grid-template-columns:repeat(2,1fr);}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:40px;}
+}
+@media(max-width:768px){
+  .container{padding:0 24px;}
+  section{padding:72px 0;}
+  .nav-inner{padding:0 24px;}
+  .nav-links,.nav-portals{display:none;}
+  .nav-hamburger{display:flex;}
+  .hero h1{font-size:52px;}
+  .hero-corner.tr,.hero-corner.br{display:none;}
+  .hero-portals{flex-direction:column;}
+  .portal-btn{padding:16px 20px;}
+  .path-side{padding:64px 32px;}
+  .listings-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .test-grid{grid-template-columns:1fr;}
+  .filter-bar{overflow-x:auto;}
+  .buy-banner{padding:32px 24px;flex-direction:column;}
+  .footer-grid{grid-template-columns:1fr;}
+  .chat-window{width:calc(100vw - 32px);right:16px;}
+  .lf-row{grid-template-columns:1fr;}
+  .admin-stats-grid{grid-template-columns:1fr 1fr;}
+}
+
+/* Brand: logo + headline style (Smith & Oak guidelines) */
+.brand-logo{height:40px;width:auto;display:block;}
+.brand-logo-foot{height:44px;}
+h1,h2{text-transform:uppercase;letter-spacing:.04em;}
+@media(max-width:700px){.brand-logo{height:30px;}}
 </style>
 </head>
 <body>
+
+<!-- ─── MOBILE MENU ─── -->
 <div class="mobile-menu" id="mobile-menu">
   <button class="mm-close" onclick="closeMobileMenu()">×</button>
   <a href="#vacancies" onclick="closeMobileMenu()">Find a Home</a>
@@ -317,12 +703,11 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
   <a href="https://tenant.appfolio.com" target="_blank" style="color:var(--gold);">Tenant Portal</a>
   <a href="https://owner.appfolio.com" target="_blank" style="color:var(--gold);">Owner Portal</a>
 </div>
+
+<!-- ─── NAV ─── -->
 <nav id="main-nav">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <div class="logo-mark">S·O</div>
-      <div class="logo-text"><span class="logo-name">SOHO</span><span class="logo-sub">Management LLC</span></div>
-    </a>
+    <a href="#" class="nav-logo" aria-label="SOHO by Smith &amp; Oak"><img src="assets/soho-logo-dark.png" alt="SOHO by Smith&amp;Oak" class="brand-logo" width="1797" height="282"></a>
     <div class="nav-links">
       <a href="#vacancies">Find a Home</a>
       <a href="#owners">For Owners</a>
@@ -333,38 +718,75 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
       <a href="https://tenant.appfolio.com" target="_blank" class="btn-outline">Tenant Portal</a>
       <a href="https://owner.appfolio.com" target="_blank" class="btn-solid">Owner Portal</a>
     </div>
-    <div class="nav-hamburger" onclick="openMobileMenu()"><span></span><span></span><span></span></div>
+    <div class="nav-hamburger" onclick="openMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </nav>
+
+<!-- ─── HERO ─── -->
 <section class="hero" id="home">
-  <div class="hero-bg"></div><div class="hero-grid"></div><div class="hero-accent"></div>
-  <div class="hero-corner tl"></div><div class="hero-corner tr"></div><div class="hero-corner br"></div>
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="hero-corner br"></div>
+
   <div class="hero-inner">
-    <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span>Providence County, Rhode Island</span></div>
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Providence County, Rhode Island</span>
+    </div>
     <h1>Premium<br>Property<br><span class="italic">Management</span></h1>
     <p class="hero-tagline">Serving Owners &amp; Residents Across Rhode Island</p>
+
     <div class="hero-search-wrap">
       <div class="hero-search">
-        <select class="search-type" id="hero-type">
-          <option value="">All Types</option>
-          <option value="Apartment">Apartment</option>
-          <option value="Single Family">Single Family</option>
-          <option value="Multi-Family">Multi-Family</option>
-          <option value="Condo">Condo</option>
-        </select>
         <input class="search-input" id="hero-search-input" type="text" placeholder="Search by neighborhood, address, or zip code...">
         <button class="search-btn" onclick="heroSearch()">Search</button>
       </div>
     </div>
+
     <div class="hero-portals">
-      <a href="#vacancies" class="portal-btn" onclick="event.preventDefault();scrollTo('vacancies')"><div class="pb-icon">🏠</div><div><div class="pb-label">Residents</div><div class="pb-title">Find Vacancies</div></div></a>
-      <a href="#owners" class="portal-btn highlight" onclick="event.preventDefault();scrollTo('owners')"><div class="pb-icon">📊</div><div><div class="pb-label">Property Owners</div><div class="pb-title">Manage With Us</div></div></a>
-      <a href="https://tenant.appfolio.com" target="_blank" class="portal-btn"><div class="pb-icon">🔑</div><div><div class="pb-label">Existing Tenants</div><div class="pb-title">Tenant Portal</div></div></a>
-      <a href="https://owner.appfolio.com" target="_blank" class="portal-btn"><div class="pb-icon">📋</div><div><div class="pb-label">Existing Owners</div><div class="pb-title">Owner Portal</div></div></a>
+      <a href="#vacancies" class="portal-btn" onclick="event.preventDefault();scrollTo('vacancies')">
+        <div class="pb-icon">🏠</div>
+        <div class="pb-text">
+          <div class="pb-label">Residents</div>
+          <div class="pb-title">Find Vacancies</div>
+        </div>
+      </a>
+      <a href="#owners" class="portal-btn highlight" onclick="event.preventDefault();scrollTo('owners')">
+        <div class="pb-icon">📊</div>
+        <div class="pb-text">
+          <div class="pb-label">Property Owners</div>
+          <div class="pb-title">Manage With Us</div>
+        </div>
+      </a>
+      <a href="https://tenant.appfolio.com" target="_blank" class="portal-btn">
+        <div class="pb-icon">🔑</div>
+        <div class="pb-text">
+          <div class="pb-label">Existing Tenants</div>
+          <div class="pb-title">Tenant Portal</div>
+        </div>
+      </a>
+      <a href="https://owner.appfolio.com" target="_blank" class="portal-btn">
+        <div class="pb-icon">📋</div>
+        <div class="pb-text">
+          <div class="pb-label">Existing Owners</div>
+          <div class="pb-title">Owner Portal</div>
+        </div>
+      </a>
     </div>
   </div>
-  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
 </section>
+
+<!-- ─── DUAL PATH ─── -->
 <div class="dual-path" id="portals">
   <div class="path-side tenant" onclick="scrollTo('vacancies')">
     <div class="path-bg-num">01</div>
@@ -372,10 +794,18 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
     <h2>Find Your Perfect Home in Providence</h2>
     <p>Browse our curated portfolio of apartments and homes across Providence County. Apply online, sign your lease digitally, and manage everything through AppFolio.</p>
     <div class="path-links">
-      <a href="#vacancies" class="path-link" onclick="event.preventDefault();scrollTo('vacancies')"><span>Browse Available Units</span><span class="arr">→</span></a>
-      <a href="https://tenant.appfolio.com" target="_blank" class="path-link"><span>Tenant Portal Login</span><span class="arr">→</span></a>
-      <a href="#contact" class="path-link" onclick="event.preventDefault();scrollTo('contact')"><span>Submit Maintenance Request</span><span class="arr">→</span></a>
-      <a href="#contact" class="path-link" onclick="event.preventDefault();scrollTo('contact')"><span>Contact Our Team</span><span class="arr">→</span></a>
+      <a href="#vacancies" class="path-link" onclick="event.preventDefault();scrollTo('vacancies')">
+        <span>Browse Available Units</span><span class="arr">→</span>
+      </a>
+      <a href="https://tenant.appfolio.com" target="_blank" class="path-link">
+        <span>Tenant Portal Login</span><span class="arr">→</span>
+      </a>
+      <a href="#contact" class="path-link" onclick="event.preventDefault();scrollTo('contact')">
+        <span>Submit Maintenance Request</span><span class="arr">→</span>
+      </a>
+      <a href="#contact" class="path-link" onclick="event.preventDefault();scrollTo('contact')">
+        <span>Contact Our Team</span><span class="arr">→</span>
+      </a>
     </div>
   </div>
   <div class="path-side owner" onclick="scrollTo('owners')">
@@ -384,18 +814,37 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
     <h2>Maximize Your Investment Returns</h2>
     <p>SOHO Management handles everything — from marketing and screening to maintenance and financial reporting. See what your property could earn today, at no cost.</p>
     <div class="path-links">
-      <a href="#owners" class="path-link" onclick="event.preventDefault();scrollTo('owners')"><span>Get a Free Rent Analysis</span><span class="arr">→</span></a>
-      <a href="https://owner.appfolio.com" target="_blank" class="path-link"><span>Owner Portal Login</span><span class="arr">→</span></a>
-      <a href="#owners" class="path-link" onclick="event.preventDefault();scrollTo('owners')"><span>Calculate Your ROI</span><span class="arr">→</span></a>
-      <a href="#why" class="path-link" onclick="event.preventDefault();scrollTo('why')"><span>Why Choose SOHO</span><span class="arr">→</span></a>
+      <a href="#owners" class="path-link" onclick="event.preventDefault();scrollTo('owners')">
+        <span>Get a Free Rent Analysis</span><span class="arr">→</span>
+      </a>
+      <a href="https://owner.appfolio.com" target="_blank" class="path-link">
+        <span>Owner Portal Login</span><span class="arr">→</span>
+      </a>
+      <a href="#owners" class="path-link" onclick="event.preventDefault();scrollTo('owners')">
+        <span>Calculate Your ROI</span><span class="arr">→</span>
+      </a>
+      <a href="#why" class="path-link" onclick="event.preventDefault();scrollTo('why')">
+        <span>Why Choose SOHO</span><span class="arr">→</span>
+      </a>
     </div>
   </div>
 </div>
+
+<!-- ─── VACANCIES ─── -->
 <section class="vacancies" id="vacancies">
   <div class="container">
-    <div class="section-head reveal"><span class="tag">Available Now</span><h2>Current <em>Vacancies</em></h2><p>Hand-selected properties managed by SOHO across Providence County's most desirable neighborhoods.</p></div>
+    <div class="section-head reveal">
+      <span class="tag">Available Now</span>
+      <h2>Current <em>Vacancies</em></h2>
+      <p>Live availability from SOHO Management across Rhode Island. Updated automatically from our AppFolio listings.</p>
+    </div>
+
+    <!-- FILTERS -->
     <div class="filter-bar reveal reveal-delay-1">
-      <div class="filter-group" onclick="toggleDD('dd-beds')"><span class="fg-label">Bedrooms</span><span class="fg-value ph" id="beds-val">Any</span>
+      <!-- Bedrooms -->
+      <div class="filter-group" onclick="toggleDD('dd-beds')">
+        <span class="fg-label">Bedrooms</span>
+        <span class="fg-value ph" id="beds-val">Any</span>
         <div class="filter-dd" id="dd-beds">
           <div class="fdd-opt sel" data-v="" onclick="pickBed(event,this,'Any')">Any<span class="fdd-check">✓</span></div>
           <div class="fdd-opt" data-v="0" onclick="pickBed(event,this,'Studio')">Studio<span class="fdd-check">✓</span></div>
@@ -408,11 +857,18 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
           <div class="fdd-opt" data-v="6+" onclick="pickBed(event,this,'6+ Bedrooms')">6+ Bedrooms<span class="fdd-check">✓</span></div>
         </div>
       </div>
-      <div class="filter-group" onclick="toggleDD('dd-price')"><span class="fg-label">Monthly Rent</span><span class="fg-value ph" id="price-val">Any</span>
+      <!-- Price -->
+      <div class="filter-group" onclick="toggleDD('dd-price')">
+        <span class="fg-label">Monthly Rent</span>
+        <span class="fg-value ph" id="price-val">Any</span>
         <div class="filter-dd" id="dd-price" onclick="event.stopPropagation()">
           <div class="price-dd-inner">
-            <div style="font-size:11px;color:#888;margin-bottom:6px;">Set Range</div>
-            <div class="price-inputs"><input type="number" id="pmin" placeholder="Min $" step="50" oninput="syncPriceLabel()"><span style="color:#aaa;">—</span><input type="number" id="pmax" placeholder="Max $" step="50" oninput="syncPriceLabel()"></div>
+            <div style="font-size:11px;color:#888;margin-bottom:6px;font-family:'Josefin Sans',sans-serif;letter-spacing:1px;">Set Range</div>
+            <div class="price-inputs">
+              <input type="number" id="pmin" placeholder="Min $" step="50" oninput="syncPriceLabel()">
+              <span style="color:#aaa;">—</span>
+              <input type="number" id="pmax" placeholder="Max $" step="50" oninput="syncPriceLabel()">
+            </div>
             <div class="price-presets">
               <button class="price-preset" onclick="quickPrice(0,1500)">Under $1,500</button>
               <button class="price-preset" onclick="quickPrice(1500,2000)">$1,500–$2,000</button>
@@ -423,81 +879,153 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
           <button class="filter-apply-btn" onclick="applyFilters();closeAllDD()">Apply</button>
         </div>
       </div>
-      <div class="filter-group" onclick="toggleDD('dd-hood')"><span class="fg-label">Neighborhood</span><span class="fg-value ph" id="hood-val">All Areas</span>
+      <!-- Area (built from live listings) -->
+      <div class="filter-group" onclick="toggleDD('dd-hood')">
+        <span class="fg-label">Area</span>
+        <span class="fg-value ph" id="hood-val">All Areas</span>
         <div class="filter-dd" id="dd-hood">
           <div class="fdd-opt sel" data-v="" onclick="pickHood(event,this,'All Areas')">All Areas<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="Providence" onclick="pickHood(event,this,'Providence')">Providence<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="Cranston" onclick="pickHood(event,this,'Cranston')">Cranston<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="North Providence" onclick="pickHood(event,this,'North Providence')">North Providence<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="Johnston" onclick="pickHood(event,this,'Johnston')">Johnston<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="Scituate" onclick="pickHood(event,this,'Scituate')">Scituate<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="Lincoln" onclick="pickHood(event,this,'Lincoln')">Lincoln<span class="fdd-check">✓</span></div>
-        </div>
-      </div>
-      <div class="filter-group" onclick="toggleDD('dd-type')"><span class="fg-label">Property Type</span><span class="fg-value ph" id="type-val">All Types</span>
-        <div class="filter-dd" id="dd-type">
-          <div class="fdd-opt sel" data-v="" onclick="pickType(event,this,'All Types')">All Types<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="Apartment" onclick="pickType(event,this,'Apartment')">Apartment<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="Single Family" onclick="pickType(event,this,'Single Family')">Single Family<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="Multi-Family" onclick="pickType(event,this,'Multi-Family')">Multi-Family<span class="fdd-check">✓</span></div>
-          <div class="fdd-opt" data-v="Condo" onclick="pickType(event,this,'Condo')">Condo<span class="fdd-check">✓</span></div>
         </div>
       </div>
       <button class="filter-clear" onclick="clearFilters()">Clear All</button>
     </div>
+
+    <!-- ACTIVE TAGS -->
     <div class="active-tags" id="active-tags"></div>
+
+    <!-- RESULTS META -->
     <div class="results-meta reveal reveal-delay-2">
       <div class="result-count"><strong id="res-count">0</strong> properties available</div>
-      <div class="sort-wrap">Sort: <select id="sort-sel" onchange="applyFilters()"><option value="price-asc">Price ↑</option><option value="price-desc">Price ↓</option><option value="beds-asc">Beds ↑</option><option value="beds-desc">Beds ↓</option><option value="newest">Newest</option></select></div>
+      <div class="sort-wrap">
+        Sort:
+        <select id="sort-sel" onchange="applyFilters()">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price ↑</option>
+          <option value="price-desc">Price ↓</option>
+          <option value="beds-asc">Beds ↑</option>
+          <option value="beds-desc">Beds ↓</option>
+          <option value="newest">Newest</option>
+        </select>
+      </div>
     </div>
+
     <div class="listings-grid" id="listings-grid"></div>
-    <div class="no-results" id="no-results" style="display:none;"><h3>No Properties Found</h3><p>Try adjusting your filters — we add new listings regularly.</p></div>
-    <div class="view-all-wrap reveal"><a href="https://tenant.appfolio.com" target="_blank" class="btn-view-all">View All Listings on AppFolio &nbsp;→</a></div>
+    <div class="no-results" id="no-results" style="display:none;">
+      <h3 id="no-results-title">No Properties Found</h3>
+      <p id="no-results-text">Try adjusting your filters — we add new listings regularly.<br>Contact us to be notified when the right home becomes available.</p>
+    </div>
+
+    <div class="view-all-wrap reveal">
+      <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener" class="btn-view-all">View All Listings on AppFolio &nbsp;→</a>
+    </div>
   </div>
 </section>
+
+<!-- ─── BUY BANNER ─── -->
 <a href="https://smithoakre.com" target="_blank" class="buy-banner">
-  <div class="bb-left"><div class="bb-eye">Thinking about buying?</div><div class="bb-title">Looking to Purchase a Property?</div></div>
-  <div class="bb-right"><div class="bb-sub">Visit our sister brokerage →</div><button class="bb-btn">Smith &amp; Oak Real Estate</button></div>
+  <div class="bb-left">
+    <div class="bb-eye">Thinking about buying?</div>
+    <div class="bb-title">Looking to Purchase a Property?</div>
+  </div>
+  <div class="bb-right">
+    <div class="bb-sub">Visit our sister brokerage →</div>
+    <button class="bb-btn">Smith &amp; Oak Real Estate</button>
+  </div>
 </a>
+
+<!-- ─── OWNER LEAD + ROI ─── -->
 <section class="owner-section" id="owners">
   <div class="container">
     <div class="lead-grid">
       <div class="lead-left">
-        <div class="section-head reveal" style="margin-bottom:0;"><span class="tag">For Property Owners</span><h2>What Could Your<br><em>Property Earn?</em></h2><p>Enter your property details and we'll show you rental comparables from Providence County and your projected ROI with SOHO Management.</p></div>
-        <div class="lead-stats reveal reveal-delay-1">
-          <div class="lstat"><div class="lstat-num">94%</div><div class="lstat-label">Average Occupancy Rate</div></div>
-          <div class="lstat"><div class="lstat-num">48<span style="font-size:24px;">hr</span></div><div class="lstat-label">Average Time to Lease</div></div>
-          <div class="lstat"><div class="lstat-num">12%</div><div class="lstat-label">Average Owner ROI Increase</div></div>
-          <div class="lstat"><div class="lstat-num">$0</div><div class="lstat-label">Vacancy Fee to Owners</div></div>
+        <div class="section-head reveal" style="margin-bottom:0;">
+          <span class="tag">For Property Owners</span>
+          <h2>What Could Your<br><em>Property Earn?</em></h2>
+          <p>Enter your property details and we'll show you real-time rental comparables from Providence County — and your projected annual ROI with SOHO Management.</p>
         </div>
+
+        <div class="lead-stats reveal reveal-delay-1">
+          <div class="lstat">
+            <div class="lstat-num">94%</div>
+            <div class="lstat-label">Average Occupancy Rate</div>
+          </div>
+          <div class="lstat">
+            <div class="lstat-num">48<span style="font-size:24px;">hr</span></div>
+            <div class="lstat-label">Average Time to Lease</div>
+          </div>
+          <div class="lstat">
+            <div class="lstat-num">12%</div>
+            <div class="lstat-label">Average Owner ROI Increase</div>
+          </div>
+          <div class="lstat">
+            <div class="lstat-num">$0</div>
+            <div class="lstat-label">Vacancy Fee to Owners</div>
+          </div>
+        </div>
+
         <div class="roi-result" id="roi-result">
           <div class="roi-result-header">Your Estimated Analysis</div>
           <div class="roi-rows">
             <div class="roi-row"><span class="roi-row-label">Estimated Monthly Rent</span><span class="roi-row-val gold" id="r-monthly">—</span></div>
             <div class="roi-row"><span class="roi-row-label">Gross Annual Revenue</span><span class="roi-row-val" id="r-annual">—</span></div>
             <div class="roi-row"><span class="roi-row-label">SOHO Management Fee (~8%)</span><span class="roi-row-val" id="r-fee">—</span></div>
+            <div class="roi-row" id="r-vs-row" style="display:none;"><span class="roi-row-label">Your Rent vs. Market Rate</span><span class="roi-row-val gold" id="r-vs">—</span></div>
             <div class="roi-row"><span class="roi-row-label">Estimated Net Annual Income</span><span class="roi-row-val gold" id="r-net">—</span></div>
             <div class="roi-row"><span class="roi-row-label">Estimated Cap Rate</span><span class="roi-row-val" id="r-cap">—</span></div>
           </div>
-          <p class="roi-note">Based on current Providence County market data. A SOHO advisor will follow up within 24 hours at no cost to you.</p>
+          <div class="roi-comps-head" id="roi-comps-head" style="display:none;font-family:var(--font-h);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin:32px 0 14px;">Comparable SOHO Listings</div>
+          <div id="roi-comps" style="display:grid;gap:12px;"></div>
+          <p class="roi-note">Based on current Providence County market data. A SOHO advisor will follow up within 24 hours with a detailed, property-specific analysis — at no cost to you.</p>
         </div>
       </div>
+
       <div class="reveal reveal-delay-2">
         <div class="lead-form-wrap">
           <div class="lf-title">Free Rent Analysis</div>
-          <p class="lf-sub">See what comparable properties rent for — and what your home could earn under SOHO Management.</p>
+          <p class="lf-sub">See what comparable properties are renting for — and what your home could earn under SOHO Management. No obligation.</p>
           <div class="lf-row">
             <div class="lf-field"><label>First Name</label><input type="text" id="lf-first" placeholder="John"></div>
             <div class="lf-field"><label>Last Name</label><input type="text" id="lf-last" placeholder="Smith"></div>
           </div>
           <div class="lf-field"><label>Email Address</label><input type="email" id="lf-email" placeholder="john@email.com"></div>
           <div class="lf-field"><label>Phone Number</label><input type="tel" id="lf-phone" placeholder="(401) 555-0100"></div>
+          <div class="lf-field"><label>Current Monthly Rent <span style="opacity:.5;">(optional)</span></label><input type="number" id="lf-rent" placeholder="e.g. 1,650" min="0" step="25"></div>
           <div class="lf-field"><label>Property Address</label><input type="text" id="lf-addr" placeholder="123 Hope St, Providence, RI"></div>
           <div class="lf-row">
-            <div class="lf-field"><label>Bedrooms</label><select id="lf-beds"><option value="">Select</option><option value="0">Studio</option><option value="1">1 Bedroom</option><option value="2">2 Bedrooms</option><option value="3">3 Bedrooms</option><option value="4">4 Bedrooms</option><option value="5">5+ Bedrooms</option></select></div>
-            <div class="lf-field"><label>Property Type</label><select id="lf-type"><option value="">Select</option><option>Apartment</option><option>Single Family</option><option>Multi-Family</option><option>Condo</option></select></div>
+            <div class="lf-field">
+              <label>Bedrooms</label>
+              <select id="lf-beds">
+                <option value="">Select</option>
+                <option value="0">Studio</option>
+                <option value="1">1 Bedroom</option>
+                <option value="2">2 Bedrooms</option>
+                <option value="3">3 Bedrooms</option>
+                <option value="4">4 Bedrooms</option>
+                <option value="5">5+ Bedrooms</option>
+              </select>
+            </div>
+            <div class="lf-field">
+              <label>Property Type</label>
+              <select id="lf-type">
+                <option value="">Select</option>
+                <option>Apartment</option>
+                <option>Single Family</option>
+                <option>Multi-Family</option>
+                <option>Condo</option>
+              </select>
+            </div>
           </div>
-          <div class="lf-field"><label>Current Situation</label><select id="lf-status"><option value="">Select</option><option>Property is vacant</option><option>I self-manage currently</option><option>Managed by someone else</option><option>Thinking of buying to rent</option></select></div>
+          <div class="lf-field">
+            <label>Current Situation</label>
+            <select id="lf-status">
+              <option value="">Select</option>
+              <option>Property is vacant</option>
+              <option>I self-manage currently</option>
+              <option>Managed by someone else</option>
+              <option>Thinking of buying to rent</option>
+            </select>
+          </div>
+          <input type="text" id="lf-website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" aria-hidden="true">
           <button class="btn-calculate" onclick="calcROI()">Calculate My Rental Income →</button>
           <p class="lf-privacy">No obligation. A SOHO advisor will reach out within 24 hours.</p>
         </div>
@@ -505,47 +1033,155 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
     </div>
   </div>
 </section>
+
+<!-- ─── WHY SOHO ─── -->
 <section class="why-section" id="why">
   <div class="container">
-    <div class="section-head reveal"><span class="tag">Why SOHO Management</span><h2>Built for <em>Providence</em></h2><p>Local market expertise combined with enterprise-grade technology to deliver results for owners and residents alike.</p></div>
+    <div class="section-head reveal">
+      <span class="tag">Why SOHO Management</span>
+      <h2>Built for <em>Providence</em></h2>
+      <p>We combine local market expertise with enterprise-grade technology to deliver results that consistently exceed expectations — for owners and residents alike.</p>
+    </div>
     <div class="why-grid">
-      <div class="why-item reveal"><div class="why-num">01</div><h3>AppFolio-Powered Operations</h3><p>Real-time financial reporting, maintenance tracking, and document access for owners. Online payments, lease signing, and maintenance requests for tenants — all in one platform.</p></div>
-      <div class="why-item reveal reveal-delay-1"><div class="why-num">02</div><h3>Local Market Expertise</h3><p>We know Providence County — from College Hill to Cranston. We price your property precisely, attract qualified tenants fast, and protect your asset year-round.</p></div>
-      <div class="why-item reveal reveal-delay-2"><div class="why-num">03</div><h3>Full-Service Management</h3><p>Leasing, screening, maintenance, rent collection, inspections, and monthly reporting. We handle everything so you earn passive income without the headaches.</p></div>
-      <div class="why-item reveal reveal-delay-3"><div class="why-num">04</div><h3>Rigorous Tenant Screening</h3><p>Every applicant goes through credit, background, eviction history, and income verification. We place quality tenants who pay on time and respect your investment.</p></div>
-      <div class="why-item reveal reveal-delay-4"><div class="why-num">05</div><h3>Transparent, Simple Fees</h3><p>No hidden charges or surprise markups. Our straightforward fee structure means you always know what you're paying — and our success is tied directly to yours.</p></div>
-      <div class="why-item reveal reveal-delay-5"><div class="why-num">06</div><h3>Paired with Smith &amp; Oak RE</h3><p>Need to buy or sell investment property? Our sister brokerage, Smith &amp; Oak Real Estate Co., brings full-service expertise in Providence County to complement your strategy.</p></div>
+      <div class="why-item reveal">
+        <div class="why-num">01</div>
+        <h3>AppFolio-Powered Operations</h3>
+        <p>Real-time financial reporting, maintenance tracking, and document access for owners. Online payments, lease signing, and maintenance requests for tenants — all in one platform.</p>
+      </div>
+      <div class="why-item reveal reveal-delay-1">
+        <div class="why-num">02</div>
+        <h3>Local Market Expertise</h3>
+        <p>We know Providence County intimately — from College Hill to Cranston. We price your property precisely, attract qualified tenants fast, and protect your asset year-round.</p>
+      </div>
+      <div class="why-item reveal reveal-delay-2">
+        <div class="why-num">03</div>
+        <h3>Full-Service Management</h3>
+        <p>Leasing, screening, maintenance coordination, rent collection, annual inspections, and monthly reporting. We handle everything so you earn passive income without the headaches.</p>
+      </div>
+      <div class="why-item reveal reveal-delay-3">
+        <div class="why-num">04</div>
+        <h3>Rigorous Tenant Screening</h3>
+        <p>Every applicant goes through credit, background, eviction history, and income verification. We place quality tenants who pay on time and respect your investment.</p>
+      </div>
+      <div class="why-item reveal reveal-delay-4">
+        <div class="why-num">05</div>
+        <h3>Transparent, Simple Fees</h3>
+        <p>No hidden charges or surprise markups. Our straightforward fee structure means you always know what you're paying — and our success is tied directly to yours.</p>
+      </div>
+      <div class="why-item reveal reveal-delay-5">
+        <div class="why-num">06</div>
+        <h3>Paired with Smith &amp; Oak RE</h3>
+        <p>Need to buy or sell investment property? Our sister brokerage, Smith &amp; Oak Real Estate Co., brings full-service expertise in Providence County to complement your strategy.</p>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- ─── TESTIMONIALS ─── -->
 <section class="testimonials">
   <div class="container">
-    <div class="section-head reveal"><span class="tag">Client Stories</span><h2>Trusted by <em>Owners &amp; Residents</em></h2></div>
+    <div class="section-head reveal">
+      <span class="tag">Client Stories</span>
+      <h2>Trusted by <em>Owners &amp; Residents</em></h2>
+    </div>
     <div class="test-grid">
-      <div class="test-card reveal"><div class="test-stars"><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span></div><p class="test-quote">"SOHO took over my three-unit in Cranston and within 30 days had it fully leased at $200 more per unit than I was getting before."</p><div class="test-divider"></div><div class="test-author">Maria T.</div><div class="test-role">Property Owner · Cranston, RI</div></div>
-      <div class="test-card reveal reveal-delay-2"><div class="test-stars"><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span></div><p class="test-quote">"The SOHO online application took 10 minutes and I had a lease signed the same week. Truly painless."</p><div class="test-divider"></div><div class="test-author">James R.</div><div class="test-role">Resident · Providence, RI</div></div>
-      <div class="test-card reveal reveal-delay-4"><div class="test-stars"><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span></div><p class="test-quote">"I was self-managing for years. Handing it off to SOHO was the best investment decision I've made. My stress went to zero and my net income increased."</p><div class="test-divider"></div><div class="test-author">David K.</div><div class="test-role">Multi-Family Owner · North Providence, RI</div></div>
+      <div class="test-card reveal">
+        <div class="test-stars">
+          <span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span>
+        </div>
+        <p class="test-quote">"SOHO took over my three-unit in Cranston and within 30 days had it fully leased at $200 more per unit than I was getting before. The AppFolio portal alone is worth it."</p>
+        <div class="test-divider"></div>
+        <div class="test-author">Maria T.</div>
+        <div class="test-role">Property Owner · Cranston, RI</div>
+      </div>
+      <div class="test-card reveal reveal-delay-2">
+        <div class="test-stars">
+          <span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span>
+        </div>
+        <p class="test-quote">"Finding an apartment in Providence used to be so stressful. The SOHO online application took 10 minutes and I had a lease signed the same week. Truly painless."</p>
+        <div class="test-divider"></div>
+        <div class="test-author">James R.</div>
+        <div class="test-role">Resident · Providence, RI</div>
+      </div>
+      <div class="test-card reveal reveal-delay-4">
+        <div class="test-stars">
+          <span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span>
+        </div>
+        <p class="test-quote">"I was self-managing for years. Handing it off to SOHO was the best investment decision I've made. My stress went to zero and my net income actually increased."</p>
+        <div class="test-divider"></div>
+        <div class="test-author">David K.</div>
+        <div class="test-role">Multi-Family Owner · North Providence, RI</div>
+      </div>
     </div>
   </div>
 </section>
-<div class="badge-strip"><div class="badge-strip-inner"><div class="bs-item"><div class="bs-dot"></div>Powered by AppFolio</div><div class="bs-item"><div class="bs-dot"></div>Online Tenant Applications</div><div class="bs-item"><div class="bs-dot"></div>Real-Time Owner Reporting</div><div class="bs-item"><div class="bs-dot"></div>Digital Lease Signing</div><div class="bs-item"><div class="bs-dot"></div>24/7 Maintenance Portal</div><div class="bs-item"><div class="bs-dot"></div>Providence County, RI</div></div></div>
+
+<!-- ─── APPFOLIO STRIP ─── -->
+<div class="badge-strip">
+  <div class="badge-strip-inner">
+    <div class="bs-item"><div class="bs-dot"></div>Powered by AppFolio</div>
+    <div class="bs-item"><div class="bs-dot"></div>Online Tenant Applications</div>
+    <div class="bs-item"><div class="bs-dot"></div>Real-Time Owner Reporting</div>
+    <div class="bs-item"><div class="bs-dot"></div>Digital Lease Signing</div>
+    <div class="bs-item"><div class="bs-dot"></div>24/7 Maintenance Portal</div>
+    <div class="bs-item"><div class="bs-dot"></div>Providence County, RI</div>
+  </div>
+</div>
+
+<!-- ─── CONTACT ─── -->
 <section class="contact-section" id="contact">
   <div class="container">
     <div class="contact-grid">
       <div class="contact-left">
-        <div class="section-head reveal" style="margin-bottom:0;"><span class="tag">Get in Touch</span><h2>Let's Talk About<br><em>Your Property</em></h2><p>Whether you're a tenant looking for a home or an owner ready to maximize your investment, our team is ready to help.</p></div>
+        <div class="section-head reveal" style="margin-bottom:0;">
+          <span class="tag">Get in Touch</span>
+          <h2>Let's Talk About<br><em>Your Property</em></h2>
+          <p>Whether you're a tenant looking for a home or an owner ready to maximize your investment, our Providence County team is ready to help.</p>
+        </div>
         <div class="contact-info reveal reveal-delay-1">
-          <div class="ci-item"><div class="ci-icon">📍</div><div><div class="ci-label">Service Area</div><div class="ci-value">Providence County, Rhode Island</div></div></div>
-          <div class="ci-item"><div class="ci-icon">📞</div><div><div class="ci-label">Phone</div><div class="ci-value">(401) 555-0100</div></div></div>
-          <div class="ci-item"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-value">info@sohomgmt.com</div></div></div>
-          <div class="ci-item"><div class="ci-icon">🕐</div><div><div class="ci-label">Office Hours</div><div class="ci-value">Mon – Fri: 9am – 5pm<br>After-hours maintenance support available</div></div></div>
+          <div class="ci-item">
+            <div class="ci-icon">📍</div>
+            <div>
+              <div class="ci-label">Service Area</div>
+              <div class="ci-value">Providence County, Rhode Island</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">📞</div>
+            <div>
+              <div class="ci-label">Phone</div>
+              <div class="ci-value">(401) 555-0100</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">✉️</div>
+            <div>
+              <div class="ci-label">Email</div>
+              <div class="ci-value">info@sohomgmt.com</div>
+            </div>
+          </div>
+          <div class="ci-item">
+            <div class="ci-icon">🕐</div>
+            <div>
+              <div class="ci-label">Office Hours</div>
+              <div class="ci-value">Mon – Fri: 9am – 5pm<br>After-hours maintenance support available</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="reveal reveal-delay-2">
         <div class="contact-form-wrap">
           <div class="cf-field"><label>Full Name</label><input type="text" placeholder="Your name"></div>
           <div class="cf-field"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
-          <div class="cf-field"><label>I Am A...</label><select><option>Property Owner</option><option>Prospective Tenant</option><option>Current Tenant</option><option>Real Estate Investor</option></select></div>
+          <div class="cf-field">
+            <label>I Am A...</label>
+            <select>
+              <option>Property Owner</option>
+              <option>Prospective Tenant</option>
+              <option>Current Tenant</option>
+              <option>Real Estate Investor</option>
+            </select>
+          </div>
           <div class="cf-field"><label>Message</label><textarea placeholder="Tell us about your property or housing needs..."></textarea></div>
           <button class="btn-send">Send Message →</button>
         </div>
@@ -553,92 +1189,413 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
     </div>
   </div>
 </section>
+
+<!-- ─── FOOTER ─── -->
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-logo"><div class="logo-mark">S·O</div><div class="logo-text"><span class="logo-name">SOHO</span><span class="logo-sub">Management LLC</span></div></div>
-        <p>SOHO Management LLC is Providence County's premier property management company — delivering exceptional service to owners and residents across Rhode Island.</p>
+        <div class="footer-logo"><img src="assets/soho-logo-dark.png" alt="SOHO by Smith&amp;Oak" class="brand-logo brand-logo-foot" width="1797" height="282"></div>
+        <p>SOHO Management LLC is Providence County's premier property management company — delivering exceptional service to owners and residents across Rhode Island since day one.</p>
         <div class="footer-appfolio">● Powered by AppFolio</div>
       </div>
-      <div class="footer-col"><h4>For Tenants</h4><a href="https://tenant.appfolio.com" target="_blank">Tenant Portal Login</a><a href="#vacancies" onclick="scrollTo('vacancies');return false;">Browse Vacancies</a><a href="#contact" onclick="scrollTo('contact');return false;">Maintenance Request</a><a href="https://tenant.appfolio.com" target="_blank">Apply Online</a></div>
-      <div class="footer-col"><h4>For Owners</h4><a href="https://owner.appfolio.com" target="_blank">Owner Portal Login</a><a href="#owners" onclick="scrollTo('owners');return false;">Free Rent Analysis</a><a href="#owners" onclick="scrollTo('owners');return false;">ROI Calculator</a><a href="#contact" onclick="scrollTo('contact');return false;">Get Started</a></div>
-      <div class="footer-col"><h4>Company</h4><a href="#why" onclick="scrollTo('why');return false;">Why SOHO</a><a href="#contact" onclick="scrollTo('contact');return false;">Contact Us</a><a href="https://smithoakre.com" target="_blank">Smith &amp; Oak RE</a><a href="#">Privacy Policy</a></div>
+      <div class="footer-col">
+        <h4>For Tenants</h4>
+        <a href="https://tenant.appfolio.com" target="_blank">Tenant Portal Login</a>
+        <a href="#vacancies" onclick="scrollTo('vacancies');return false;">Browse Vacancies</a>
+        <a href="#contact" onclick="scrollTo('contact');return false;">Maintenance Request</a>
+        <a href="https://tenant.appfolio.com" target="_blank">Apply Online</a>
+      </div>
+      <div class="footer-col">
+        <h4>For Owners</h4>
+        <a href="https://owner.appfolio.com" target="_blank">Owner Portal Login</a>
+        <a href="#owners" onclick="scrollTo('owners');return false;">Free Rent Analysis</a>
+        <a href="#owners" onclick="scrollTo('owners');return false;">ROI Calculator</a>
+        <a href="#contact" onclick="scrollTo('contact');return false;">Get Started</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#why" onclick="scrollTo('why');return false;">Why SOHO</a>
+        <a href="#contact" onclick="scrollTo('contact');return false;">Contact Us</a>
+        <a href="https://smithoakre.com" target="_blank">Smith &amp; Oak RE</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
     </div>
-    <div class="footer-bottom"><p>© 2025 SOHO Management LLC. All rights reserved. Providence County, Rhode Island.</p><div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="https://smithoakre.com" target="_blank">A Smith &amp; Oak Company</a></div></div>
+    <div class="footer-bottom">
+      <p>© 2025 SOHO Management LLC. All rights reserved. Providence County, Rhode Island.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="https://smithoakre.com" target="_blank">A Smith &amp; Oak Company</a>
+      </div>
+    </div>
   </div>
 </footer>
-<div class="chat-fab" onclick="toggleChat()"><div class="chat-badge" id="chat-badge">1</div><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg></div>
-<div class="chat-window" id="chat-window">
-  <div class="chat-header"><div class="chat-av">S·O</div><div class="chat-info"><div class="chat-name">SOHO Assistant</div><div class="chat-status">● Online — typically replies instantly</div></div><button class="chat-close" onclick="toggleChat()">×</button></div>
-  <div class="chat-msgs" id="chat-msgs"><div class="msg bot"><div class="msg-bub">👋 Hi! I'm the SOHO Management assistant. Whether you're looking for a home or want to know what your property could earn, I'm here to help!</div></div></div>
-  <div class="chat-quick" id="chat-quick"><button class="cq-btn" onclick="quickChat('I want to find an apartment to rent')">Find a rental</button><button class="cq-btn" onclick="quickChat('What would my property rent for?')">Owner inquiry</button><button class="cq-btn" onclick="quickChat('How does SOHO management work?')">How it works</button></div>
-  <div class="chat-inp-row"><input class="chat-inp" id="chat-inp" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()"><button class="chat-send" onclick="sendChat()">↑</button></div>
+
+<!-- ─── AI CHAT ─── -->
+<div class="chat-fab" onclick="toggleChat()" title="Chat with SOHO">
+  <div class="chat-badge" id="chat-badge">1</div>
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
 </div>
+<div class="chat-window" id="chat-window">
+  <div class="chat-header">
+    <div class="chat-av">S·O</div>
+    <div class="chat-info">
+      <div class="chat-name">SOHO Assistant</div>
+      <div class="chat-status">● Online — typically replies instantly</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">×</button>
+  </div>
+  <div class="chat-msgs" id="chat-msgs">
+    <div class="msg bot"><div class="msg-bub">👋 Hi! I'm the SOHO Management assistant. Whether you're looking for a home or want to know what your property could earn, I'm here to help. What can I do for you?</div></div>
+  </div>
+  <div class="chat-quick" id="chat-quick">
+    <button class="cq-btn" onclick="quickChat('I want to find an apartment to rent')">Find a rental</button>
+    <button class="cq-btn" onclick="quickChat('What would my property rent for?')">Owner inquiry</button>
+    <button class="cq-btn" onclick="quickChat('How does SOHO management work?')">How it works</button>
+  </div>
+  <div class="chat-inp-row">
+    <input class="chat-inp" id="chat-inp" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">↑</button>
+  </div>
+</div>
+
 <script>
-const PROPS=[{id:1,addr:'247 Elmwood Ave, Apt 3',city:'Providence',hood:'Providence',rent:1650,beds:2,baths:1,sqft:850,type:'Apartment',avail:'Available Now',status:'available',tags:['Hardwood Floors','Laundry in Building','Updated Kitchen'],listed:'2025-04-01'},{id:2,addr:'83 Reservoir Ave',city:'Cranston',hood:'Cranston',rent:2100,beds:3,baths:2,sqft:1200,type:'Single Family',avail:'Available May 1',status:'available',tags:['Backyard','2-Car Parking','Washer/Dryer'],listed:'2025-03-28'},{id:3,addr:'15 Smith St, Unit 1',city:'North Providence',hood:'North Providence',rent:1450,beds:1,baths:1,sqft:650,type:'Apartment',avail:'Coming Soon',status:'coming',tags:['New Appliances','Modern Finishes'],listed:'2025-04-10'},{id:4,addr:'101 Atwood Ave',city:'Johnston',hood:'Johnston',rent:1900,beds:2,baths:1.5,sqft:970,type:'Condo',avail:'Available Now',status:'available',tags:['Garage Parking','Balcony','Pet Friendly'],listed:'2025-04-05'},{id:5,addr:'52 Branch Ave, Unit B',city:'Providence',hood:'Providence',rent:2450,beds:3,baths:2,sqft:1350,type:'Multi-Family',avail:'Available Now',status:'available',tags:['Off-Street Parking','High Ceilings'],listed:'2025-03-15'},{id:6,addr:'18 Angell St, Unit 4',city:'Providence',hood:'Providence',rent:1350,beds:0,baths:1,sqft:520,type:'Apartment',avail:'Available Now',status:'available',tags:['Utilities Included','Walk to Brown'],listed:'2025-04-08'}];
-const BG=['linear-gradient(135deg,#0d1b2a,#1b2838)','linear-gradient(135deg,#1a1a0d,#2a2a10)','linear-gradient(135deg,#1a0d0d,#2a1010)','linear-gradient(135deg,#0d1a1a,#102828)','linear-gradient(135deg,#1a0d1a,#28102a)','linear-gradient(135deg,#0a0a0a,#1c1c1c)'];
-const EM=['🏢','🏠','🏡','🏘️','🏗️','🏣'];
-let fBeds='',fPMin=0,fPMax=0,fHood='',fType='',fSearch='';
-function bedLabel(b){if(b===0||b==='0')return'Studio';if(b==='6+')return'6+ Beds';return b+' Bed'+(parseInt(b)!==1?'s':'');}
-function bathLabel(b){return b+' Bath'+(parseFloat(b)!==1?'s':'');}
+/* ════════════════════════════
+   PROPERTY DATA
+════════════════════════════ */
+const LISTINGS_API = '/api/listings';
+const APPFOLIO_LISTINGS = 'https://smithoakre.appfolio.com/listings';
+let PROPS = [];
+const esc = v => String(v==null?'':v).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* Filters */
+let fBeds='',fPMin=0,fPMax=0,fHood='',fSearch='';
+
+function bedLabel(b){
+  if(b===0||b==='0') return 'Studio';
+  if(b==='6+') return '6+ Beds';
+  return b+' Bed'+(parseFloat(b)!==1?'s':'');
+}
+function bathLabel(b){ return b+' Bath'+(parseFloat(b)!==1?'s':''); }
+function availDate(a){
+  if(!a) return 'Contact us';
+  if(/^now$/i.test(a)) return 'Available Now';
+  return 'Available '+a;
+}
+function isSoon(a){
+  if(!a || /^now$/i.test(a)) return false;
+  const m=a.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/); if(!m) return false;
+  const y=+m[3]<100?2000+ +m[3]:+m[3]; return new Date(y,+m[1]-1,+m[2])>new Date();
+}
+function availSort(a){
+  if(!a || /^now$/i.test(a)) return 0;
+  const m=a.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/); if(!m) return 9e12;
+  const y=+m[3]<100?2000+ +m[3]:+m[3]; return new Date(y,+m[1]-1,+m[2]).getTime();
+}
+
 function applyFilters(){
-  let list=PROPS.filter(p=>{
-    if(fSearch&&!p.addr.toLowerCase().includes(fSearch)&&!p.hood.toLowerCase().includes(fSearch)&&!p.city.toLowerCase().includes(fSearch))return false;
-    if(fBeds!==''){if(fBeds==='6+'){if(parseInt(p.beds)<6)return false;}else{if(String(p.beds)!==String(fBeds))return false;}}
-    if(fPMin>0&&p.rent<fPMin)return false;
-    if(fPMax>0&&p.rent>fPMax)return false;
-    if(fHood&&p.hood!==fHood)return false;
-    if(fType&&p.type!==fType)return false;
+  let list = PROPS.filter(p=>{
+    const q=fSearch;
+    if(q && !(p.address+' '+p.city+' '+p.zip+' '+p.title).toLowerCase().includes(q)) return false;
+    if(fBeds!==''){
+      if(fBeds==='6+') { if(!(p.beds>=6)) return false; }
+      else { if(String(p.beds)!==String(fBeds)) return false; }
+    }
+    if(fPMin>0 && !(p.rent>=fPMin)) return false;
+    if(fPMax>0 && !(p.rent<=fPMax)) return false;
+    if(fHood && p.city!==fHood) return false;
     return true;
   });
-  const s=document.getElementById('sort-sel').value;
-  if(s==='price-asc')list.sort((a,b)=>a.rent-b.rent);
-  else if(s==='price-desc')list.sort((a,b)=>b.rent-a.rent);
-  else if(s==='beds-asc')list.sort((a,b)=>parseInt(a.beds)-parseInt(b.beds));
-  else if(s==='beds-desc')list.sort((a,b)=>parseInt(b.beds)-parseInt(a.beds));
-  else list.sort((a,b)=>new Date(b.listed)-new Date(a.listed));
-  renderListings(list);renderActiveTags();
+  const sort = document.getElementById('sort-sel').value;
+  if(sort==='price-asc') list.sort((a,b)=>(a.rent||0)-(b.rent||0));
+  else if(sort==='price-desc') list.sort((a,b)=>(b.rent||0)-(a.rent||0));
+  else if(sort==='beds-asc') list.sort((a,b)=>(a.beds||0)-(b.beds||0));
+  else if(sort==='beds-desc') list.sort((a,b)=>(b.beds||0)-(a.beds||0));
+  else if(sort==='newest') list.sort((a,b)=>availSort(a.available)-availSort(b.available));
+  else list.sort((a,b)=>(b.premium?1:0)-(a.premium?1:0) || availSort(a.available)-availSort(b.available) || a.order-b.order);
+  renderListings(list);
+  renderActiveTags();
 }
+
 function renderListings(list){
-  document.getElementById('res-count').textContent=list.length;
-  const grid=document.getElementById('listings-grid'),nr=document.getElementById('no-results');
-  if(!list.length){grid.innerHTML='';nr.style.display='block';return;}
+  document.getElementById('res-count').textContent = list.length;
+  const grid = document.getElementById('listings-grid');
+  const nr = document.getElementById('no-results');
+  if(!list.length){
+    grid.innerHTML=''; nr.style.display='block';
+    if(!PROPS.length){
+      document.getElementById('no-results-title').textContent='Listings are updating';
+      document.getElementById('no-results-text').innerHTML='Please view our current availability directly on <a href="'+APPFOLIO_LISTINGS+'" target="_blank" rel="noopener" style="color:var(--gold-dark);">AppFolio</a> or contact us.';
+    }
+    return;
+  }
   nr.style.display='none';
-  grid.innerHTML=list.map(p=>{
-    const bg=BG[p.id%BG.length],em=EM[p.id%EM.length];
-    const tags=(p.tags||[]).slice(0,3).map(t=>`<span class="pc-tag">${t}</span>`).join('');
-    return`<div class="prop-card"><div class="pc-image"><div class="pc-img-inner" style="background:${bg};">${em}</div><div class="pc-badge ${p.status==='coming'?'badge-soon':'badge-avail'}">${p.status==='coming'?'Coming Soon':'Available Now'}</div><div class="pc-save">♡</div></div><div class="pc-body"><div class="pc-price">$${p.rent.toLocaleString()}<span class="pc-mo">/mo</span></div><div class="pc-avail-date">${p.avail}</div><div class="pc-addr"><strong>${p.addr}</strong>${p.city}, Rhode Island</div><div class="pc-stats"><div class="pc-stat"><strong>${bedLabel(p.beds)}</strong><span>Beds</span></div><div class="pc-stat"><strong>${bathLabel(p.baths)}</strong><span>Baths</span></div>${p.sqft?`<div class="pc-stat"><strong>${p.sqft.toLocaleString()}</strong><span>Sq Ft</span></div>`:''}<div class="pc-stat"><strong>${p.type.split(' ')[0]}</strong><span>Type</span></div></div><div class="pc-tags">${tags}</div><div class="pc-actions"><button class="btn-view-prop" onclick="alert('Connect AppFolio ID to load live listing.')">View Details</button><button class="btn-apply-prop" onclick="window.open('https://tenant.appfolio.com','_blank')">Apply Now</button></div></div></div>`;
+  grid.innerHTML = list.map(p=>{
+    const url = esc(p.url);
+    const soon = isSoon(p.available);
+    const img = p.image
+      ? `<img src="${esc(p.image)}" alt="${esc(p.address)}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'pc-img-inner',textContent:'🏠',style:'background:#1a1a1a'}))">`
+      : `<div class="pc-img-inner" style="background:linear-gradient(135deg,#0a0a0a,#1c1c1c);">🏠</div>`;
+    const badge = p.premium ? '<div class="pc-badge badge-avail">★ Featured</div>' : `<div class="pc-badge ${soon?'badge-soon':'badge-avail'}">${soon?'Coming Soon':'Available Now'}</div>`;
+    return `<div class="prop-card">
+      <a class="pc-image" href="${url}" target="_blank" rel="noopener" style="display:block;">
+        ${img}
+        ${badge}
+      </a>
+      <div class="pc-body">
+        <div class="pc-price">${p.rent?'$'+p.rent.toLocaleString():'Call'}<span class="pc-mo">${p.rent?'/mo':''}</span></div>
+        <div class="pc-avail-date">${esc(availDate(p.available))}</div>
+        <div class="pc-addr"><strong>${esc(p.address)}</strong>${esc(p.city)}, ${esc(p.state||'RI')} ${esc(p.zip)}</div>
+        <div class="pc-stats">
+          <div class="pc-stat"><strong>${p.beds==null?'—':bedLabel(p.beds)}</strong><span>Beds</span></div>
+          <div class="pc-stat"><strong>${p.baths==null?'—':bathLabel(p.baths)}</strong><span>Baths</span></div>
+          ${p.sqft?`<div class="pc-stat"><strong>${p.sqft.toLocaleString()}</strong><span>Sq Ft</span></div>`:''}
+        </div>
+        <div class="pc-actions">
+          <a class="btn-view-prop" href="${url}" target="_blank" rel="noopener" style="text-align:center;text-decoration:none;">View Details</a>
+          <a class="btn-apply-prop" href="${url}" target="_blank" rel="noopener" style="text-align:center;text-decoration:none;">Apply Now</a>
+        </div>
+      </div>
+    </div>`;
   }).join('');
 }
-function toggleDD(id){document.querySelectorAll('.filter-dd').forEach(d=>{if(d.id!==id)d.classList.remove('open');});document.getElementById(id).classList.toggle('open');}
-function closeAllDD(){document.querySelectorAll('.filter-dd').forEach(d=>d.classList.remove('open'));}
-document.addEventListener('click',e=>{if(!e.target.closest('.filter-group'))closeAllDD();});
-function pickBed(e,el,label){e.stopPropagation();fBeds=el.dataset.v;document.querySelectorAll('#dd-beds .fdd-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');const v=document.getElementById('beds-val');v.textContent=label;v.classList.toggle('ph',!el.dataset.v);applyFilters();closeAllDD();}
-function pickHood(e,el,label){e.stopPropagation();fHood=el.dataset.v;document.querySelectorAll('#dd-hood .fdd-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');const v=document.getElementById('hood-val');v.textContent=label;v.classList.toggle('ph',!el.dataset.v);applyFilters();closeAllDD();}
-function pickType(e,el,label){e.stopPropagation();fType=el.dataset.v;document.querySelectorAll('#dd-type .fdd-opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');const v=document.getElementById('type-val');v.textContent=label;v.classList.toggle('ph',!el.dataset.v);applyFilters();closeAllDD();}
-function syncPriceLabel(){fPMin=parseInt(document.getElementById('pmin').value)||0;fPMax=parseInt(document.getElementById('pmax').value)||0;const v=document.getElementById('price-val');if(fPMin||fPMax){const mn=fPMin?'$'+fPMin.toLocaleString():'Any';const mx=fPMax?'$'+fPMax.toLocaleString():'Any';v.textContent=mn+'–'+mx;v.classList.remove('ph');}else{v.textContent='Any';v.classList.add('ph');}}
-function quickPrice(mn,mx){document.getElementById('pmin').value=mn||'';document.getElementById('pmax').value=mx>=9999?'':mx;fPMin=mn;fPMax=mx>=9999?0:mx;syncPriceLabel();applyFilters();closeAllDD();}
-function clearFilters(){fBeds='';fPMin=0;fPMax=0;fHood='';fType='';fSearch='';document.getElementById('pmin').value='';document.getElementById('pmax').value='';['beds-val','hood-val','type-val'].forEach(id=>{const el=document.getElementById(id);el.textContent=id==='beds-val'?'Any':id==='hood-val'?'All Areas':'All Types';el.className='fg-value ph';});document.getElementById('price-val').textContent='Any';document.getElementById('price-val').className='fg-value ph';document.querySelectorAll('.fdd-opt').forEach(o=>o.classList.remove('sel'));document.querySelectorAll('.fdd-opt[data-v=""]').forEach(o=>o.classList.add('sel'));applyFilters();}
-function renderActiveTags(){const c=document.getElementById('active-tags');const tags=[];if(fBeds!=='')tags.push({l:bedLabel(fBeds),fn:()=>{fBeds='';document.getElementById('beds-val').textContent='Any';document.getElementById('beds-val').className='fg-value ph';document.querySelectorAll('#dd-beds .fdd-opt').forEach(o=>o.classList.remove('sel'));document.querySelector('#dd-beds .fdd-opt[data-v=""]').classList.add('sel');applyFilters();}});if(fPMin||fPMax){const mn=fPMin?'$'+fPMin.toLocaleString():'Any';const mx=fPMax?'$'+fPMax.toLocaleString():'Any';tags.push({l:mn+'–'+mx+'/mo',fn:()=>{fPMin=0;fPMax=0;document.getElementById('pmin').value='';document.getElementById('pmax').value='';document.getElementById('price-val').textContent='Any';document.getElementById('price-val').className='fg-value ph';applyFilters();}});}if(fHood)tags.push({l:fHood,fn:()=>{fHood='';document.getElementById('hood-val').textContent='All Areas';document.getElementById('hood-val').className='fg-value ph';document.querySelectorAll('#dd-hood .fdd-opt').forEach(o=>o.classList.remove('sel'));document.querySelector('#dd-hood .fdd-opt[data-v=""]').classList.add('sel');applyFilters();}});if(fType)tags.push({l:fType,fn:()=>{fType='';document.getElementById('type-val').textContent='All Types';document.getElementById('type-val').className='fg-value ph';document.querySelectorAll('#dd-type .fdd-opt').forEach(o=>o.classList.remove('sel'));document.querySelector('#dd-type .fdd-opt[data-v=""]').classList.add('sel');applyFilters();}});window._atags=tags;c.innerHTML=tags.map((t,i)=>`<div class="atag">${t.l}<button class="atag-x" onclick="window._atags[${i}].fn()">×</button></div>`).join('');}
-function heroSearch(){fSearch=document.getElementById('hero-search-input').value.toLowerCase().trim();const t=document.getElementById('hero-type').value;fType=t;document.getElementById('vacancies').scrollIntoView({behavior:'smooth'});setTimeout(applyFilters,400);}
+
+/* Load live listings from AppFolio (via /api/listings) */
+async function loadListings(){
+  const grid=document.getElementById('listings-grid');
+  grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px 0;color:#888;font-family:var(--font-h);letter-spacing:2px;font-size:11px;text-transform:uppercase;">Loading live availability…</div>';
+  try{
+    const r=await fetch(LISTINGS_API,{cache:'no-cache'}); if(!r.ok) throw new Error(r.status);
+    const data=await r.json(); PROPS=data.listings||[];
+  }catch(e){ PROPS=[]; }
+  let prem=[];
+  try{ const r=await fetch('/premium.json',{cache:'no-cache'}); if(r.ok){ prem=((await r.json()).premium||[]).slice(0,6); } }catch(e){}
+  PROPS.forEach(p=>{ p.premium = prem.includes(p.id) || prem.some(k=>k && p.address.toLowerCase().includes(String(k).toLowerCase())); });
+  buildAreaFilter();
+  applyFilters();
+}
+function buildAreaFilter(){
+  const cities=[...new Set(PROPS.map(p=>p.city).filter(Boolean))].sort();
+  const dd=document.getElementById('dd-hood');
+  dd.innerHTML='<div class="fdd-opt sel" data-v="" onclick="pickHood(event,this,\'All Areas\')">All Areas<span class="fdd-check">✓</span></div>'
+    + cities.map(c=>`<div class="fdd-opt" data-v="${esc(c)}" onclick="pickHood(event,this,'${esc(c)}')">${esc(c)}<span class="fdd-check">✓</span></div>`).join('');
+}
+
+/* FILTER CONTROLS */
+function toggleDD(id){
+  document.querySelectorAll('.filter-dd').forEach(d=>{ if(d.id!==id) d.classList.remove('open'); });
+  document.getElementById(id).classList.toggle('open');
+}
+function closeAllDD(){ document.querySelectorAll('.filter-dd').forEach(d=>d.classList.remove('open')); }
+document.addEventListener('click', e=>{ if(!e.target.closest('.filter-group')) closeAllDD(); });
+
+function pickBed(e,el,label){
+  e.stopPropagation(); fBeds=el.dataset.v;
+  document.querySelectorAll('#dd-beds .fdd-opt').forEach(o=>o.classList.remove('sel')); el.classList.add('sel');
+  const v=document.getElementById('beds-val'); v.textContent=label; v.classList.toggle('ph',!el.dataset.v);
+  applyFilters(); closeAllDD();
+}
+function pickHood(e,el,label){
+  e.stopPropagation(); fHood=el.dataset.v;
+  document.querySelectorAll('#dd-hood .fdd-opt').forEach(o=>o.classList.remove('sel')); el.classList.add('sel');
+  const v=document.getElementById('hood-val'); v.textContent=label; v.classList.toggle('ph',!el.dataset.v);
+  applyFilters(); closeAllDD();
+}
+function syncPriceLabel(){
+  fPMin=parseInt(document.getElementById('pmin').value)||0;
+  fPMax=parseInt(document.getElementById('pmax').value)||0;
+  const v=document.getElementById('price-val');
+  if(fPMin||fPMax){
+    const mn=fPMin?'$'+fPMin.toLocaleString():'Any';
+    const mx=fPMax?'$'+fPMax.toLocaleString():'Any';
+    v.textContent=mn+'–'+mx; v.classList.remove('ph');
+  } else { v.textContent='Any'; v.classList.add('ph'); }
+}
+function quickPrice(mn,mx){
+  document.getElementById('pmin').value=mn||''; document.getElementById('pmax').value=mx>=9999?'':mx;
+  fPMin=mn; fPMax=mx>=9999?0:mx; syncPriceLabel(); applyFilters(); closeAllDD();
+}
+function clearFilters(){
+  fBeds=''; fPMin=0; fPMax=0; fHood=''; fSearch='';
+  document.getElementById('pmin').value=''; document.getElementById('pmax').value='';
+  ['beds-val','hood-val'].forEach(id=>{ const el=document.getElementById(id); el.textContent=id==='beds-val'?'Any':'All Areas'; el.className='fg-value ph'; });
+  document.getElementById('price-val').textContent='Any'; document.getElementById('price-val').className='fg-value ph';
+  document.querySelectorAll('.fdd-opt').forEach(o=>o.classList.remove('sel'));
+  document.querySelectorAll('.fdd-opt[data-v=""]').forEach(o=>o.classList.add('sel'));
+  applyFilters();
+}
+function renderActiveTags(){
+  const c=document.getElementById('active-tags'); const tags=[];
+  if(fBeds!=='') tags.push({l:bedLabel(fBeds),fn:()=>{fBeds='';document.getElementById('beds-val').textContent='Any';document.getElementById('beds-val').className='fg-value ph';document.querySelectorAll('#dd-beds .fdd-opt').forEach(o=>o.classList.remove('sel'));document.querySelector('#dd-beds .fdd-opt[data-v=""]').classList.add('sel');applyFilters();}});
+  if(fPMin||fPMax){const mn=fPMin?'$'+fPMin.toLocaleString():'Any';const mx=fPMax?'$'+fPMax.toLocaleString():'Any';tags.push({l:mn+'–'+mx+'/mo',fn:()=>{fPMin=0;fPMax=0;document.getElementById('pmin').value='';document.getElementById('pmax').value='';document.getElementById('price-val').textContent='Any';document.getElementById('price-val').className='fg-value ph';applyFilters();}});}
+  if(fHood) tags.push({l:fHood,fn:()=>{fHood='';document.getElementById('hood-val').textContent='All Areas';document.getElementById('hood-val').className='fg-value ph';document.querySelectorAll('#dd-hood .fdd-opt').forEach(o=>o.classList.remove('sel'));document.querySelector('#dd-hood .fdd-opt[data-v=""]').classList.add('sel');applyFilters();}});
+  window._atags=tags;
+  c.innerHTML=tags.map((t,i)=>`<div class="atag">${t.l}<button class="atag-x" onclick="window._atags[${i}].fn()">×</button></div>`).join('');
+}
+
+/* HERO SEARCH */
+function heroSearch(){
+  fSearch=document.getElementById('hero-search-input').value.toLowerCase().trim();
+    document.getElementById('vacancies').scrollIntoView({behavior:'smooth'});
+  setTimeout(applyFilters,400);
+}
+
+/* ROI CALC + COMPS + LEAD CAPTURE */
 const RENT_MAP={'0':1100,'1':1400,'2':1750,'3':2200,'4':2700,'5':3200};
-function calcROI(){const first=document.getElementById('lf-first').value.trim();const email=document.getElementById('lf-email').value.trim();const beds=document.getElementById('lf-beds').value;if(!first||!email||!beds){alert('Please fill in your name, email, and bedroom count.');return;}const monthly=RENT_MAP[beds]||1500;const annual=monthly*12;const fee=Math.round(annual*0.08);const net=annual-fee;const cap=((net/(monthly*150))*100).toFixed(1);document.getElementById('r-monthly').textContent='$'+monthly.toLocaleString()+'/mo';document.getElementById('r-annual').textContent='$'+annual.toLocaleString();document.getElementById('r-fee').textContent='−$'+fee.toLocaleString();document.getElementById('r-net').textContent='$'+net.toLocaleString();document.getElementById('r-cap').textContent=cap+'%';const rr=document.getElementById('roi-result');rr.classList.add('show');rr.scrollIntoView({behavior:'smooth',block:'center'});const btn=document.querySelector('.btn-calculate');btn.textContent='✓ Analysis Ready — We\'ll Follow Up Within 24hrs';btn.style.background='#2d5a27';btn.style.color='#fff';}
+// Google Apps Script web-app URL that emails Jena + Alex and logs leads to a sheet. Set after deployment.
+const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxiUPWW_3LP4Nr4z1VssKjqdEwWFOIvFDvCP9stkwJX-ytIjW3n00L7NV02nkXOpYPm/exec';
+
+function median(a){ const s=[...a].sort((x,y)=>x-y), m=Math.floor(s.length/2); return s.length%2?s[m]:Math.round((s[m-1]+s[m])/2); }
+
+function pickComps(beds, addr, target){
+  const b=+beds; const city=(PROPS.map(p=>p.city).filter(Boolean).find(c=>addr.toLowerCase().includes(c.toLowerCase())))||'';
+  const match=p=>b>=5? p.beds>=5 : p.beds===b;
+  const score=p=>{
+    let sc=Math.abs((p.rent||target)-target)/100;
+    sc+=Math.abs((p.beds||0)-b)*30;
+    if(city && p.city!==city) sc+=8;
+    return sc;
+  };
+  const pool=PROPS.filter(p=>p.rent);
+  const same=pool.filter(match).sort((x,y)=>score(x)-score(y));
+  const rest=pool.filter(p=>!match(p)).sort((x,y)=>score(x)-score(y));
+  return {comps:[...same,...rest].slice(0,3), sameCount:same.length};
+}
+
+function sendLead(lead){
+  if(!LEAD_ENDPOINT) return Promise.resolve(false);
+  return fetch(LEAD_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(lead)})
+    .then(()=>true).catch(()=>false);
+}
+
+async function calcROI(){
+  if(document.getElementById('lf-website').value) return; // honeypot
+  const first=document.getElementById('lf-first').value.trim();
+  const last=document.getElementById('lf-last').value.trim();
+  const email=document.getElementById('lf-email').value.trim();
+  const phone=document.getElementById('lf-phone').value.trim();
+  const addr=document.getElementById('lf-addr').value.trim();
+  const beds=document.getElementById('lf-beds').value;
+  const type=document.getElementById('lf-type').value;
+  const status=document.getElementById('lf-status').value;
+  if(!first||!email||!beds){ alert('Please fill in your name, email, and bedroom count.'); return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ alert('Please enter a valid email address.'); return; }
+  const btn=document.querySelector('.btn-calculate');
+  btn.disabled=true; btn.textContent='Analyzing…';
+
+  if(!PROPS.length && typeof loadListings==='function'){ try{ await loadListings(); }catch(e){} }
+  const base=RENT_MAP[beds]||1500;
+  let {comps,sameCount}=pickComps(beds,addr,base);
+  const sameRents=comps.filter(c=>(+beds>=5?c.beds>=5:c.beds===+beds)).map(c=>c.rent);
+  const monthly = sameRents.length>=2 ? median(sameRents) : base;
+  const curRent = parseFloat(document.getElementById('lf-rent').value)||0;
+  const pct=(a,b)=>((a/b-1)*100);
+  const fmtPct=v=>(v>=0?'+':'−')+Math.abs(v).toFixed(1)+'%';
+  const basis = sameRents.length>=2 ? 'Based on '+sameRents.length+' comparable SOHO listings' : 'Based on Providence County market data';
+  const annual=monthly*12, fee=Math.round(annual*0.08), net=annual-fee;
+  const cap=((net/(monthly*150))*100).toFixed(1);
+  document.getElementById('r-monthly').textContent='$'+monthly.toLocaleString()+'/mo';
+  document.getElementById('r-annual').textContent='$'+annual.toLocaleString();
+  document.getElementById('r-fee').textContent='−$'+fee.toLocaleString();
+  document.getElementById('r-net').textContent='$'+net.toLocaleString();
+  document.getElementById('r-cap').textContent=cap+'%';
+  const vsRow=document.getElementById('r-vs-row');
+  if(curRent>0){ const d=pct(curRent,monthly); vsRow.style.display='flex'; document.getElementById('r-vs').textContent=fmtPct(d)+(d<-1?' below market':d>1?' above market':' at market'); } else vsRow.style.display='none';
+
+  const box=document.getElementById('roi-comps'), head=document.getElementById('roi-comps-head');
+  if(comps.length){
+    head.style.display='block'; head.textContent='3 Comparable SOHO Listings · '+basis.replace('Based on ','');
+    box.innerHTML=comps.map(c=>`<a href="${esc(c.url)}" target="_blank" rel="noopener" style="display:flex;gap:14px;align-items:center;text-decoration:none;border:1px solid rgba(190,175,135,0.2);padding:10px;">
+      ${c.image?`<img src="${esc(c.image)}" alt="" loading="lazy" style="width:84px;height:64px;object-fit:cover;flex:none;" onerror="this.style.display='none'">`:''}
+      <span style="flex:1;color:var(--white);font-size:12px;line-height:1.5;"><strong style="font-weight:500;">${esc(c.address)}</strong><br><span style="color:var(--concrete);">${esc(c.city)} · ${c.beds==null?'—':bedLabel(c.beds)} · ${c.baths==null?'—':bathLabel(c.baths)}</span></span>
+      <span style="font-family:var(--font-h);font-size:20px;font-weight:200;color:var(--gold);">$${c.rent.toLocaleString()}<small style="font-size:10px;color:var(--concrete);">/mo</small></span></a>`).join('');
+  } else { head.style.display='none'; box.innerHTML=''; }
+
+  const rr=document.getElementById('roi-result'); rr.classList.add('show');
+  rr.scrollIntoView({behavior:'smooth',block:'center'});
+
+  const sent=await sendLead({
+    source:'soho-mgmt.com rental analysis', submitted:new Date().toISOString(),
+    name:(first+' '+last).trim(), email, phone, address:addr, beds, type, situation:status,
+    estimatedRent:monthly, currentRent:curRent||'', vsMarketPct:curRent>0?+pct(curRent,monthly).toFixed(1):'', basis,
+    comps:comps.map(c=>c.address+', '+c.city+' — '+(c.beds==null?'?':c.beds)+'bd $'+c.rent+' — '+c.url)
+  });
+  btn.disabled=false;
+  btn.textContent = sent ? '✓ Analysis Ready — We\'ll Follow Up Within 24hrs' : '✓ Analysis Ready';
+  btn.style.background='#2d5a27'; btn.style.color='#fff';
+}
+
+/* CHAT */
 let chatOpen=false;
-function toggleChat(){chatOpen=!chatOpen;document.getElementById('chat-window').classList.toggle('open',chatOpen);document.getElementById('chat-badge').style.display='none';if(chatOpen)document.getElementById('chat-inp').focus();}
-function quickChat(text){document.getElementById('chat-quick').style.display='none';addMsg(text,'user');showTyping();setTimeout(()=>{removeTyping();addMsg(getBotReply(text),'bot');},1300);}
-function sendChat(){const inp=document.getElementById('chat-inp');const text=inp.value.trim();if(!text)return;inp.value='';document.getElementById('chat-quick').style.display='none';addMsg(text,'user');showTyping();setTimeout(()=>{removeTyping();addMsg(getBotReply(text),'bot');},1400);}
-function addMsg(text,role){const msgs=document.getElementById('chat-msgs');const div=document.createElement('div');div.className='msg '+role;div.innerHTML='<div class="msg-bub">'+text+'</div>';msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
-function showTyping(){const msgs=document.getElementById('chat-msgs');const div=document.createElement('div');div.className='msg bot';div.id='typing';div.innerHTML='<div class="msg-bub"><div class="typing-dot"><span></span><span></span><span></span></div></div>';msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
-function removeTyping(){const t=document.getElementById('typing');if(t)t.remove();}
-function getBotReply(m){m=m.toLowerCase();if(m.includes('apartment')||m.includes('rental')||m.includes('find')||m.includes('rent')||m.includes('home')||m.includes('bedroom'))return"We have units available across Providence County — studios to 3+ bedrooms. Browse listings above, or tell me a neighborhood and budget!";if(m.includes('owner')||m.includes('property')||m.includes('manage')||m.includes('earn')||m.includes('invest'))return"Fill out our free Rent Analysis form on this page and we'll show you what your property could earn. A SOHO advisor follows up within 24 hours.";if(m.includes('fee')||m.includes('cost')||m.includes('charge'))return"Our management fee is approximately 8% of monthly rent — no vacancy fees, no hidden markups on maintenance.";if(m.includes('appfolio')||m.includes('portal')||m.includes('login'))return"Tenant Portal: tenant.appfolio.com. Owner Portal: owner.appfolio.com — financial statements, maintenance updates, real-time reports.";if(m.includes('buy')||m.includes('purchase')||m.includes('smith')||m.includes('oak'))return"For buying or selling in Rhode Island, visit our sister brokerage Smith & Oak Real Estate Co. at smithoakre.com!";if(m.includes('maintenance')||m.includes('repair'))return"Log into your Tenant Portal at tenant.appfolio.com to submit maintenance requests. For emergencies call (401) 555-0100.";return"Our team is available Mon–Fri 9am–5pm. Call (401) 555-0100 or email info@sohomgmt.com. How can I help?";}
-window.addEventListener('scroll',()=>{document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>60);});
-function openMobileMenu(){document.getElementById('mobile-menu').classList.add('open');}
-function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');}
-function scrollTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.12});
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-window').classList.toggle('open',chatOpen);
+  document.getElementById('chat-badge').style.display='none';
+  if(chatOpen) document.getElementById('chat-inp').focus();
+}
+function quickChat(text){
+  document.getElementById('chat-quick').style.display='none';
+  addMsg(text,'user'); showTyping();
+  setTimeout(()=>{ removeTyping(); addMsg(getBotReply(text),'bot'); },1300);
+}
+function sendChat(){
+  const inp=document.getElementById('chat-inp'); const text=inp.value.trim(); if(!text) return;
+  inp.value=''; document.getElementById('chat-quick').style.display='none';
+  addMsg(text,'user'); showTyping();
+  setTimeout(()=>{ removeTyping(); addMsg(getBotReply(text),'bot'); },1400);
+}
+function addMsg(text,role){
+  const msgs=document.getElementById('chat-msgs');
+  const div=document.createElement('div'); div.className='msg '+role;
+  div.innerHTML='<div class="msg-bub">'+text+'</div>';
+  msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
+}
+function showTyping(){
+  const msgs=document.getElementById('chat-msgs');
+  const div=document.createElement('div'); div.className='msg bot'; div.id='typing';
+  div.innerHTML='<div class="msg-bub"><div class="typing-dot"><span></span><span></span><span></span></div></div>';
+  msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
+}
+function removeTyping(){ const t=document.getElementById('typing'); if(t) t.remove(); }
+function getBotReply(m){
+  m=m.toLowerCase();
+  if(m.includes('apartment')||m.includes('rental')||m.includes('find')||m.includes('rent')||m.includes('home')||m.includes('bedroom'))
+    return "We have a number of units available right now across Providence County — studios to 3+ bedrooms. Scroll up to browse our available listings, or tell me a neighborhood and budget and I'll help narrow it down!";
+  if(m.includes('owner')||m.includes('property')||m.includes('manage')||m.includes('earn')||m.includes('invest'))
+    return "Great question! Fill out our free Rent Analysis form on this page and we'll show you exactly what your property could earn. A SOHO advisor follows up within 24 hours — no obligation at all.";
+  if(m.includes('fee')||m.includes('cost')||m.includes('charge')||m.includes('price'))
+    return "Our management fee is approximately 8% of monthly rent collected — no vacancy fees, no hidden markups on maintenance. Want me to connect you with an advisor for a full quote?";
+  if(m.includes('appfolio')||m.includes('portal')||m.includes('login'))
+    return "Tenant Portal: tenant.appfolio.com — pay rent, submit maintenance, view your lease. Owner Portal: owner.appfolio.com — financial statements, maintenance updates, and real-time reports.";
+  if(m.includes('buy')||m.includes('purchase')||m.includes('smith')||m.includes('oak'))
+    return "For buying or selling real estate in Rhode Island, check out our sister brokerage Smith & Oak Real Estate Co. at smithoakre.com — they're experts in Providence County investment properties!";
+  if(m.includes('maintenance')||m.includes('repair')||m.includes('broken'))
+    return "For maintenance requests, please log into your Tenant Portal at tenant.appfolio.com — it's the fastest way to get a ticket opened. For emergencies, call us directly at (401) 555-0100.";
+  return "Thanks for reaching out! Our team is available Mon–Fri 9am–5pm. You can also call us at (401) 555-0100 or email info@sohomgmt.com. Is there anything specific about renting or property management I can help with?";
+}
+
+/* NAV SCROLL */
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+/* MOBILE MENU */
+function openMobileMenu(){ document.getElementById('mobile-menu').classList.add('open'); }
+function closeMobileMenu(){ document.getElementById('mobile-menu').classList.remove('open'); }
+
+/* SMOOTH SCROLL */
+function scrollTo(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+
+/* SCROLL REVEAL */
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.12});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-applyFilters();
+
+/* INIT */
+loadListings();
 </script>
 </body>
 </html>
