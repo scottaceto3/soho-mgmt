@@ -1,5 +1,4 @@
-// Cloudflare Pages Function: GET /api/listings
-// Reads SOHO's public AppFolio listings page (no API key) and returns clean JSON.
+// SOHO Management site Worker: serves static files + /api/listings (reads public AppFolio listings)
 const HOST = 'https://smithoakre.appfolio.com';
 
 const decode = s => (s || '')
@@ -67,20 +66,17 @@ function parse(html) {
   return out.filter(x => x.rent || x.address);
 }
 
-export async function onRequestGet() {
+
+async function listings() {
   try {
     const r = await fetch(HOST + '/listings', {
       headers: { 'User-Agent': 'SOHO-Website/1.0' },
       cf: { cacheTtl: 300, cacheEverything: true }
     });
     if (!r.ok) throw new Error('AppFolio ' + r.status);
-    const listings = parse(await r.text());
-    return new Response(JSON.stringify({ updated: new Date().toISOString(), count: listings.length, listings }), {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'Cache-Control': 'public, max-age=120, s-maxage=300',
-        'Access-Control-Allow-Origin': '*'
-      }
+    const items = parse(await r.text());
+    return new Response(JSON.stringify({ updated: new Date().toISOString(), count: items.length, listings: items }), {
+      headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=120, s-maxage=300' }
     });
   } catch (e) {
     return new Response(JSON.stringify({ error: String(e.message || e), listings: [] }), {
@@ -88,3 +84,11 @@ export async function onRequestGet() {
     });
   }
 }
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    if (url.pathname === '/api/listings') return listings();
+    return env.ASSETS.fetch(request);
+  }
+};
