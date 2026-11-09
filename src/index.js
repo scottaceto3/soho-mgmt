@@ -33,7 +33,9 @@ function parse(html) {
     const city = parts.length >= 3 ? parts[parts.length - 2] : '';
     const street = parts.slice(0, parts.length - 2).join(', ');
     const titleM = b.match(/<a[^>]+href="\/listings\/detail\/[^"]+"[^>]*>\s*([^<\s][^<]*)<\/a>/i);
-    const img = (b.match(/<img[^>]+(?:data-original|data-src|src)="([^"]+)"/i) || [])[1] || '';
+    const imgTag = (b.match(/<img[^>]*listing-item__image[^>]*>/i) || b.match(/<img[^>]*>/i) || [''])[0];
+    let img = (imgTag.match(/data-original="([^"]+)"/i) || imgTag.match(/data-src="([^"]+)"/i) || [])[1] || '';
+    if (!img) { const sr = (imgTag.match(/\ssrc="([^"]+)"/i) || [])[1] || ''; img = /place_?holder/i.test(sr) ? '' : sr; }
     const sq = (b.match(/([\d,]{3,6})\s*(?:sq\.?\s*ft|sf)\b/i) || [])[1];
     const avail = grab(b, 'js-listing-available').replace(/^Available\s*/i, '');
     const rec = {
