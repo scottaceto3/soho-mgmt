@@ -1115,41 +1115,15 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
 </section>
 
 <!-- ─── TESTIMONIALS ─── -->
-<section class="testimonials">
+<section class="testimonials" id="reviews" style="display:none">
   <div class="container">
     <div class="section-head reveal">
       <span class="tag">Client Stories</span>
       <h2>Trusted by <em>Owners &amp; Residents</em></h2>
+      <p id="reviews-sub"></p>
     </div>
-    <div class="test-grid">
-      <div class="test-card reveal">
-        <div class="test-stars">
-          <span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span>
-        </div>
-        <p class="test-quote">"SOHO took over my three-unit in Cranston and within 30 days had it fully leased at $200 more per unit than I was getting before. The AppFolio portal alone is worth it."</p>
-        <div class="test-divider"></div>
-        <div class="test-author">Maria T.</div>
-        <div class="test-role">Property Owner · Cranston, RI</div>
-      </div>
-      <div class="test-card reveal reveal-delay-2">
-        <div class="test-stars">
-          <span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span>
-        </div>
-        <p class="test-quote">"Finding an apartment in Providence used to be so stressful. The SOHO online application took 10 minutes and I had a lease signed the same week. Truly painless."</p>
-        <div class="test-divider"></div>
-        <div class="test-author">James R.</div>
-        <div class="test-role">Resident · Providence, RI</div>
-      </div>
-      <div class="test-card reveal reveal-delay-4">
-        <div class="test-stars">
-          <span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span>
-        </div>
-        <p class="test-quote">"I was self-managing for years. Handing it off to SOHO was the best investment decision I've made. My stress went to zero and my net income actually increased."</p>
-        <div class="test-divider"></div>
-        <div class="test-author">David K.</div>
-        <div class="test-role">Multi-Family Owner · North Providence, RI</div>
-      </div>
-    </div>
+    <div class="test-grid" id="reviews-grid"></div>
+    <p style="text-align:center;margin-top:36px"><a id="reviews-link" href="#" target="_blank" rel="noopener" style="font-family:var(--font-h);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-dark)">Read all reviews on Google →</a></p>
   </div>
 </section>
 
@@ -1270,21 +1244,21 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
 </footer>
 
 <!-- ─── AI CHAT ─── -->
-<div class="chat-fab" onclick="toggleChat()" title="Chat with SOHO">
+<div class="chat-fab" onclick="toggleChat()" title="Chat with Elise">
   <div class="chat-badge" id="chat-badge">1</div>
   <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
 </div>
 <div class="chat-window" id="chat-window">
   <div class="chat-header">
-    <div class="chat-av">S·O</div>
+    <div class="chat-av">E</div>
     <div class="chat-info">
-      <div class="chat-name">SOHO Assistant</div>
+      <div class="chat-name">Elise · SOHO Assistant</div>
       <div class="chat-status">● Online — typically replies instantly</div>
     </div>
     <button class="chat-close" onclick="toggleChat()">×</button>
   </div>
   <div class="chat-msgs" id="chat-msgs">
-    <div class="msg bot"><div class="msg-bub">👋 Hi, I'm the SOHO Management assistant. Are you a <strong>landlord</strong> looking for property management, or a <strong>tenant</strong> looking for a home? Tell me what you need and I'll get the right person on it.</div></div>
+    <div class="msg bot"><div class="msg-bub">👋 Hi, I'm Elise, the SOHO Management assistant. Are you a <strong>landlord</strong> looking for property management, or a <strong>tenant</strong> looking for a home? Tell me what you need and I'll get the right person on it.</div></div>
   </div>
   <div class="chat-quick" id="chat-quick">
     <button class="cq-btn" onclick="chooseRole('landlord')">I'm a landlord</button>
@@ -1744,6 +1718,23 @@ document.getElementById('cf-send').addEventListener('click', function(){
    .then(function(){st.style.color='#A19276';st.textContent='Thank you! Our team will follow up within one business day.';['cf-name','cf-email','cf-msg'].forEach(function(i){document.getElementById(i).value='';});btn.textContent='Sent ✓';})
    .catch(function(){st.style.color='#c0392b';st.textContent='Something went wrong. Please try again.';btn.disabled=false;btn.textContent='Send Message →';});
 });
+
+/* GOOGLE REVIEWS (5-star only, served by /api/reviews) */
+(function(){
+  fetch('/api/reviews').then(r=>r.json()).then(d=>{
+    const rv=(d.reviews||[]); if(!rv.length) return;
+    const pick=rv.slice().sort(()=>Math.random()-.5).slice(0,3);
+    document.getElementById('reviews-grid').innerHTML=pick.map(v=>`<div class="test-card">
+      <div class="test-stars"><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span></div>
+      <p class="test-quote">"${esc(v.text.length>320?v.text.slice(0,317)+'…':v.text)}"</p>
+      <div class="test-divider"></div>
+      <div class="test-author">${esc(v.author)}</div>
+      <div class="test-role">Google review${v.when?' · '+esc(v.when):''}</div></div>`).join('');
+    if(d.rating&&d.count) document.getElementById('reviews-sub').textContent=d.rating.toFixed(1)+' ★ on Google · '+d.count+' reviews';
+    if(d.url) document.getElementById('reviews-link').href=d.url; else document.getElementById('reviews-link').style.display='none';
+    document.getElementById('reviews').style.display='';
+  }).catch(()=>{});
+})();
 </script>
 </body>
 </html>

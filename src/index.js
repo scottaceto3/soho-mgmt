@@ -87,10 +87,36 @@ async function listings() {
   }
 }
 
+// Google reviews (Places API New). Needs secret GOOGLE_PLACES_KEY and var GOOGLE_PLACE_ID. Only 5-star reviews are returned.
+async function reviews(env) {
+  const H = { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=21600' };
+  if (!env.GOOGLE_PLACES_KEY || !env.GOOGLE_PLACE_ID) {
+    return new Response(JSON.stringify({ configured: false, reviews: [] }), { headers: { ...H, 'Cache-Control': 'no-store' } });
+  }
+  try {
+    const r = await fetch('https://places.googleapis.com/v1/places/' + encodeURIComponent(env.GOOGLE_PLACE_ID), {
+      headers: { 'X-Goog-Api-Key': env.GOOGLE_PLACES_KEY, 'X-Goog-FieldMask': 'displayName,rating,userRatingCount,googleMapsUri,reviews' },
+      cf: { cacheTtl: 21600, cacheEverything: true }
+    });
+    if (!r.ok) throw new Error('Places API ' + r.status);
+    const d = await r.json();
+    const list = (d.reviews || []).filter(v => v.rating === 5 && v.text && v.text.text && v.text.text.trim().length > 20).map(v => ({
+      author: v.authorAttribution?.displayName || 'Google user',
+      authorUrl: v.authorAttribution?.uri || '',
+      when: v.relativePublishTimeDescription || '',
+      text: v.text.text.trim()
+    }));
+    return new Response(JSON.stringify({ configured: true, name: d.displayName?.text || '', rating: d.rating || null, count: d.userRatingCount || 0, url: d.googleMapsUri || '', reviews: list }), { headers: H });
+  } catch (e) {
+    return new Response(JSON.stringify({ configured: true, error: String(e.message || e), reviews: [] }), { status: 200, headers: { ...H, 'Cache-Control': 'no-store' } });
+  }
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === '/api/listings') return listings();
+    if (url.pathname === '/api/reviews') return reviews(env);
     return env.ASSETS.fetch(request);
   }
 };
