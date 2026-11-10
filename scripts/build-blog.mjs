@@ -31,7 +31,7 @@ const card = p => `<a class="card" href="/blog/${p.slug}/"><span class="tag">${e
 fs.mkdirSync(path.join(ROOT, 'public/blog'), { recursive: true });
 // index
 fs.writeFileSync(path.join(ROOT, 'public/blog/index.html'),
-  head('SOHO Local Guides | Life Around Our Rentals in Rhode Island & Southern Massachusetts', 'Coffee shops, things to do, schools and neighborhood life around SOHO Management rentals across Rhode Island &amp; Southern Massachusetts.', '/blog/') +
+  head('SOHO Local Guides | Life Around Our Rentals in Rhode Island & Southern Massachusetts', 'Coffee shops, things to do, schools and neighborhood life around SOHO Management rentals across Rhode Island & Southern Massachusetts.', '/blog/') +
   `<header class="hero"><span class="tag">SOHO Local Guides</span><h1>Life Around Our Homes</h1><p>Neighborhood spotlights, local businesses and things to do near SOHO Management rentals across Rhode Island and Southern Massachusetts.</p></header>
 <main class="grid">${posts.map(card).join('') || '<p class="empty">First guide coming soon.</p>'}</main>` + foot);
 
