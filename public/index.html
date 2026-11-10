@@ -517,6 +517,8 @@ section{padding:120px 0;}
 }
 .ci-label{font-family:var(--font-h);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:4px;}
 .ci-value{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.5;}
+.ci-value a{color:inherit;}
+.ci-value a:hover{color:var(--gold);}
 .contact-form-wrap{background:var(--gunmetal);border:1px solid var(--gold-border);padding:48px;}
 .cf-field{margin-bottom:16px;}
 .cf-field label{display:block;font-family:var(--font-h);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:300;margin-bottom:8px;}
@@ -788,7 +790,7 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
           <div class="pb-title">Student Rentals</div>
         </div>
       </a>
-      <a href="#owners" class="portal-btn highlight" onclick="event.preventDefault();scrollTo('owners')">
+      <a href="#owners" class="portal-btn highlight" onclick="event.preventDefault();goSection('owners')">
         <div class="pb-icon">📊</div>
         <div class="pb-text">
           <div class="pb-label">Property Owners</div>
@@ -846,16 +848,16 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
     <h2>Maximize Your Investment Returns</h2>
     <p>SOHO Management handles everything — from marketing and screening to maintenance and financial reporting. See what your property could earn today, at no cost.</p>
     <div class="path-links">
-      <a href="#owners" class="path-link" onclick="event.preventDefault();scrollTo('owners')">
+      <a href="#owners" class="path-link" onclick="event.preventDefault();goSection('owners')">
         <span>Get a Free Rent Analysis</span><span class="arr">→</span>
       </a>
       <a href="https://smithoakre.appfolio.com/connect" target="_blank" class="path-link">
         <span>Owner Portal Login</span><span class="arr">→</span>
       </a>
-      <a href="#owners" class="path-link" onclick="event.preventDefault();scrollTo('owners')">
+      <a href="#owners" class="path-link" onclick="event.preventDefault();goSection('owners')">
         <span>Calculate Your ROI</span><span class="arr">→</span>
       </a>
-      <a href="#why" class="path-link" onclick="event.preventDefault();scrollTo('why')">
+      <a href="#why" class="path-link" onclick="event.preventDefault();goSection('why')">
         <span>Why Choose SOHO</span><span class="arr">→</span>
       </a>
     </div>
@@ -1023,7 +1025,7 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
             <div class="lf-field"><label>Last Name</label><input type="text" id="lf-last" placeholder="Smith"></div>
           </div>
           <div class="lf-field"><label>Email Address</label><input type="email" id="lf-email" placeholder="john@email.com"></div>
-          <div class="lf-field"><label>Phone Number</label><input type="tel" id="lf-phone" placeholder="(401) 555-0100"></div>
+          <div class="lf-field"><label>Phone Number</label><input type="tel" id="lf-phone" placeholder="Your phone number"></div>
           <div class="lf-field"><label>Current Monthly Rent <span style="opacity:.5;">(optional)</span></label><input type="number" id="lf-rent" placeholder="e.g. 1,650" min="0" step="25"></div>
           <div class="lf-field"><label>Property Address</label><input type="text" id="lf-addr" placeholder="123 Main St, Providence, RI"></div>
           <div class="lf-row">
@@ -1185,14 +1187,14 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
             <div class="ci-icon">📞</div>
             <div>
               <div class="ci-label">Phone</div>
-              <div class="ci-value">(401) 555-0100</div>
+              <div class="ci-value"><a href="tel:+14015667378">(401) 566-7378</a></div>
             </div>
           </div>
           <div class="ci-item">
             <div class="ci-icon">✉️</div>
             <div>
               <div class="ci-label">Email</div>
-              <div class="ci-value">info@sohomgmt.com</div>
+              <div class="ci-value"><a href="mailto:info@soho-mgmt.com">info@soho-mgmt.com</a></div>
             </div>
           </div>
           <div class="ci-item">
@@ -1246,15 +1248,15 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
       <div class="footer-col">
         <h4>For Owners</h4>
         <a href="https://smithoakre.appfolio.com/connect" target="_blank">Owner Portal Login</a>
-        <a href="#owners" onclick="scrollTo('owners');return false;">Free Rent Analysis</a>
-        <a href="#owners" onclick="scrollTo('owners');return false;">ROI Calculator</a>
-        <a href="#contact" onclick="scrollTo('contact');return false;">Get Started</a>
+        <a href="#owners" onclick="goSection('owners');return false;">Free Rent Analysis</a>
+        <a href="#owners" onclick="goSection('owners');return false;">ROI Calculator</a>
+        <a href="#contact" onclick="goSection('contact');return false;">Get Started</a>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
-        <a href="#why" onclick="scrollTo('why');return false;">Why SOHO</a>
+        <a href="#why" onclick="goSection('why');return false;">Why SOHO</a>
         <a href="/blog/">Local Guides</a>
-        <a href="#contact" onclick="scrollTo('contact');return false;">Contact Us</a>
+        <a href="#contact" onclick="goSection('contact');return false;">Contact Us</a>
         <a href="https://smithoakre.com" target="_blank">Smith &amp; Oak RE</a>
       </div>
     </div>
@@ -1617,8 +1619,8 @@ function getBotReply(m){
   if(m.includes('buy')||m.includes('purchase')||m.includes('smith')||m.includes('oak'))
     return "For buying or selling real estate in Rhode Island, check out our affiliate brokerage Smith & Oak Real Estate Co. at smithoakre.com — they're experts in Rhode Island and Southern Massachusetts investment properties!";
   if(m.includes('maintenance')||m.includes('repair')||m.includes('broken'))
-    return "For maintenance requests, please log into your portal at smithoakre.appfolio.com/connect — it's the fastest way to get a ticket opened. For emergencies, call us directly at (401) 555-0100.";
-  return "Thanks for reaching out! Our team is available Mon–Fri 9am–5pm. You can also call us at (401) 555-0100 or email info@sohomgmt.com. Is there anything specific about renting or property management I can help with?";
+    return "For maintenance requests, please log into your portal at smithoakre.appfolio.com/connect — it's the fastest way to get a ticket opened. For emergencies, call us directly at (401) 566-7378.";
+  return "Thanks for reaching out! Our team is available Mon–Fri 9am–5pm. You can also call us at (401) 566-7378 or email info@soho-mgmt.com. Is there anything specific about renting or property management I can help with?";
 }
 
 /* NAV SCROLL */
@@ -1631,7 +1633,7 @@ function openMobileMenu(){ document.getElementById('mobile-menu').classList.add(
 function closeMobileMenu(){ document.getElementById('mobile-menu').classList.remove('open'); }
 
 /* SMOOTH SCROLL */
-function scrollTo(id){
+function goSection(id){
   var el=document.getElementById(id); if(!el) return;
   var y=Math.max(0,Math.round(el.getBoundingClientRect().top+window.pageYOffset-84));
   window.scroll({top:y,behavior:'smooth'});
@@ -1649,7 +1651,7 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 loadListings();
 
 function goContact(type){
-  scrollTo('contact');
+  goSection('contact');
   var sel=document.getElementById('cf-type'); if(type&&sel){ for(var i=0;i<sel.options.length;i++){ if(sel.options[i].text===type) sel.selectedIndex=i; } }
   setTimeout(function(){ var n=document.getElementById('cf-name'); if(n) n.focus({preventScroll:true}); },800);
 }
