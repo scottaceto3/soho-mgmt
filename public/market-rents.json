@@ -1,0 +1,1 @@
+{"_note":"Optional MLS comps. Format: {\"Providence\":{\"2\":{\"rent\":1850,\"comps\":[{\"address\":\"12 Example St\",\"beds\":2,\"baths\":1,\"rent\":1800,\"url\":\"\"}]}}} (city then bedroom count; use 5 for 5+). When present these override the live-listing estimate."}

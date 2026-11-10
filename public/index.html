@@ -873,13 +873,13 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
     <h2>Maximize Your Investment Returns</h2>
     <p>SOHO Management handles everything — from marketing and screening to maintenance and financial reporting. See what your property could earn today, at no cost.</p>
     <div class="path-links">
-      <a href="#owners" class="path-link" onclick="event.preventDefault();goSection('owners')">
+      <a href="/rental-analysis/" class="path-link">
         <span>Get a Free Rent Analysis</span><span class="arr">→</span>
       </a>
       <a href="https://smithoakre.appfolio.com/connect" target="_blank" class="path-link">
         <span>Owner Portal Login</span><span class="arr">→</span>
       </a>
-      <a href="#owners" class="path-link" onclick="event.preventDefault();goSection('owners')">
+      <a href="/roi/" class="path-link">
         <span>Calculate Your ROI</span><span class="arr">→</span>
       </a>
       <a href="#why" class="path-link" onclick="event.preventDefault();goSection('why')">
@@ -1247,8 +1247,8 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
       <div class="footer-col">
         <h4>For Owners</h4>
         <a href="https://smithoakre.appfolio.com/connect" target="_blank">Owner Portal Login</a>
-        <a href="#owners" onclick="goSection('owners');return false;">Free Rent Analysis</a>
-        <a href="#owners" onclick="goSection('owners');return false;">ROI Calculator</a>
+        <a href="/rental-analysis/">Free Rent Analysis</a>
+        <a href="/roi/">ROI Calculator</a>
         <a href="#contact" onclick="goSection('contact');return false;">Get Started</a>
       </div>
       <div class="footer-col">
@@ -1655,7 +1655,7 @@ function finishChat(){
   fetch(LEAD_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:d.Name,email:d.Email,phone:d.Phone||'',type:f.label,message:msg,source:'chat assistant'})}).catch(()=>{});
   const first=(d.Name||'').split(' ')[0];
   botSay('Thank you'+(first?', '+esc(first):'')+'! I\'ve sent this to our team and someone will reach out within one business day. For anything urgent, call <a href="tel:+14015667368" style="color:var(--gold)">(401) 566-7368</a>.').then(()=>{
-    setQuick(CHAT.role==='tenant'||CHAT.role==='student'?[['Browse available homes',"window.open('https://smithoakre.appfolio.com/listings','_blank','noopener')"]]:CHAT.role==='landlord'?[['Free rent analysis',"toggleChat();goSection('owners')"]]:[]);
+    setQuick(CHAT.role==='tenant'||CHAT.role==='student'?[['Browse available homes',"window.open('https://smithoakre.appfolio.com/listings','_blank','noopener')"]]:CHAT.role==='landlord'?[['Free rent analysis',"location.href='/rental-analysis/'"]]:[]);
   });
 }
 function quickChat(text){ setQuick([]); addMsg(text,'user'); showTyping(); setTimeout(()=>{ removeTyping(); addMsg(getBotReply(text),'bot'); },1000); }

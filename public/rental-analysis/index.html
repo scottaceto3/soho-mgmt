@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Rental Analysis | SOHO Management</title><meta name="description" content="See what your Rhode Island or Southern Massachusetts rental could earn compared with similar nearby homes.">
+<meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://soho-mgmt.com/rental-analysis/">
+<link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="theme-color" content="#1A1A1A">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@200;300;400;600&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><link rel="stylesheet" href="/assets/owner-tools.css"></head><body>
+<nav class="bnav"><a href="/" class="blogo"><img src="/assets/soho-logo-dark.png" alt="SOHO by Smith &amp; Oak" width="1797" height="282"></a>
+<div class="blinks"><a href="/#owners">← Back to site</a><a class="bbtn" href="tel:+14015667368">(401) 566-7368</a></div></nav>
+<main class="ot">
+<div class="steps"><span class="on">1 · Rental analysis</span><span>2 · Your ROI</span></div>
+<span class="tag">For Property Owners</span><h1>Free Rental Analysis</h1>
+<p class="lede">Tell us about your property and what it earns today. We'll compare it with similar homes nearby and show what the market says it could rent for, free and with no obligation.</p>
+<div class="cols">
+<div class="panel"><h2>Your property</h2>
+<div class="r2"><div class="f"><label>First name</label><input id="first" autocomplete="given-name"></div><div class="f"><label>Last name</label><input id="last" autocomplete="family-name"></div></div>
+<div class="f"><label>Email</label><input id="email" type="email" autocomplete="email"></div>
+<div class="f"><label>Phone</label><input id="phone" type="tel" autocomplete="tel"></div>
+<div class="f"><label>Property address</label><input id="addr" placeholder="123 Main St, Providence, RI" autocomplete="street-address"></div>
+<div class="r2"><div class="f"><label>Number of units</label><input id="units" type="number" min="1" value="1"></div>
+<div class="f"><label>Bedrooms per unit</label><select id="beds"><option value="">Select</option><option value="0">Studio</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option></select></div></div>
+<div class="r2"><div class="f"><label>Property type</label><select id="type"><option>Single Family</option><option>Multi-Family</option><option>Apartment / Condo</option><option>Other</option></select></div>
+<div class="f"><label>Current situation</label><select id="status"><option>I self-manage</option><option>Managed by someone else</option><option>Currently vacant</option><option>Thinking of buying to rent</option></select></div></div>
+<div class="f"><label>What you collect today <small>(total monthly rent, all units)</small></label><input id="cur" type="number" min="0" step="25" placeholder="e.g. 1,650"></div>
+<input class="hp" id="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="err" id="err"></div>
+<button class="btn" id="go">See what my property could rent for →</button>
+<p class="small">We'll email you a copy and an advisor may follow up within 24 hours. We never share your information.</p></div>
+<div><div class="panel res" id="res">
+<h2>Your rental analysis</h2>
+<div class="small" style="margin:0">Estimated market rent per unit</div><div class="big" id="mkt">—</div><div class="small" style="margin:0 0 14px" id="basis"></div>
+<div class="row"><span>You collect today</span><b id="r-cur">—</b></div>
+<div class="row g"><span>Market estimate (all units)</span><b id="r-tot">—</b></div>
+<div class="row tot g"><span id="r-dl">Difference</span><b id="r-diff">—</b></div>
+<div class="chead" id="chead">Comparable homes nearby</div><div id="comps"></div>
+<p class="small" id="note"></p>
+<a class="btn" id="next" href="/roi/" style="margin-top:18px">Next: Calculate my ROI with SOHO →</a>
+</div>
+<div class="panel" id="idle"><h2>What you'll get</h2><div class="row"><span>Market rent estimate</span><b>for your bedroom count</b></div><div class="row"><span>Comparable homes</span><b>3–5 nearby</b></div><div class="row"><span>Rent vs. market</span><b>where you stand today</b></div><div class="row tot"><span>Then</span><b>your ROI with SOHO</b></div></div></div>
+</div></main>
+<footer class="bfoot"><p>© 2026 SOHO Management LLC · Rhode Island &amp; Southern Massachusetts · Estimates are for illustration only and not a guarantee of results.</p></footer>
+<script src="/assets/owner-tools.js"></script><script>
+let PROPS=[],OVER={};
+Promise.all([loadProps(),getJSON('/market-rents.json')]).then(([p,o])=>{PROPS=p;OVER=o||{};});
+const pre=loadA();if(pre){['first','last','email','phone','addr','units','beds','cur'].forEach(k=>{if(pre.form&&pre.form[k]!=null)$(k).value=pre.form[k];});}
+$('go').onclick=async()=>{
+  if($('site').value)return;
+  const e=$('err');e.style.display='none';
+  const f={first:$('first').value.trim(),last:$('last').value.trim(),email:$('email').value.trim(),phone:$('phone').value.trim(),addr:$('addr').value.trim(),units:Math.max(1,Math.round(num('units'))||1),beds:$('beds').value,cur:num('cur')};
+  if(!f.first||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)||!f.addr||f.beds===''||!f.cur){e.textContent='Please add your name, a valid email, the property address, bedrooms, and what you collect today.';e.style.display='block';return;}
+  const b=$('go');b.disabled=true;b.textContent='Analyzing…';
+  if(!PROPS.length){PROPS=await loadProps();}
+  const m=pickComps(PROPS,OVER,f.beds,f.addr,RENT_MAP[f.beds]||1500);
+  const total=m.rent*f.units,diff=total-f.cur,pct=f.cur?Math.round((total/f.cur-1)*1000)/10:0;
+  $('mkt').textContent=money(m.rent)+'/mo';$('basis').textContent='Based on '+m.basis+'.';
+  $('r-cur').textContent=money(f.cur)+'/mo';$('r-tot').textContent=money(total)+'/mo';
+  $('r-dl').textContent=diff>0?'Possible increase':diff<0?'Above market by':'At market';
+  $('r-diff').textContent=diff===0?'—':money(Math.abs(diff))+'/mo ('+(diff>0?'+':'−')+Math.abs(pct)+'%)';
+  $('chead').style.display=m.comps.length?'block':'none';$('comps').innerHTML=m.comps.map(compHTML).join('');
+  $('note').textContent=m.sure?'Comparable rents are current asking rents and are not a guarantee. A SOHO advisor will confirm with a full market review.':'We had few exact matches nearby, so this is a regional estimate. A SOHO advisor will confirm it with MLS comparables.';
+  $('idle').style.display='none';$('res').classList.add('show');$('res').scrollIntoView({behavior:'smooth',block:'start'});
+  saveA({ts:Date.now(),form:f,name:(f.first+' '+f.last).trim(),email:f.email,phone:f.phone,address:f.addr,beds:f.beds,units:f.units,currentTotal:f.cur,marketPerUnit:m.rent,marketTotal:total,basis:m.basis,sure:m.sure});
+  const sent=await sendLead({source:'soho-mgmt.com rental analysis',submitted:new Date().toISOString(),name:(f.first+' '+f.last).trim(),email:f.email,phone:f.phone,address:f.addr,beds:f.beds,type:$('type').value,situation:$('status').value,estimatedRent:m.rent,currentRent:f.cur,vsMarketPct:f.cur?+((f.cur/total-1)*100).toFixed(1):'',basis:m.basis,units:f.units,comps:m.comps.map(c=>c.address+', '+(c.city||'')+' — '+bedTxt(c.beds)+' $'+c.rent+(c.url?' — '+c.url:''))});
+  b.disabled=false;b.textContent=sent?'✓ Analysis ready, an advisor will follow up':'Update my analysis';
+};
+</script></body></html>

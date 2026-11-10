@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your ROI with SOHO | SOHO Management</title><meta name="description" content="Estimate what SOHO Management could add to your rental income compared with its fee.">
+<meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://soho-mgmt.com/roi/">
+<link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="theme-color" content="#1A1A1A">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@200;300;400;600&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css"><link rel="stylesheet" href="/assets/owner-tools.css"></head><body>
+<nav class="bnav"><a href="/" class="blogo"><img src="/assets/soho-logo-dark.png" alt="SOHO by Smith &amp; Oak" width="1797" height="282"></a>
+<div class="blinks"><a href="/#owners">← Back to site</a><a class="bbtn" href="tel:+14015667368">(401) 566-7368</a></div></nav>
+<main class="ot">
+<div class="steps"><span>1 · Rental analysis</span><span class="on">2 · Your ROI</span></div>
+<div id="gate" class="gate" style="display:none"><span class="tag">One quick step first</span><h1>Start with your rental analysis</h1><p class="lede" style="margin:0 auto 24px">Your ROI is built on what your property earns today and what the market says it could earn. It takes about a minute.</p><a class="btn" href="/rental-analysis/">Get my free rental analysis →</a></div>
+<div id="app" style="display:none">
+<span class="tag">For Property Owners</span><h1>Your ROI with SOHO</h1>
+<p class="lede">We already have your rental analysis. Add your costs and the time you spend, and we'll show what SOHO Management could add, what it costs, and whether it pays for itself.</p>
+<div class="cols">
+<div class="panel"><h2>Your numbers</h2>
+<div class="f"><label>Property address</label><input id="addr"></div>
+<div class="f"><label>Gross rent, all units <small>(per month)</small></label><input id="gross" type="number" min="0" step="25"></div>
+<div class="r2"><div class="f"><label>Property taxes <small>(per year)</small></label><input id="tax" type="number" min="0" step="100"></div><div class="f"><label>Insurance <small>(per year)</small></label><input id="ins" type="number" min="0" step="100"></div></div>
+<div class="r2"><div class="f"><label>Utilities you pay <small>(per month)</small></label><input id="util" type="number" min="0" step="10" value="0"></div><div class="f"><label>Months vacant <small>(per year)</small></label><input id="vac" type="number" min="0" max="12" step="0.5" value="0"></div></div>
+<div class="r2"><div class="f"><label>Hours you spend managing / maintaining <small>(per month)</small></label><input id="hrs" type="number" min="0" step="1" value="8"></div><div class="f"><label>What is an hour worth to you? <small>($)</small></label><input id="hr$" type="number" min="0" step="5" value="35"></div></div>
+<div class="err" id="err"></div>
+<button class="btn" id="go">Calculate my ROI →</button>
+<p class="small">Management fee is estimated at 8% of collected rent (6–8% depending on the property). We'll confirm the exact fee after reviewing your property.</p></div>
+<div><div class="panel res" id="res"><h2>Your ROI with SOHO</h2>
+<div class="small" style="margin:0">Estimated return on our management fee</div><div class="big" id="roi">—</div><div class="small" style="margin:0 0 16px" id="verdict"></div>
+<div class="row g"><span>Added rent from market pricing</span><b id="a-rent">—</b></div>
+<div class="row"><span>SOHO management fee (8%)</span><b id="a-fee">—</b></div>
+<div class="row g"><span>Net cash to you per year</span><b id="a-net">—</b></div>
+<div class="row"><span id="a-tl">Time saved</span><b id="a-time">—</b></div>
+<div class="row tot g"><span>Total value vs. fee</span><b id="a-tot">—</b></div>
+<div class="chead">Your owner income, per year</div>
+<div class="row"><span>Today (after taxes, insurance, utilities)</span><b id="n-now">—</b></div>
+<div class="row g"><span>With SOHO (after fee)</span><b id="n-new">—</b></div>
+<div class="row"><span>If your fee were 6%</span><b id="a-fee6">—</b></div>
+<p class="small" id="mnote"></p>
+<a class="btn ghost" href="/#contact" style="margin-top:12px">Talk to a SOHO advisor</a></div>
+<div class="panel" id="idle"><h2>How we calculate it</h2><div class="row"><span>Added rent</span><b>market rent − what you collect</b></div><div class="row"><span>Fee</span><b>6–8% of rent collected</b></div><div class="row"><span>Time saved</span><b>your hours × hourly value</b></div><div class="row tot"><span>ROI</span><b>(value − fee) ÷ fee</b></div></div></div>
+</div></div></main>
+<footer class="bfoot"><p>© 2026 SOHO Management LLC · Rhode Island &amp; Southern Massachusetts · Estimates are for illustration only and not a guarantee of results.</p></footer>
+<script src="/assets/owner-tools.js"></script><script>
+const A=loadA();
+if(!A||!A.marketTotal){$('gate').style.display='block';}
+else{
+  $('app').style.display='block';$('addr').value=A.address||'';$('gross').value=A.currentTotal||'';
+  $('go').onclick=async()=>{
+    const e=$('err');e.style.display='none';
+    const gross=num('gross'),tax=num('tax'),ins=num('ins'),util=num('util'),vac=Math.min(12,Math.max(0,num('vac'))),hrs=num('hrs'),hv=num('hr$');
+    if(!gross){e.textContent='Please enter your gross monthly rent.';e.style.display='block';return;}
+    const mo=12-vac,uplift=Math.max(0,A.marketTotal-gross),addRent=uplift*mo;
+    const exp=tax+ins+util*12,newColl=(gross+uplift)*mo,fee=newColl*0.08,fee6=newColl*0.06;
+    const timeV=hrs*12*hv,netCash=addRent-fee,tot=addRent+timeV,roi=fee>0?((tot-fee)/fee)*100:0;
+    const nowI=gross*mo-exp,newI=newColl-exp-fee;
+    $('roi').textContent=Math.round(roi).toLocaleString()+'%';
+    $('verdict').textContent=tot>=fee?(addRent>=fee?'The added rent alone covers the fee, so SOHO pays for itself before counting your time.':'With the value of your time, SOHO more than covers its fee.'):'At these inputs the fee is higher than the value we can show. A call can tell us what else we can do.';
+    $('a-rent').textContent='+'+money(addRent)+(uplift?' ('+money(uplift)+'/mo)':'');
+    $('a-fee').textContent='−'+money(fee);$('a-net').textContent=money(netCash);
+    $('a-tl').textContent='Time saved: '+hrs*12+' hrs/yr';$('a-time').textContent=money(timeV)+' of your time';
+    $('a-tot').textContent=money(tot)+' vs '+money(fee);
+    $('n-now').textContent=money(nowI);$('n-new').textContent=money(newI);
+    $('a-fee6').textContent='Fee '+money(fee6)+' · net cash '+money(addRent-fee6);
+    $('mnote').textContent=(uplift?'Added rent assumes you move to the market estimate of '+money(A.marketTotal)+'/mo ('+A.basis+'). ':'Your rent is already at or above our market estimate, so the value here is mainly your time. ')+'We assume the same vacancy as today. Estimates only; actual results vary.';
+    $('idle').style.display='none';$('res').classList.add('show');$('res').scrollIntoView({behavior:'smooth',block:'start'});
+    const b=$('go');b.disabled=true;
+    await sendLead({source:'soho-mgmt.com roi calculator',submitted:new Date().toISOString(),name:A.name,email:A.email,phone:A.phone,address:$('addr').value,type:'ROI calculator',message:'ROI '+Math.round(roi)+'% | gross rent '+money(gross)+'/mo | market est '+money(A.marketTotal)+'/mo ('+A.basis+') | added rent '+money(addRent)+'/yr | fee 8% '+money(fee)+'/yr | taxes '+money(tax)+' ins '+money(ins)+' util '+money(util)+'/mo | vacant '+vac+' mo | hrs/mo '+hrs+' @ '+money(hv)+'/hr = '+money(timeV)+'/yr'});
+    b.disabled=false;b.textContent='Recalculate';
+  };
+}
+</script></body></html>
