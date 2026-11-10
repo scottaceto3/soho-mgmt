@@ -261,7 +261,8 @@ section{padding:120px 0;}
 .vacancies .tag{color:var(--gold-dark);}
 
 .filter-bar{
-  display:flex;gap:0;margin-bottom:40px;flex-wrap:wrap;
+  position:relative;z-index:60;
+  display:flex;gap:0;margin-bottom:20px;flex-wrap:wrap;
   border:1px solid #ddd;background:var(--white);
 }
 .filter-group{
@@ -276,7 +277,7 @@ section{padding:120px 0;}
 .fg-value.ph{color:#aaa;}
 .filter-dd{
   position:absolute;top:100%;left:-1px;background:var(--white);
-  border:1px solid #e0dbd0;min-width:200px;z-index:200;
+  border:1px solid #e0dbd0;min-width:240px;max-height:340px;overflow-y:auto;z-index:200;
   box-shadow:0 12px 40px rgba(0,0,0,0.1);display:none;
 }
 .filter-dd.open{display:block;}
@@ -322,7 +323,14 @@ section{padding:120px 0;}
 .sort-wrap select{border:1px solid #ddd;background:var(--white);padding:6px 12px;font-family:var(--font-b);font-size:12px;color:var(--black);cursor:pointer;outline:none;}
 
 /* Active filter tags */
-.active-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.active-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.active-tags:empty{display:none;}
+.chip-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 36px;position:relative;z-index:1;}
+.chip-label{font-family:var(--font-h);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-right:6px;}
+.chip{background:var(--white);border:1px solid #d9d4c8;padding:8px 16px;font-family:var(--font-h);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#444;cursor:pointer;transition:all .15s;}
+.chip:hover{border-color:var(--gold-dark);color:var(--gold-dark);}
+.chip.on{background:var(--charcoal);border-color:var(--charcoal);color:var(--white);}
+.chip small{opacity:.55;margin-left:6px;font-size:9px;}
 .atag{
   display:flex;align-items:center;gap:8px;
   background:var(--charcoal);color:var(--white);
@@ -685,7 +693,8 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
   .listings-grid{grid-template-columns:1fr;}
   .why-grid{grid-template-columns:1fr;}
   .test-grid{grid-template-columns:1fr;}
-  .filter-bar{overflow-x:auto;}
+  .filter-bar{overflow:visible;}
+  .filter-group{flex:1 1 45%;min-width:0;}
   .buy-banner{padding:32px 24px;flex-direction:column;}
   .footer-grid{grid-template-columns:1fr;}
   .chat-window{width:calc(100vw - 32px);right:16px;}
@@ -900,6 +909,9 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
       <button class="filter-clear" onclick="clearFilters()">Clear All</button>
     </div>
 
+    <!-- AREA CHIPS (built from live listings) -->
+    <div class="chip-row" id="area-chips"></div>
+
     <!-- ACTIVE TAGS -->
     <div class="active-tags" id="active-tags"></div>
 
@@ -1061,7 +1073,7 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
       <div class="why-item reveal reveal-delay-1">
         <div class="why-num">02</div>
         <h3>Local Market Expertise</h3>
-        <p>We know our markets intimately — from Providence and Cranston to Southern Massachusetts. We price your property precisely, attract qualified tenants fast, and protect your asset year-round.</p>
+        <p>We know our markets block by block — from South County shores to Southern Mass streets. We price your property precisely, attract qualified tenants fast, and protect your asset year-round.</p>
       </div>
       <div class="why-item reveal reveal-delay-2">
         <div class="why-num">03</div>
@@ -1387,10 +1399,21 @@ async function loadListings(){
 function buildAreaFilter(){
   const cities=[...new Set(PROPS.map(p=>p.city).filter(Boolean))].sort();
   const dd=document.getElementById('dd-hood');
+  const counts={}; PROPS.forEach(p=>{ if(p.city) counts[p.city]=(counts[p.city]||0)+1; });
+  window._chipCities=cities; window._chipCounts=counts; renderChips();
   dd.innerHTML='<div class="fdd-opt sel" data-v="" onclick="pickHood(event,this,\'All Areas\')">All Areas<span class="fdd-check">✓</span></div>'
     + cities.map(c=>`<div class="fdd-opt" data-v="${esc(c)}" onclick="pickHood(event,this,'${esc(c)}')">${esc(c)}<span class="fdd-check">✓</span></div>`).join('');
 }
 
+function renderChips(){
+  const box=document.getElementById('area-chips'); if(!box||!window._chipCities) return;
+  box.innerHTML='<span class="chip-label">Browse by area</span><button class="chip'+(fHood===''?' on':'')+'" onclick="chipHood(\'\')">All</button>'
+    + window._chipCities.map(c=>`<button class="chip${fHood===c?' on':''}" data-city="${esc(c)}" onclick="chipHood(this.dataset.city)">${esc(c)}<small>${window._chipCounts[c]}</small></button>`).join('');
+}
+function chipHood(city){
+  const opts=[...document.querySelectorAll('#dd-hood .fdd-opt')]; const el=opts.find(o=>o.dataset.v===city)||opts[0];
+  pickHood({stopPropagation(){}},el,city||'All Areas');
+}
 /* FILTER CONTROLS */
 function toggleDD(id){
   document.querySelectorAll('.filter-dd').forEach(d=>{ if(d.id!==id) d.classList.remove('open'); });
@@ -1439,7 +1462,7 @@ function renderActiveTags(){
   if(fBeds!=='') tags.push({l:bedLabel(fBeds),fn:()=>{fBeds='';document.getElementById('beds-val').textContent='Any';document.getElementById('beds-val').className='fg-value ph';document.querySelectorAll('#dd-beds .fdd-opt').forEach(o=>o.classList.remove('sel'));document.querySelector('#dd-beds .fdd-opt[data-v=""]').classList.add('sel');applyFilters();}});
   if(fPMin||fPMax){const mn=fPMin?'$'+fPMin.toLocaleString():'Any';const mx=fPMax?'$'+fPMax.toLocaleString():'Any';tags.push({l:mn+'–'+mx+'/mo',fn:()=>{fPMin=0;fPMax=0;document.getElementById('pmin').value='';document.getElementById('pmax').value='';document.getElementById('price-val').textContent='Any';document.getElementById('price-val').className='fg-value ph';applyFilters();}});}
   if(fHood) tags.push({l:fHood,fn:()=>{fHood='';document.getElementById('hood-val').textContent='All Areas';document.getElementById('hood-val').className='fg-value ph';document.querySelectorAll('#dd-hood .fdd-opt').forEach(o=>o.classList.remove('sel'));document.querySelector('#dd-hood .fdd-opt[data-v=""]').classList.add('sel');applyFilters();}});
-  window._atags=tags;
+  window._atags=tags; renderChips();
   c.innerHTML=tags.map((t,i)=>`<div class="atag">${t.l}<button class="atag-x" onclick="window._atags[${i}].fn()">×</button></div>`).join('');
 }
 
