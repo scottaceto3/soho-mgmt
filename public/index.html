@@ -1284,12 +1284,13 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
     <button class="chat-close" onclick="toggleChat()">×</button>
   </div>
   <div class="chat-msgs" id="chat-msgs">
-    <div class="msg bot"><div class="msg-bub">👋 Hi! I'm the SOHO Management assistant. Whether you're looking for a home or want to know what your property could earn, I'm here to help. What can I do for you?</div></div>
+    <div class="msg bot"><div class="msg-bub">👋 Hi, I'm the SOHO Management assistant. Are you a <strong>landlord</strong> looking for property management, or a <strong>tenant</strong> looking for a home? Tell me what you need and I'll get the right person on it.</div></div>
   </div>
   <div class="chat-quick" id="chat-quick">
-    <button class="cq-btn" onclick="quickChat('I want to find an apartment to rent')">Find a rental</button>
-    <button class="cq-btn" onclick="quickChat('What would my property rent for?')">Owner inquiry</button>
-    <button class="cq-btn" onclick="quickChat('How does SOHO management work?')">How it works</button>
+    <button class="cq-btn" onclick="chooseRole('landlord')">I'm a landlord</button>
+    <button class="cq-btn" onclick="chooseRole('tenant')">I'm looking to rent</button>
+    <button class="cq-btn" onclick="chooseRole('student')">Student housing</button>
+    <button class="cq-btn" onclick="chooseRole('current')">Current tenant</button>
   </div>
   <div class="chat-inp-row">
     <input class="chat-inp" id="chat-inp" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
@@ -1576,27 +1577,105 @@ async function calcROI(){
 
 /* CHAT */
 let chatOpen=false;
+setTimeout(function(){
+  try{ if(sessionStorage.getItem('sohoChatShown')||chatOpen||window.innerWidth<700) return; sessionStorage.setItem('sohoChatShown','1'); }catch(e){ if(chatOpen||window.innerWidth<700) return; }
+  toggleChat();
+},9000);
 function toggleChat(){
   chatOpen=!chatOpen;
   document.getElementById('chat-window').classList.toggle('open',chatOpen);
   document.getElementById('chat-badge').style.display='none';
   if(chatOpen) document.getElementById('chat-inp').focus();
 }
-function quickChat(text){
-  document.getElementById('chat-quick').style.display='none';
-  addMsg(text,'user'); showTyping();
-  setTimeout(()=>{ removeTyping(); addMsg(getBotReply(text),'bot'); },1300);
+/* Guided conversation: qualify landlord / tenant / student, then send to the team as a contact message */
+const CHAT={role:null,step:0,data:{},phase:'idle',log:[]};
+const FLOWS={
+  landlord:{label:'Landlord',intro:"Great, glad to help. A few quick questions so our team can come prepared.",q:[
+    ['Property','Which property would you like us to manage? (address or town)'],
+    ['Size','How many units, and what type? (e.g. single-family, 3-family, 12-unit building)'],
+    ['Goal','What is your main goal: filling a vacancy, getting out of self-management, or just reviewing your options?'],
+    ['Timeline','When would you like to get started?']]},
+  tenant:{label:'Tenant (looking to rent)',intro:"Wonderful, let's find you a place.",q:[
+    ['Areas','Which towns or neighborhoods are you considering?'],
+    ['Bedrooms','How many bedrooms do you need?'],
+    ['Budget','What monthly budget are you working with?'],
+    ['Move-in','When would you like to move in?']]},
+  student:{label:'Student housing',intro:"Happy to help with student housing.",q:[
+    ['School','Which school or campus do you want to be near?'],
+    ['Bedrooms','How many bedrooms / roommates?'],
+    ['Budget','What is your monthly budget (total or per person)?'],
+    ['Move-in','What is your target move-in date?']]},
+  other:{label:'General inquiry',intro:"Of course.",q:[['Request','Tell me a bit about what you need.']]}
+};
+const CONTACT_Q=[['Name',"Thanks! What's your name?"],['Email','Best email to reach you at?'],['Phone','And a phone number? (type "skip" if you prefer email only)']];
+function setQuick(btns){
+  const q=document.getElementById('chat-quick');
+  q.innerHTML=btns.map(b=>`<button class="cq-btn" onclick="${b[1]}">${b[0]}</button>`).join('');
+  q.style.display=btns.length?'flex':'none';
 }
+function botSay(text,delay){ showTyping(); return new Promise(r=>setTimeout(()=>{ removeTyping(); addMsg(text,'bot'); r(); },delay||900)); }
+function chooseRole(role){
+  if(role==='current'){
+    addMsg("I'm a current tenant",'user'); setQuick([]);
+    botSay('For rent payments, maintenance requests and your lease, use the resident portal: <a href="https://smithoakre.appfolio.com/connect" target="_blank" rel="noopener" style="color:var(--gold)">smithoakre.appfolio.com/connect</a>. For urgent issues call <a href="tel:+14015667368" style="color:var(--gold)">(401) 566-7368</a>. Want to send a message to our team instead?').then(()=>setQuick([['Message the team',"chooseRole('other')"]]));
+    return;
+  }
+  const labels={landlord:"I'm a landlord",tenant:"I'm looking to rent",student:'I need student housing',other:'I have a question'};
+  addMsg(labels[role],'user'); setQuick([]);
+  CHAT.role=role; CHAT.step=0; CHAT.phase='qualify'; CHAT.data={};
+  botSay(FLOWS[role].intro).then(()=>askNext());
+}
+function askNext(){
+  const f=FLOWS[CHAT.role];
+  if(CHAT.phase==='qualify'){
+    if(CHAT.step<f.q.length) return botSay(f.q[CHAT.step][1]);
+    CHAT.phase='contact'; CHAT.step=0;
+  }
+  if(CHAT.phase==='contact'){
+    if(CHAT.step<CONTACT_Q.length) return botSay(CONTACT_Q[CHAT.step][1]);
+    return finishChat();
+  }
+}
+function handleAnswer(text){
+  const f=FLOWS[CHAT.role];
+  // allow quick questions mid-flow without losing our place
+  if(CHAT.phase==='qualify' && /\b(portal|login|maintenance|emergency|fee|fees|cost)\b/i.test(text) && text.length<80){
+    botSay(getBotReply(text)).then(()=>askNext()); return;
+  }
+  if(CHAT.phase==='qualify'){ CHAT.data[f.q[CHAT.step][0]]=text; CHAT.step++; askNext(); return; }
+  const key=CONTACT_Q[CHAT.step][0];
+  if(key==='Email' && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(text)){ botSay("That doesn't look like a valid email. Could you re-enter it?"); return; }
+  if(key==='Phone' && /^skip$/i.test(text)) text='';
+  CHAT.data[key]=text; CHAT.step++; askNext();
+}
+function finishChat(){
+  CHAT.phase='done'; const f=FLOWS[CHAT.role], d=CHAT.data;
+  const lines=f.q.map(q=>q[0]+': '+(d[q[0]]||'-'));
+  const msg='Chat assistant conversation ('+f.label+')\n'+lines.join('\n');
+  fetch(LEAD_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({name:d.Name,email:d.Email,phone:d.Phone||'',type:f.label,message:msg,source:'chat assistant'})}).catch(()=>{});
+  const first=(d.Name||'').split(' ')[0];
+  botSay('Thank you'+(first?', '+esc(first):'')+'! I\'ve sent this to our team and someone will reach out within one business day. For anything urgent, call <a href="tel:+14015667368" style="color:var(--gold)">(401) 566-7368</a>.').then(()=>{
+    setQuick(CHAT.role==='tenant'||CHAT.role==='student'?[['Browse available homes',"window.open('https://smithoakre.appfolio.com/listings','_blank','noopener')"]]:CHAT.role==='landlord'?[['Free rent analysis',"toggleChat();goSection('owners')"]]:[]);
+  });
+}
+function quickChat(text){ setQuick([]); addMsg(text,'user'); showTyping(); setTimeout(()=>{ removeTyping(); addMsg(getBotReply(text),'bot'); },1000); }
 function sendChat(){
   const inp=document.getElementById('chat-inp'); const text=inp.value.trim(); if(!text) return;
-  inp.value=''; document.getElementById('chat-quick').style.display='none';
-  addMsg(text,'user'); showTyping();
-  setTimeout(()=>{ removeTyping(); addMsg(getBotReply(text),'bot'); },1400);
+  inp.value=''; setQuick([]); addMsg(text,'user');
+  if(CHAT.phase==='qualify'||CHAT.phase==='contact'){ handleAnswer(text); return; }
+  // free text before/after a flow: guess the role, otherwise answer and nudge
+  const t=text.toLowerCase();
+  if(CHAT.phase==='idle'){
+    if(/landlord|my property|my building|i own|manage my|owner/.test(t)){ CHAT.role='landlord'; CHAT.phase='qualify'; CHAT.step=0; botSay(FLOWS.landlord.intro).then(askNext); return; }
+    if(/student|college|university|campus/.test(t)){ CHAT.role='student'; CHAT.phase='qualify'; CHAT.step=0; botSay(FLOWS.student.intro).then(askNext); return; }
+    if(/rent|apartment|home|bedroom|tenant|looking for/.test(t)){ CHAT.role='tenant'; CHAT.phase='qualify'; CHAT.step=0; botSay(FLOWS.tenant.intro).then(askNext); return; }
+  }
+  botSay(getBotReply(text),1100).then(()=>setQuick([["I'm a landlord","chooseRole('landlord')"],["I'm looking to rent","chooseRole('tenant')"],['Message the team',"chooseRole('other')"]]));
 }
 function addMsg(text,role){
   const msgs=document.getElementById('chat-msgs');
   const div=document.createElement('div'); div.className='msg '+role;
-  div.innerHTML='<div class="msg-bub">'+text+'</div>';
+  div.innerHTML='<div class="msg-bub">'+(role==='user'?esc(text):text)+'</div>';
   msgs.appendChild(div); msgs.scrollTop=msgs.scrollHeight;
 }
 function showTyping(){
