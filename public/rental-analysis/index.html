@@ -50,7 +50,9 @@ $('go').onclick=async()=>{
   if(!f.first||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email)||!f.addr||f.beds===''||!f.cur){e.textContent='Please add your name, a valid email, the property address, bedrooms, and what you collect today.';e.style.display='block';return;}
   const b=$('go');b.disabled=true;b.textContent='Analyzing…';
   if(!PROPS.length){PROPS=await loadProps();}
-  const m=pickComps(PROPS,OVER,f.beds,f.addr,RENT_MAP[f.beds]||1500);
+  let m=pickComps(PROPS,OVER,f.beds,f.addr,RENT_MAP[f.beds]||1500);
+  try{const rc=await getJSON('/api/rent-estimate?address='+encodeURIComponent(f.addr)+'&beds='+encodeURIComponent(f.beds==='5'?'5':f.beds)+'&type='+encodeURIComponent($('type').value==='Single Family'?'Single Family':$('type').value==='Multi-Family'?'Multi-Family':''));
+    if(rc&&rc.rent&&rc.comps&&rc.comps.length>=3){m={rent:rc.rent,sure:true,basis:'market data for nearby rentals'+(rc.low&&rc.high?' (range '+money(rc.low)+' to '+money(rc.high)+')':''),comps:rc.comps.map(c=>({address:c.address,city:(c.distance!=null?c.distance+' mi away':c.city),beds:c.beds,baths:c.baths,rent:c.rent,url:'',image:''}))};}}catch(e){}
   const total=m.rent*f.units,diff=total-f.cur,pct=f.cur?Math.round((total/f.cur-1)*1000)/10:0;
   $('mkt').textContent=money(m.rent)+'/mo';$('basis').textContent='Based on '+m.basis+'.';
   $('r-cur').textContent=money(f.cur)+'/mo';$('r-tot').textContent=money(total)+'/mo';

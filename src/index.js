@@ -116,11 +116,39 @@ async function reviews(env, request) {
   }
 }
 
+// Paid market-rent data (RentCast). Needs secret RENTCAST_KEY. Returns an estimate + nearby rental comps; cached 24h per address.
+async function rentEstimate(env, url) {
+  const H = { 'Content-Type': 'application/json' };
+  if (!env.RENTCAST_KEY) return new Response(JSON.stringify({ configured: false }), { headers: { ...H, 'Cache-Control': 'no-store' } });
+  const q = url.searchParams, address = (q.get('address') || '').trim().slice(0, 200), beds = q.get('beds');
+  if (!address || beds === null) return new Response(JSON.stringify({ configured: true, error: 'address and beds required' }), { status: 400, headers: H });
+  const ck = new Request('https://soho-mgmt.com/__rc2/' + encodeURIComponent(address.toLowerCase() + '|' + beds + '|' + (q.get('type') || '')));
+  const hit = await caches.default.match(ck); if (hit) return hit;
+  try {
+    const u = new URL('https://api.rentcast.io/v1/avm/rent/long-term');
+    u.searchParams.set('address', address); u.searchParams.set('bedrooms', beds); u.searchParams.set('compCount', '5');
+    if (q.get('type')) u.searchParams.set('propertyType', q.get('type'));
+    const r = await fetch(u, { headers: { 'X-Api-Key': env.RENTCAST_KEY, Accept: 'application/json' } });
+    if (!r.ok) throw new Error('RentCast ' + r.status);
+    const d = await r.json();
+    const comps = (d.comparableProperties || []).slice(0, 5).map(c => ({
+      address: (c.formattedAddress || c.addressLine1 || '').split(',')[0], city: c.city || (c.formattedAddress || '').split(',')[1]?.trim() || '',
+      beds: c.bedrooms, baths: c.bathrooms, rent: Math.round(c.price || c.rent || 0), distance: c.distance != null ? +(+c.distance).toFixed(1) : null
+    })).filter(c => c.rent);
+    const out = new Response(JSON.stringify({ configured: true, rent: Math.round(d.rent || 0) || null, low: d.rentRangeLow || null, high: d.rentRangeHigh || null, comps }), { headers: { ...H, 'Cache-Control': 'public, max-age=3600' } });
+    if (d.rent) await caches.default.put(ck, new Response(out.clone().body, { headers: { ...H, 'Cache-Control': 'public, max-age=86400' } }));
+    return out;
+  } catch (e) {
+    return new Response(JSON.stringify({ configured: true, error: String(e.message || e) }), { headers: { ...H, 'Cache-Control': 'no-store' } });
+  }
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === '/api/listings') return listings();
     if (url.pathname === '/api/reviews') return reviews(env, request);
+    if (url.pathname === '/api/rent-estimate') return rentEstimate(env, url);
     return env.ASSETS.fetch(request);
   }
 };
