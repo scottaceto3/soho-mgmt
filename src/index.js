@@ -88,7 +88,7 @@ async function listings() {
 }
 
 // Google reviews (Places API New). Needs secret GOOGLE_PLACES_KEY and var GOOGLE_PLACE_ID. Only 5-star reviews are returned.
-async function reviews(env) {
+async function reviews(env, request) {
   const H = { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=21600' };
   if (!env.GOOGLE_PLACES_KEY || !env.GOOGLE_PLACE_ID) {
     return new Response(JSON.stringify({ configured: false, reviews: [] }), { headers: { ...H, 'Cache-Control': 'no-store' } });
@@ -100,6 +100,7 @@ async function reviews(env) {
     });
     if (!r.ok) throw new Error('Places API ' + r.status);
     const d = await r.json();
+    if (new URL(request.url).searchParams.get('debug')) return new Response(JSON.stringify({raw:(d.reviews||[]).map(v=>({rating:v.rating,len:(v.text&&v.text.text||'').length,orig:(v.originalText&&v.originalText.text||'').length}))}),{headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
     const list = (d.reviews || []).filter(v => v.rating === 5 && v.text && v.text.text && v.text.text.trim().length > 20).map(v => ({
       author: v.authorAttribution?.displayName || 'Google user',
       authorUrl: v.authorAttribution?.uri || '',
@@ -116,7 +117,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === '/api/listings') return listings();
-    if (url.pathname === '/api/reviews') return reviews(env);
+    if (url.pathname === '/api/reviews') return reviews(env, request);
     return env.ASSETS.fetch(request);
   }
 };
