@@ -94,9 +94,11 @@ async function reviews(env, request) {
     return new Response(JSON.stringify({ configured: false, reviews: [] }), { headers: { ...H, 'Cache-Control': 'no-store' } });
   }
   try {
-    const r = await fetch('https://places.googleapis.com/v1/places/' + encodeURIComponent(env.GOOGLE_PLACE_ID), {
-      headers: { 'X-Goog-Api-Key': env.GOOGLE_PLACES_KEY, 'X-Goog-FieldMask': 'displayName,rating,userRatingCount,googleMapsUri,reviews' },
-      cf: { cacheTtl: 21600, cacheEverything: true }
+    const dbg = new URL(request.url).searchParams.get('debug');
+    const ck = new Request('https://soho-mgmt.com/__reviews_cache_v2');
+    if (!dbg) { const hit = await caches.default.match(ck); if (hit) return hit; }
+    const r = await fetch('https://places.googleapis.com/v1/places/' + encodeURIComponent(env.GOOGLE_PLACE_ID) + '?languageCode=en', {
+      headers: { 'X-Goog-Api-Key': env.GOOGLE_PLACES_KEY, 'X-Goog-FieldMask': 'displayName,rating,userRatingCount,googleMapsUri,reviews' }
     });
     if (!r.ok) throw new Error('Places API ' + r.status);
     const d = await r.json();
@@ -107,7 +109,9 @@ async function reviews(env, request) {
       when: v.relativePublishTimeDescription || '',
       text: v.text.text.trim()
     }));
-    return new Response(JSON.stringify({ configured: true, name: d.displayName?.text || '', rating: d.rating || null, count: d.userRatingCount || 0, url: d.googleMapsUri || '', reviews: list }), { headers: H });
+    const out = new Response(JSON.stringify({ configured: true, name: d.displayName?.text || '', rating: d.rating || null, count: d.userRatingCount || 0, url: d.googleMapsUri || '', reviews: list }), { headers: H });
+    if (list.length) await caches.default.put(ck, out.clone());
+    return out;
   } catch (e) {
     return new Response(JSON.stringify({ configured: true, error: String(e.message || e), reviews: [] }), { status: 200, headers: { ...H, 'Cache-Control': 'no-store' } });
   }
