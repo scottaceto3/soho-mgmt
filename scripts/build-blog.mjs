@@ -23,7 +23,7 @@ const head = (title, desc, url, extra = '') => `<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@200;300;400;600&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/blog/blog.css">${extra}</head><body>
 <nav class="bnav"><a href="/" class="blogo"><img src="/assets/soho-logo-dark.png" alt="SOHO by Smith &amp; Oak" width="1797" height="282"></a>
-<div class="blinks"><a href="/#vacancies">Find a Home</a><a href="/#owners">For Owners</a><a href="/blog/" class="on">Blog</a><a href="/#contact">Contact</a><a class="bbtn" href="https://smithoakre.appfolio.com/connect" target="_blank" rel="noopener">Portal Login</a></div></nav>`;
+<div class="blinks"><a href="/#vacancies">Find a Home</a><a href="/#owners">For Owners</a><a href="/team/">Our Team</a><a href="/blog/" class="on">Blog</a><a href="/#contact">Contact</a><a class="bbtn" href="https://smithoakre.appfolio.com/connect" target="_blank" rel="noopener">Portal Login</a></div></nav>`;
 const foot = `<footer class="bfoot"><p>© ${new Date().getFullYear()} SOHO Management LLC · Rhode Island &amp; Southern Massachusetts · <a href="/">soho-mgmt.com</a> · <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener">Available Homes</a></p></footer></body></html>`;
 
 const card = p => `<a class="card" href="/blog/${p.slug}/"><span class="tag">${esc(p.area || 'Local Guide')}</span><h2>${esc(p.title)}</h2><p>${esc(p.excerpt || p.metaDescription)}</p><span class="meta">${fmt(p.date)}</span></a>`;
@@ -52,7 +52,7 @@ for (const p of posts) {
 fs.writeFileSync(path.join(ROOT, 'public/blog/posts.json'), JSON.stringify(posts.map(({ slug, title, date, area, excerpt, listing }) => ({ slug, title, date, area, excerpt, listingId: listing?.id, address: listing?.address })), null, 1));
 
 // sitemap
-const urls = ['/', '/blog/', ...posts.map(p => `/blog/${p.slug}/`)];
+const urls = ['/', '/team/', '/blog/', ...posts.map(p => `/blog/${p.slug}/`)];
 fs.writeFileSync(path.join(ROOT, 'public/sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `<url><loc>${SITE}${u}</loc></url>`).join('\n')}\n</urlset>\n`);
 fs.writeFileSync(path.join(ROOT, 'public/robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml\n`);
 console.log(`Built ${posts.length} post(s).`);
