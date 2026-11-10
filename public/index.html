@@ -1743,21 +1743,25 @@ document.getElementById('cf-send').addEventListener('click', function(){
    .catch(function(){st.style.color='#c0392b';st.textContent='Something went wrong. Please try again.';btn.disabled=false;btn.textContent='Send Message →';});
 });
 
-/* GOOGLE REVIEWS (5-star only, served by /api/reviews) */
+/* GOOGLE REVIEWS: curated 5-star list in /reviews.json (monthly check); rating/count live from /api/reviews when available */
 (function(){
-  fetch('/api/reviews').then(r=>r.json()).then(d=>{
-    const rv=(d.reviews||[]); if(!rv.length) return;
+  Promise.all([
+    fetch('/reviews.json',{cache:'no-cache'}).then(r=>r.json()).catch(()=>({reviews:[]})),
+    fetch('/api/reviews').then(r=>r.json()).catch(()=>({}))
+  ]).then(([c,l])=>{
+    const rv=(c.reviews||[]).filter(v=>v.stars===5&&v.text); if(!rv.length) return;
     const pick=rv.slice().sort(()=>Math.random()-.5).slice(0,3);
     document.getElementById('reviews-grid').innerHTML=pick.map(v=>`<div class="test-card">
       <div class="test-stars"><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span><span class="test-star">★</span></div>
-      <p class="test-quote">"${esc(v.text.length>320?v.text.slice(0,317)+'…':v.text)}"</p>
+      <p class="test-quote">"${esc(v.text)}"</p>
       <div class="test-divider"></div>
       <div class="test-author">${esc(v.author)}</div>
-      <div class="test-role">Google review${v.when?' · '+esc(v.when):''}</div></div>`).join('');
-    if(d.rating&&d.count) document.getElementById('reviews-sub').textContent=d.rating.toFixed(1)+' ★ on Google · '+d.count+' reviews';
-    if(d.url) document.getElementById('reviews-link').href=d.url; else document.getElementById('reviews-link').style.display='none';
+      <div class="test-role">Google review</div></div>`).join('');
+    const rating=l.rating||c.rating, count=l.count||c.count;
+    if(rating&&count) document.getElementById('reviews-sub').textContent=rating.toFixed(1)+' ★ on Google · '+count+' reviews';
+    document.getElementById('reviews-link').href=l.url||c.placeUrl;
     document.getElementById('reviews').style.display='';
-  }).catch(()=>{});
+  });
 })();
 </script>
 </body>

@@ -102,7 +102,6 @@ async function reviews(env, request) {
     });
     if (!r.ok) throw new Error('Places API ' + r.status);
     const d = await r.json();
-    if (new URL(request.url).searchParams.get('debug')) return new Response(JSON.stringify({keys:Object.keys(d),nrev:(d.reviews||[]).length,raw:(d.reviews||[]).map(v=>({rating:v.rating,len:(v.text&&v.text.text||'').length,orig:(v.originalText&&v.originalText.text||'').length}))}),{headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
     const list = (d.reviews || []).filter(v => v.rating === 5 && v.text && v.text.text && v.text.text.trim().length > 20).map(v => ({
       author: v.authorAttribution?.displayName || 'Google user',
       authorUrl: v.authorAttribution?.uri || '',

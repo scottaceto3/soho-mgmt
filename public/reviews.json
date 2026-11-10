@@ -1,0 +1,39 @@
+{
+ "_note": "Curated 5-star Google reviews. Only add reviews rated exactly 5 stars, copied from the Google Maps listing. Reviewed monthly by scheduled task.",
+ "placeUrl": "https://www.google.com/maps/place/?q=place_id:ChIJZfg2uBRF5IkR3Wpv7ysYozg",
+ "rating": 4.4,
+ "count": 7,
+ "checked": "2026-11-10",
+ "reviews": [
+  {
+   "author": "Kennedy Geary",
+   "text": "The best ever!!! Scott, Jena, and the entire team have been amazing since day one. They're super friendly, easy to talk to, and always quick to help with anything that comes up.",
+   "stars": 5
+  },
+  {
+   "author": "Mathew Bates",
+   "text": "SOHO Management makes being a real estate investor look easy. Very thankful to have them in my corner. Scott and his entire team are A+. Thank you to everyone that helps me with my properties, I really appreciate it!",
+   "stars": 5
+  },
+  {
+   "author": "Brenna Cavallaro",
+   "text": "SOHO Management is attentive, organized, and genuinely cares about their tenants' experience. I highly recommend!",
+   "stars": 5
+  },
+  {
+   "author": "Michael Ferenci",
+   "text": "Great team. Really happy with how efficient they get things done and keep me in the loop with everything going on. Looking forward to expanding our partnership.",
+   "stars": 5
+  },
+  {
+   "author": "Ashley Clark",
+   "text": "Great experience. Totally recommend!",
+   "stars": 5
+  },
+  {
+   "author": "Keith Mills",
+   "text": "You can always count on them to solve any problem the moment it comes up.",
+   "stars": 5
+  }
+ ]
+}
