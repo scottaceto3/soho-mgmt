@@ -963,7 +963,7 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
     <div class="bb-title">Looking to Purchase a Property?</div>
   </div>
   <div class="bb-right">
-    <div class="bb-sub">Visit our sister brokerage →</div>
+    <div class="bb-sub">Visit our affiliate brokerage →</div>
     <button class="bb-btn">Smith &amp; Oak Real Estate</button>
   </div>
 </a>
@@ -1615,7 +1615,7 @@ function getBotReply(m){
   if(m.includes('appfolio')||m.includes('portal')||m.includes('login'))
     return "Resident and Owner Portal: smithoakre.appfolio.com/connect — residents can pay rent, submit maintenance and view their lease; owners can see financial statements, maintenance updates and reports.";
   if(m.includes('buy')||m.includes('purchase')||m.includes('smith')||m.includes('oak'))
-    return "For buying or selling real estate in Rhode Island, check out our sister brokerage Smith & Oak Real Estate Co. at smithoakre.com — they're experts in Rhode Island and Southern Massachusetts investment properties!";
+    return "For buying or selling real estate in Rhode Island, check out our affiliate brokerage Smith & Oak Real Estate Co. at smithoakre.com — they're experts in Rhode Island and Southern Massachusetts investment properties!";
   if(m.includes('maintenance')||m.includes('repair')||m.includes('broken'))
     return "For maintenance requests, please log into your portal at smithoakre.appfolio.com/connect — it's the fastest way to get a ticket opened. For emergencies, call us directly at (401) 555-0100.";
   return "Thanks for reaching out! Our team is available Mon–Fri 9am–5pm. You can also call us at (401) 555-0100 or email info@sohomgmt.com. Is there anything specific about renting or property management I can help with?";
@@ -1631,7 +1631,13 @@ function openMobileMenu(){ document.getElementById('mobile-menu').classList.add(
 function closeMobileMenu(){ document.getElementById('mobile-menu').classList.remove('open'); }
 
 /* SMOOTH SCROLL */
-function scrollTo(id){ document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+function scrollTo(id){
+  var el=document.getElementById(id); if(!el) return;
+  var y=Math.max(0,Math.round(el.getBoundingClientRect().top+window.pageYOffset-84));
+  window.scroll({top:y,behavior:'smooth'});
+  // fallback: if the smooth scroll didn't move the page (some browsers cancel it), jump there
+  setTimeout(function(){ if(Math.abs(window.pageYOffset-y)>8){ document.documentElement.style.scrollBehavior='auto'; window.scroll(0,y); document.documentElement.style.scrollBehavior=''; } },900);
+}
 
 /* SCROLL REVEAL */
 const observer=new IntersectionObserver(entries=>{
