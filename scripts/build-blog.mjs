@@ -24,15 +24,15 @@ const head = (title, desc, url, extra = '') => `<!DOCTYPE html>
 <link rel="stylesheet" href="/blog/blog.css">${extra}</head><body>
 <nav class="bnav"><a href="/" class="blogo"><img src="/assets/soho-logo-dark.png" alt="SOHO by Smith &amp; Oak" width="1797" height="282"></a>
 <div class="blinks"><a href="/#vacancies">Find a Home</a><a href="/#owners">For Owners</a><a href="/blog/" class="on">Blog</a><a href="/#contact">Contact</a><a class="bbtn" href="https://smithoakre.appfolio.com/connect" target="_blank" rel="noopener">Portal Login</a></div></nav>`;
-const foot = `<footer class="bfoot"><p>© ${new Date().getFullYear()} SOHO Management LLC · Providence County, Rhode Island · <a href="/">soho-mgmt.com</a> · <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener">Available Homes</a></p></footer></body></html>`;
+const foot = `<footer class="bfoot"><p>© ${new Date().getFullYear()} SOHO Management LLC · Rhode Island &amp; Southern Massachusetts · <a href="/">soho-mgmt.com</a> · <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener">Available Homes</a></p></footer></body></html>`;
 
 const card = p => `<a class="card" href="/blog/${p.slug}/"><span class="tag">${esc(p.area || 'Local Guide')}</span><h2>${esc(p.title)}</h2><p>${esc(p.excerpt || p.metaDescription)}</p><span class="meta">${fmt(p.date)}</span></a>`;
 
 fs.mkdirSync(path.join(ROOT, 'public/blog'), { recursive: true });
 // index
 fs.writeFileSync(path.join(ROOT, 'public/blog/index.html'),
-  head('SOHO Local Guides | Life Around Our Rentals in Providence County, RI', 'Coffee shops, things to do, schools and neighborhood life around SOHO Management rentals across Providence County, Rhode Island.', '/blog/') +
-  `<header class="hero"><span class="tag">SOHO Local Guides</span><h1>Life Around Our Homes</h1><p>Neighborhood spotlights, local businesses and things to do near SOHO Management rentals across Providence County.</p></header>
+  head('SOHO Local Guides | Life Around Our Rentals in Rhode Island & Southern Massachusetts', 'Coffee shops, things to do, schools and neighborhood life around SOHO Management rentals across Rhode Island &amp; Southern Massachusetts.', '/blog/') +
+  `<header class="hero"><span class="tag">SOHO Local Guides</span><h1>Life Around Our Homes</h1><p>Neighborhood spotlights, local businesses and things to do near SOHO Management rentals across Rhode Island and Southern Massachusetts.</p></header>
 <main class="grid">${posts.map(card).join('') || '<p class="empty">First guide coming soon.</p>'}</main>` + foot);
 
 // posts
