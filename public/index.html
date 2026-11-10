@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://soho-mgmt.com/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600;700&family=Jost:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@200;300;400;500;600&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ─────────────────────────────────────────
    BRAND TOKENS  (Smith & Oak Guidelines)
@@ -41,8 +41,8 @@
   --snow:       #E6E7E8;
   --off-white:  #F4F1EC;
   --white:      #FFFFFF;
-  --font-h: 'Josefin Sans', sans-serif;
-  --font-b: 'Jost', sans-serif;
+  --font-h: 'Albert Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-b: 'Figtree', 'Proxima Nova', 'Helvetica Neue', Arial, sans-serif;
   --ease: cubic-bezier(.25,.46,.45,.94);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -68,7 +68,7 @@ button{font-family:var(--font-b);cursor:pointer;}
 ═══════════════════════════ */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:900;
-  height:72px;display:flex;align-items:center;
+  height:84px;display:flex;align-items:center;
   transition:background .4s var(--ease),border-color .4s;
   border-bottom:1px solid transparent;
 }
@@ -183,10 +183,10 @@ nav.scrolled{background:rgba(15,15,15,0.97);border-color:var(--gold-border);back
 }
 .search-btn:hover{background:var(--gold-light);}
 .hero-portals{
-  display:flex;gap:2px;animation:fadeUp .8s var(--ease) .8s both;
+  display:flex;flex-wrap:wrap;gap:2px;animation:fadeUp .8s var(--ease) .8s both;
 }
 .portal-btn{
-  display:flex;align-items:center;gap:14px;padding:20px 32px;
+  display:flex;align-items:center;gap:14px;padding:20px 26px;flex:1 1 210px;
   border:1px solid var(--gold-border);background:rgba(15,15,15,0.5);
   cursor:pointer;transition:all .3s;text-decoration:none;
   backdrop-filter:blur(4px);
@@ -703,10 +703,16 @@ footer{background:#080808;border-top:1px solid var(--gold-border);padding:80px 0
 }
 
 /* Brand: logo + headline style (Smith & Oak guidelines) */
-.brand-logo{height:40px;width:auto;display:block;}
+.brand-logo{height:50px;width:auto;display:block;}
+/* Brand typography: headlines Light + ALL CAPS (Paralucent Light spec), body Proxima Nova spec; no italics */
+h1,h2,h3,.hero h1,.section-head h2,.path-side h2{font-weight:300;text-transform:uppercase;letter-spacing:.02em;font-style:normal;}
+.hero h1{font-size:clamp(48px,7.4vw,108px);line-height:1.02;}
+.hero h1 .italic{font-style:normal;font-weight:300;}
+.section-head h2{font-size:clamp(32px,4.4vw,56px);line-height:1.08;}
+.nav-links{gap:26px;}
 .brand-logo-foot{height:44px;}
 h1,h2{text-transform:uppercase;letter-spacing:.04em;}
-@media(max-width:700px){.brand-logo{height:30px;}}
+@media(max-width:700px){.brand-logo{height:34px;}}
 </style>
 </head>
 <body>
@@ -773,6 +779,13 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
         <div class="pb-text">
           <div class="pb-label">Residents</div>
           <div class="pb-title">Find Vacancies</div>
+        </div>
+      </a>
+      <a href="#contact" class="portal-btn" onclick="event.preventDefault();goContact('Student Rental Inquiry')">
+        <div class="pb-icon">🎓</div>
+        <div class="pb-text">
+          <div class="pb-label">Students</div>
+          <div class="pb-title">Student Rentals</div>
         </div>
       </a>
       <a href="#owners" class="portal-btn highlight" onclick="event.preventDefault();scrollTo('owners')">
@@ -882,7 +895,7 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
         <span class="fg-value ph" id="price-val">Any</span>
         <div class="filter-dd" id="dd-price" onclick="event.stopPropagation()">
           <div class="price-dd-inner">
-            <div style="font-size:11px;color:#888;margin-bottom:6px;font-family:'Josefin Sans',sans-serif;letter-spacing:1px;">Set Range</div>
+            <div style="font-size:11px;color:#888;margin-bottom:6px;font-family:var(--font-h);letter-spacing:1px;">Set Range</div>
             <div class="price-inputs">
               <input type="number" id="pmin" placeholder="Min $" step="50" oninput="syncPriceLabel()">
               <span style="color:#aaa;">—</span>
@@ -1200,6 +1213,7 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
             <select id="cf-type">
               <option>Property Owner</option>
               <option>Prospective Tenant</option>
+              <option>Student Rental Inquiry</option>
               <option>Current Tenant</option>
               <option>Real Estate Investor</option>
             </select>

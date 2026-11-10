@@ -20,7 +20,7 @@ const head = (title, desc, url, extra = '') => `<!DOCTYPE html>
 <meta name="theme-color" content="#1A1A1A">
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="article"><meta property="og:url" content="${SITE}${url}"><meta property="og:image" content="${SITE}/icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@200;300;400;600&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/blog/blog.css">${extra}</head><body>
 <nav class="bnav"><a href="/" class="blogo"><img src="/assets/soho-logo-dark.png" alt="SOHO by Smith &amp; Oak" width="1797" height="282"></a>
 <div class="blinks"><a href="/#vacancies">Find a Home</a><a href="/#owners">For Owners</a><a href="/blog/" class="on">Blog</a><a href="/#contact">Contact</a><a class="bbtn" href="https://smithoakre.appfolio.com/connect" target="_blank" rel="noopener">Portal Login</a></div></nav>`;
