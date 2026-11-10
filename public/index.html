@@ -807,27 +807,27 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
 
 <!-- ─── DUAL PATH ─── -->
 <div class="dual-path" id="portals">
-  <div class="path-side tenant" onclick="window.open('https://smithoakre.appfolio.com/listings','_blank','noopener')">
+  <div class="path-side tenant">
     <div class="path-bg-num">01</div>
     <span class="path-tag">I'm a Resident</span>
     <h2>Find Your Perfect Home in Providence</h2>
     <p>Browse our curated portfolio of apartments and homes across Rhode Island and Southern Massachusetts. Apply online, sign your lease digitally, and manage everything through AppFolio.</p>
     <div class="path-links">
-      <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener" class="path-link" onclick="event.stopPropagation()">
+      <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener" class="path-link">
         <span>Browse Available Units</span><span class="arr">→</span>
       </a>
       <a href="https://smithoakre.appfolio.com/connect" target="_blank" class="path-link">
         <span>Tenant Portal Login</span><span class="arr">→</span>
       </a>
-      <a href="#contact" class="path-link" onclick="event.preventDefault();scrollTo('contact')">
+      <a href="https://smithoakre.appfolio.com/connect" target="_blank" rel="noopener" class="path-link">
         <span>Submit Maintenance Request</span><span class="arr">→</span>
       </a>
-      <a href="#contact" class="path-link" onclick="event.preventDefault();scrollTo('contact')">
+      <a href="#contact" class="path-link" onclick="event.preventDefault();goContact()">
         <span>Contact Our Team</span><span class="arr">→</span>
       </a>
     </div>
   </div>
-  <div class="path-side owner" onclick="scrollTo('owners')">
+  <div class="path-side owner">
     <div class="path-bg-num">02</div>
     <span class="path-tag">I'm a Property Owner</span>
     <h2>Maximize Your Investment Returns</h2>
@@ -1226,7 +1226,7 @@ h1,h2{text-transform:uppercase;letter-spacing:.04em;}
         <h4>For Tenants</h4>
         <a href="https://smithoakre.appfolio.com/connect" target="_blank">Tenant Portal Login</a>
         <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener">Browse Vacancies</a>
-        <a href="#contact" onclick="scrollTo('contact');return false;">Maintenance Request</a>
+        <a href="https://smithoakre.appfolio.com/connect" target="_blank" rel="noopener">Maintenance Request</a>
         <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener">Apply Online</a>
       </div>
       <div class="footer-col">
@@ -1628,6 +1628,11 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 /* INIT */
 loadListings();
 
+function goContact(type){
+  scrollTo('contact');
+  var sel=document.getElementById('cf-type'); if(type&&sel){ for(var i=0;i<sel.options.length;i++){ if(sel.options[i].text===type) sel.selectedIndex=i; } }
+  setTimeout(function(){ var n=document.getElementById('cf-name'); if(n) n.focus({preventScroll:true}); },800);
+}
 document.getElementById('cf-send').addEventListener('click', function(){
   var btn=this, st=document.getElementById('cf-status');
   var name=document.getElementById('cf-name').value.trim(), email=document.getElementById('cf-email').value.trim();
