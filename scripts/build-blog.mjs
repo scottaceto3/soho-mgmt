@@ -11,14 +11,14 @@ const posts = fs.readdirSync(dir).filter(f => f.endsWith('.json'))
   .sort((a, b) => b.date.localeCompare(a.date));
 const fmt = d => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-const head = (title, desc, url, extra = '') => `<!DOCTYPE html>
+const head = (title, desc, url, extra = '', ogImage = SITE + '/icon-512.png') => `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${SITE}${url}">
 <link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#1A1A1A">
-<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="article"><meta property="og:url" content="${SITE}${url}"><meta property="og:image" content="${SITE}/icon-512.png">
+<meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:type" content="article"><meta property="og:url" content="${SITE}${url}"><meta property="og:image" content="${esc(ogImage)}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@200;300;400;600&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/blog/blog.css">${extra}</head><body>
@@ -26,6 +26,13 @@ const head = (title, desc, url, extra = '') => `<!DOCTYPE html>
 <div class="blinks"><a href="/#vacancies">Find a Home</a><a href="/#owners">For Owners</a><a href="/team/">Our Team</a><a href="/blog/" class="on">Blog</a><a href="/#contact">Contact</a><a class="bbtn" href="https://smithoakre.appfolio.com/connect" target="_blank" rel="noopener">Portal Login</a></div></nav>`;
 const foot = `<footer class="bfoot"><p>© ${new Date().getFullYear()} SOHO Management LLC · Rhode Island &amp; Southern Massachusetts · <a href="/">soho-mgmt.com</a> · <a href="https://smithoakre.appfolio.com/listings" target="_blank" rel="noopener">Available Homes</a></p></footer></body></html>`;
 
+const figure = im => `<figure class="photo"><img loading="lazy" src="${esc(im.src)}" alt="${esc(im.alt)}">${(im.caption || im.credit) ? `<figcaption>${im.caption ? esc(im.caption) : ''}${im.caption && im.credit ? ' · ' : ''}${im.credit ? (im.creditUrl ? `<a href="${esc(im.creditUrl)}" target="_blank" rel="noopener">${esc(im.credit)}</a>` : esc(im.credit)) : ''}</figcaption>` : ''}</figure>`;
+const mapBlock = m => {
+  const lat = Number(m.lat), lon = Number(m.lon), z = Number(m.zoom) || 15;
+  const dx = 0.012 / Math.pow(2, z - 15), dy = dx * 0.6;
+  const bbox = [lon - dx, lat - dy, lon + dx, lat + dy].map(n => n.toFixed(5)).join('%2C');
+  return `<section class="map"><h3>${esc(m.label || 'Map')}</h3><div class="mapframe"><iframe loading="lazy" title="${esc(m.label || 'Map')}" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&amp;layer=mapnik&amp;marker=${lat}%2C${lon}"></iframe></div><p class="maplinks"><a href="https://www.google.com/maps/search/?api=1&amp;query=${lat}%2C${lon}" target="_blank" rel="noopener">Open in Google Maps</a> · <a href="https://www.openstreetmap.org/?mlat=${lat}&amp;mlon=${lon}#map=${z}/${lat}/${lon}" target="_blank" rel="noopener">Open in OpenStreetMap</a></p></section>`;
+};
 const card = p => `<a class="card" href="/blog/${p.slug}/"><span class="tag">${esc(p.area || 'Local Guide')}</span><h2>${esc(p.title)}</h2><p>${esc(p.excerpt || p.metaDescription)}</p><span class="meta">${fmt(p.date)}</span></a>`;
 
 fs.mkdirSync(path.join(ROOT, 'public/blog'), { recursive: true });
@@ -44,9 +51,9 @@ for (const p of posts) {
   const biz = (p.businesses || []).length ? `<aside class="biz"><h3>Local spots mentioned</h3><ul>${p.businesses.map(b => `<li>${b.url ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">${esc(b.name)}</a>` : esc(b.name)}${b.note ? ` — ${esc(b.note)}` : ''}</li>`).join('')}</ul></aside>` : '';
   const cta = p.listing ? `<aside class="cta"><h3>Live here</h3><p>${esc(p.listing.address)} is currently available through SOHO Management.</p><a class="bbtn" href="${esc(p.listing.url || 'https://smithoakre.appfolio.com/listings')}" target="_blank" rel="noopener">View this home</a> <a class="bbtn ghost" href="/#vacancies">Browse all homes</a></aside>` : '';
   fs.writeFileSync(path.join(d, 'index.html'),
-    head(`${p.title} | SOHO Management`, p.metaDescription, `/blog/${p.slug}/`, `<script type="application/ld+json">${JSON.stringify(ld)}</script>`) +
+    head(`${p.title} | SOHO Management`, p.metaDescription, `/blog/${p.slug}/`, `<script type="application/ld+json">${JSON.stringify(ld)}</script>`, p.images && p.images[0] ? p.images[0].src : undefined) +
     `<article class="post"><span class="tag">${esc(p.area || 'Local Guide')}</span><h1>${esc(p.title)}</h1><div class="meta">${fmt(p.date)} · SOHO Management</div>
-<p class="lead">${esc(p.intro)}</p>${(p.sections || []).map(s => `<h2>${esc(s.heading)}</h2>${s.html}`).join('')}${biz}${cta}
+<p class="lead">${esc(p.intro)}</p>${(p.images || [])[0] ? figure(p.images[0]) : ''}${(p.sections || []).map((s, i) => `<h2>${esc(s.heading)}</h2>${s.html}${(p.images || []).slice(1).filter(im => im.afterSection === i).map(figure).join('')}`).join('')}${p.map ? mapBlock(p.map) : ''}${biz}${cta}
 <p class="back"><a href="/blog/">← All local guides</a></p></article>` + foot);
 }
 fs.writeFileSync(path.join(ROOT, 'public/blog/posts.json'), JSON.stringify(posts.map(({ slug, title, date, area, excerpt, listing }) => ({ slug, title, date, area, excerpt, listingId: listing?.id, address: listing?.address })), null, 1));

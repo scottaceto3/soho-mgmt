@@ -1,0 +1,69 @@
+{
+ "slug": "elmhurst-providence-coffee-parks-and-history",
+ "title": "Elmhurst, Providence: Coffee, Parks & Historic Streets",
+ "date": "2026-11-18",
+ "metaDescription": "Explore Elmhurst in Providence, RI: a very walkable northwest neighborhood with Davis Park history, a historic district, coffee, Peruvian food and a pub.",
+ "area": "Elmhurst, Providence, RI",
+ "excerpt": "Elmhurst pairs a very walkable address with a century-old park, a National Register historic district and a handful of local favorites.",
+ "intro": "Elmhurst is a mostly residential neighborhood in northwest Providence, a short trip from downtown. Here is a quick look at what's close to Oakland Avenue.",
+ "listing": {
+  "id": "3b6741a8-4933-46ef-8487-5a6e09195a7e",
+  "address": "139-141 Oakland Ave, Unit #3, Providence, RI 02908",
+  "url": "https://smithoakre.appfolio.com/listings/detail/3b6741a8-4933-46ef-8487-5a6e09195a7e"
+ },
+ "map": {
+  "lat": 41.8381,
+  "lon": -71.4295,
+  "label": "Oakland Avenue, Elmhurst",
+  "zoom": 15
+ },
+ "sections": [
+  {
+   "heading": "Why Elmhurst Works",
+   "html": "<p>Walk Score gives the <a href=\"https://www.walkscore.com/score/139-oakland-2-providence\" target=\"_blank\" rel=\"noopener\">Oakland Avenue address</a> a <strong>Walk Score of 84</strong> (\"Very Walkable\"), with a Bike Score of 56 and a Transit Score of 46. Walk Score lists the 57 bus on Smith Street about 0.1 miles away, with the 50 and 56 routes within 0.3 miles and commuter rail about a mile out.</p><p>The area grew around a streetcar line that opened in 1882. Pleasant Valley Parkway, created in 1909, was modeled on Blackstone Boulevard, and <a href=\"https://en.wikipedia.org/wiki/Elmhurst,_Providence,_Rhode_Island\" target=\"_blank\" rel=\"noopener\">Providence College</a> has anchored the neighborhood since 1917. Tudor Gothic Nathanael Greene Middle School, built in 1929 on Chalkstone Avenue, is a local landmark.</p>"
+  },
+  {
+   "heading": "A Little History: Davis Park",
+   "html": "<p><a href=\"https://www.rihs.org/davis-park/\" target=\"_blank\" rel=\"noopener\">Davis Park</a> began as the estate of Thomas Davis, a Dublin-born jeweler who served in the Rhode Island Senate and the U.S. House. His mansion stood on 34 acres at Chalkstone Avenue and Raymond Street. The city bought the property in 1890 for $75,000 and named it for him. After a VA hospital opened on the land in 1949, eight acres returned to the city in 1953. Today the park has a walking track, community gardens, a baseball field and a statue of César Chávez.</p><p>Close by, the <a href=\"https://en.wikipedia.org/wiki/Pekin_Street_Historic_District\" target=\"_blank\" rel=\"noopener\">Pekin Street Historic District</a> (National Register, 1984) preserves Greek Revival and Victorian two- and three-family homes built between 1870 and 1910. It is a pleasant place to wander on foot.</p>"
+  },
+  {
+   "heading": "Coffee & Dinner",
+   "html": "<ul><li><strong>Coffee:</strong> <a href=\"https://www.risenshineri.com/\" target=\"_blank\" rel=\"noopener\">Rise 'N Shine Coffee Bar</a> serves espresso drinks and baked pastries on the first floor of an 1858 carriage house on Holden Street, in neighboring Smith Hill.</li><li><strong>Dinner:</strong> <a href=\"https://www.visitrhodeisland.com/listing/los-andes-restaurant/4543/\" target=\"_blank\" rel=\"noopener\">Los Andes</a> on Chalkstone Avenue cooks Peruvian and Bolivian recipes, including chicken and seafood dishes, and offers takeout and delivery.</li></ul>"
+  },
+  {
+   "heading": "Night Out",
+   "html": "<p>For a casual drink, the <a href=\"https://www.google.com/maps/search/?api=1&amp;query=Elmhurst+Pub+670+Smith+St+Providence+RI\" target=\"_blank\" rel=\"noopener\">Elmhurst Pub</a> at 670 Smith Street is a neighborhood spot with soups and sandwiches on its online menu. Hours vary, so check before you go.</p>"
+  },
+  {
+   "heading": "Home Base",
+   "html": "<p>A 3-bedroom, 1-bath home at <a href=\"https://smithoakre.appfolio.com/listings/detail/3b6741a8-4933-46ef-8487-5a6e09195a7e\" target=\"_blank\" rel=\"noopener\">139-141 Oakland Ave, Unit #3</a> is available through SOHO Management starting January 1, 2027. Use the listing for current details.</p>"
+  }
+ ],
+ "businesses": [
+  {
+   "name": "Rise 'N Shine Coffee Bar",
+   "url": "https://www.risenshineri.com/",
+   "note": "coffee and pastries, Holden Street"
+  },
+  {
+   "name": "Los Andes Restaurant",
+   "url": "https://www.visitrhodeisland.com/listing/los-andes-restaurant/4543/",
+   "note": "Peruvian and Bolivian dinner"
+  },
+  {
+   "name": "Elmhurst Pub",
+   "url": "https://www.google.com/maps/search/?api=1&query=Elmhurst+Pub+670+Smith+St+Providence+RI",
+   "note": "neighborhood pub on Smith Street"
+  },
+  {
+   "name": "Davis Park",
+   "url": "https://www.rihs.org/davis-park/",
+   "note": "park with walking track and gardens"
+  },
+  {
+   "name": "Pekin Street Historic District",
+   "url": "https://en.wikipedia.org/wiki/Pekin_Street_Historic_District",
+   "note": "National Register district"
+  }
+ ]
+}
